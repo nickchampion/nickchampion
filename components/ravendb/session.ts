@@ -108,6 +108,15 @@ export class Session {
     }
   }
 
+  /** Assign included related documents onto `doc` (IDs resolved via `includes` paths; refs are already session-loaded). */
+  private async hydrateIncludes<T extends BaseModel>(doc: T, includes: Record<string, string>): Promise<void> {
+    for (const [key, path] of Object.entries(includes)) {
+      const refId = getValueByPath(doc, path)
+
+      ;(doc as Record<string, unknown>)[key] = refId ? await this.get(String(refId)) : null
+    }
+  }
+
   /**
    * Try to commit the session and raise relevant session events
    * @returns
@@ -239,11 +248,7 @@ export class Session {
     }
 
     if (doc && includes && applyIncludes) {
-      for (const key of Object.keys(includes)) {
-        const id = getValueByPath(doc, includes[key])
-
-        ;(doc as any)[key] = id ? await this.get(id) : null
-      }
+      await this.hydrateIncludes(doc, includes)
     }
 
     return doc as T
@@ -324,13 +329,8 @@ export class Session {
 
     const page = await utils.page(settings.limit, settings.offset, query)
 
-    // map any includes to the specified fields
     if (includes) {
-      for (const result of page.docs) {
-        for (const key of Object.keys(includes)) {
-          result[key] = await this.get<T>(result[includes[key]]) // preloaded so no round trip to db here
-        }
-      }
+      await Promise.all(page.docs.map(doc => this.hydrateIncludes(doc, includes)))
     }
 
     return page

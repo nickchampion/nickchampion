@@ -47,7 +47,7 @@ export const execute = async (
   try {
     console.log(`\u001B[41m ${database} \u001B[0m Starting migrations...`)
 
-    store = createDocumentStore(database)
+    store = createDocumentStore()
 
     // update any ravendb indexes that have changed
     await Promise.all(Object.values(indexes).map(index => new index().execute(store)))

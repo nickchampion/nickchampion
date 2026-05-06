@@ -18,9 +18,9 @@ export const mapActiveFacet = (searchContext: SearchContext): SearchContext => {
   if (!searchContext.facetQueryActiveResults || searchContext.docsOnly) return searchContext
 
   const activeFacet = mapFacets(searchContext, Object.values(searchContext.facetQueryActiveResults))[0]
-  const activeIndex = searchContext.results.facets.findIndex(f => f.name === activeFacet.name)
+  const activeIndex = searchContext.results!.facets.findIndex(f => f.name === activeFacet.name)
 
-  searchContext.results.facets[activeIndex] = activeFacet
+  searchContext.results!.facets[activeIndex] = activeFacet
 
   return searchContext
 }
@@ -35,8 +35,8 @@ export const facets = (searchContext: SearchContext): SearchContext => {
 
   mapAggregations(searchContext)
 
-  searchContext.results.clearUrl = new StatelessQuerystring(searchContext.querystring.removeAllFacets()).replace('offset', '0')
-  searchContext.results.facets = searchContext.facetResults
+  searchContext.results!.clearUrl = new StatelessQuerystring(searchContext.querystring.removeAllFacets()).replace('offset', '0')
+  searchContext.results!.facets = searchContext.facetResults
     ? mapFacets(searchContext, Object.values(searchContext.facetResults))
     : []
 
@@ -51,7 +51,7 @@ export const facets = (searchContext: SearchContext): SearchContext => {
 export const activeFilters = (searchContext: SearchContext): SearchContext => {
   if (searchContext.docsOnly) return searchContext
 
-  searchContext.results.activeFilters = searchContext.results.facets
+  searchContext.results!.activeFilters = searchContext.results!.facets
     .filter(f => f.selected)
     .map(f => ({
       name: f.name,
@@ -66,41 +66,6 @@ export const activeFilters = (searchContext: SearchContext): SearchContext => {
           hits: t.hits,
         })),
     }))
-
-  return searchContext
-}
-
-export const mapCustomFacets = (searchContext: SearchContext) => {
-  if (searchContext.docsOnly) return searchContext
-
-  searchContext.customFacets.forEach((f) => {
-    const activeFacet = searchContext.querystring.isLastElement(f.name)
-    const disabled = !activeFacet
-
-    const facet: Facet = {
-      displayName: titleCaseFirst(f?.displayName ?? f.name),
-      clearUrl: searchContext.querystring.remove([f.name], true),
-      disabled: disabled,
-      name: f.name,
-      selected: searchContext.querystring.contains(f.name),
-      active: activeFacet,
-      terms: Object.keys(f.terms ?? {}).map((key) => {
-        const selected = searchContext.event.query[f.name] && searchContext.event.query[f.name] === key
-
-        return {
-          name: f.terms![key],
-          hits: searchContext.results.totalDocs,
-          selected,
-          id: key,
-          state: selected && disabled ? 'checked disabled' : selected ? 'checked' : disabled ? 'disabled' : '',
-          url: getFacetTermUrl(f.name, key, selected, searchContext.querystring),
-          replaceUrl: searchContext.querystring.addOrReplace(f.name, key, true),
-        }
-      }),
-    }
-
-    searchContext.results.facets.push(facet)
-  })
 
   return searchContext
 }
@@ -196,7 +161,7 @@ const mapAggregations = (searchContext: SearchContext): void => {
     average: v.average,
   }))
 
-  searchContext.results.aggregations = searchContext.results.aggregations.concat(aggregations)
+  searchContext.results!.aggregations = searchContext.results!.aggregations.concat(aggregations)
 }
 
 const findFacetId = (map: FacetMap, termId: string) => {

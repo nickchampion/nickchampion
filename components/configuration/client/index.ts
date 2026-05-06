@@ -11,6 +11,8 @@ export const useConfig = (config?: RuntimeConfig): ClientConfiguration => {
 
   const environment: EnvironmentSettings = {
     environment: <Environment>config!.public.environment,
+    key: '',
+    salt: '',
   }
 
   if (!client || client.environment !== environment.environment) {
@@ -22,11 +24,6 @@ export const useConfig = (config?: RuntimeConfig): ClientConfiguration => {
         dist: config!.public.dist as string,
       },
     })
-
-    if (config!.public.api === 'local' && environment.environment === 'local') {
-      built.platform.api = 'http://localhost:8001'
-      built.platform.apiProxy = 'http://localhost:8001'
-    }
 
     client = Object.freeze(built)
   }

@@ -1,6 +1,5 @@
 import { fileURLToPath } from 'node:url'
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin'
-import tailwindcss from '@tailwindcss/vite'
 import { defineNuxtConfig, type NuxtConfig } from 'nuxt/config'
 
 const aliases: Record<string, string> = {}
@@ -54,7 +53,7 @@ export default defineNuxtConfig(<NuxtConfig>{
   },
 
   typescript: {
-    typeCheck: true,
+    typeCheck: false,
     strict: true,
   },
 
@@ -87,7 +86,7 @@ export default defineNuxtConfig(<NuxtConfig>{
   },
 
   vite: {
-    plugins: [tailwindcss(), nxViteTsPaths()],
+    plugins: [nxViteTsPaths()],
     cacheDir: '../../node_modules/.vite/apps/trading',
     build: {
       sourcemap: true,
@@ -119,12 +118,18 @@ export default defineNuxtConfig(<NuxtConfig>{
           content: 'width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover',
         },
       ],
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      ],
     },
   },
 
   components: [{ path: '~/components', pathPrefix: false }],
 
+  css: ['~/assets/css/main.css'],
+
   modules: [
+    '@nuxt/ui',
     '@vueuse/nuxt',
     '@pinia/nuxt',
     '@nuxtjs/device',

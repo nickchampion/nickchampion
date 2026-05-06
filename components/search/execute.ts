@@ -1,10 +1,7 @@
-import type { QueryStatistics, Lazy, Facet, type IDocumentQuery, type FacetResultObject } from 'ravendb'
+import type { QueryStatistics, Lazy, Facet, FacetResultObject } from 'ravendb'
 import { getValueByPath, fakeLazy, isPromise } from '@nodevault/platform.components.utils'
-import type { BaseModel } from '@nodevault/platform.components.common'
-import { utils } from '@nodevault/platform.components.ravendb'
+import type { BaseModel } from '@nodevault/platform.components.domain'
 import type { SearchContext } from './entities.js'
-
-type IDocumentQueryWithParams = IDocumentQuery<BaseModel> & { _queryParameters?: unknown }
 
 const applyAggregations = (searchContext: SearchContext): Lazy<FacetResultObject> => {
   let aggregationQuery = searchContext.facetQuery.aggregateBy(searchContext.facets[0])
@@ -25,12 +22,6 @@ const applyActiveFacetAggregation = (searchContext: SearchContext): Lazy<FacetRe
   return facetToApply ? searchContext.facetQueryActive.aggregateBy(facetToApply).executeLazy() : null
 }
 
-const applyCustomFacetAggregation = (searchContext: SearchContext): Lazy<FacetResultObject> | null => {
-  if (!searchContext.customFacetQuery || !searchContext.customFacetBuilder) return null
-
-  return searchContext.customFacetQuery.aggregateBy(utils.buildFacet(searchContext.customFacetBuilder)).executeLazy()
-}
-
 export const execute = async (searchContext: SearchContext): Promise<SearchContext> => {
   // configure statistics and get the lazy results
   let stats: QueryStatistics | null = null
@@ -41,15 +32,6 @@ export const execute = async (searchContext: SearchContext): Promise<SearchConte
     })
   }
 
-  // append the query we've executed to any logs for this request
-  const query = searchContext.query as IDocumentQueryWithParams
-
-  searchContext.log.capture('query', searchContext.query.toString())
-  searchContext.log.capture(
-    'parameters',
-    query._queryParameters ? JSON.stringify(query._queryParameters) : null,
-  )
-
   if (searchContext.selectFields?.length && searchContext.docs) {
     searchContext.query = searchContext.query.selectFields(searchContext.selectFields)
   }
@@ -57,9 +39,6 @@ export const execute = async (searchContext: SearchContext): Promise<SearchConte
   const lazyResults = searchContext.docs ? searchContext.query.statistics(s => (stats = s)).lazily() : fakeLazy([])
   const lazyAggregationResults = searchContext.docsOnly || !searchContext.facets?.length ? null : applyAggregations(searchContext)
   const lazyActiveFacetAggregationResults = searchContext.docsOnly || !searchContext.facets?.length ? null : applyActiveFacetAggregation(searchContext)
-  const lazyCustomFacetAggregationResults = searchContext.docsOnly || !searchContext.facets?.length || !searchContext.customFacetQuery
-    ? null
-    : applyCustomFacetAggregation(searchContext)
 
   // materialise the results, this sends all 3 queries to the server in one request
   const results = (await lazyResults.getValue()) as BaseModel[]
@@ -70,11 +49,7 @@ export const execute = async (searchContext: SearchContext): Promise<SearchConte
   searchContext.facetQueryActiveResults = lazyActiveFacetAggregationResults
     ? await lazyActiveFacetAggregationResults.getValue()
     : (null as unknown as FacetResultObject)
-  searchContext.results.setStats(stats ?? undefined, searchContext.settings)
-
-  if (lazyCustomFacetAggregationResults) {
-    searchContext.customFacetResultMap(searchContext, await lazyCustomFacetAggregationResults.getValue())
-  }
+  searchContext.results!.setStats(stats ?? undefined, searchContext.settings)
 
   // map any includes, this needs to happen before we call the resultMap below
   if (searchContext.includes && searchContext.docs && searchContext.applyIncludes) {
@@ -82,16 +57,12 @@ export const execute = async (searchContext: SearchContext): Promise<SearchConte
       for (const key of Object.keys(searchContext.includes)) {
         const id = getValueByPath(result, searchContext.includes[key])
 
-        result[key] = await searchContext.session.get(id)
+        ;(result as Record<string, any>)[key] = await searchContext.session.get(id)
       }
     }
   }
 
   const mapResults = async () => {
-    if (searchContext.resultsMapFlat) {
-      return results.flatMap((r: BaseModel) => searchContext.resultsMap(r))
-    }
-
     if (searchContext.resultsMapAll) {
       return isPromise(searchContext.resultsMapAll)
         ? await searchContext.resultsMapAll(results)
@@ -103,7 +74,7 @@ export const execute = async (searchContext: SearchContext): Promise<SearchConte
     return []
   }
 
-  searchContext.results.docs = searchContext.docs ? await mapResults() : []
+  searchContext.results!.docs = searchContext.docs ? await mapResults() : []
 
   return searchContext
 }

@@ -1,5 +1,4 @@
 import type { IDocumentQuery } from 'ravendb'
-import { invariantCultureCompare } from '@nodevault/platform.components.utils'
 import type { BaseModel } from '@nodevault/platform.components.domain'
 import type { SearchContext } from '../entities.js'
 
@@ -10,7 +9,7 @@ import type { SearchContext } from '../entities.js'
  * @returns
  */
 export const applyFilters = (searchContext: SearchContext): SearchContext => {
-  const apply = (query: IDocumentQuery<BaseModel>, isActiveFacet: boolean, isCustomFacet = false): IDocumentQuery<BaseModel> => {
+  const apply = (query: IDocumentQuery<BaseModel>, isActiveFacet: boolean): IDocumentQuery<BaseModel> => {
     searchContext.facetFilters.forEach((f) => {
       // only apply the facet if there is no active facet (facet currently being filtered by end user)
       // isActiveFacet is false or there is an active facet and we are fitlering the facetQueryActive
@@ -19,7 +18,7 @@ export const applyFilters = (searchContext: SearchContext): SearchContext => {
         || !searchContext.activeFilter
         || (searchContext.activeFilter && isActiveFacet && searchContext.activeFilter.name !== f.name)
 
-      if (shouldApply && (!isCustomFacet || !invariantCultureCompare(f.name, searchContext.customFacetName))) {
+      if (shouldApply) {
         query = f.apply(query)
       }
     })
@@ -41,10 +40,6 @@ export const applyFilters = (searchContext: SearchContext): SearchContext => {
   searchContext.query = apply(searchContext.query, false)
   searchContext.facetQuery = apply(searchContext.facetQuery, false)
   searchContext.facetQueryActive = apply(searchContext.facetQueryActive, true)
-
-  if (searchContext.customFacetQuery) {
-    searchContext.customFacetQuery = apply(searchContext.customFacetQuery, false, true)
-  }
 
   return searchContext
 }

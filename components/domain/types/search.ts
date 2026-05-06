@@ -1,8 +1,8 @@
 export class Page<T> {
   docs: T[]
   totalDocs: number
-  limit?: number
-  offset?: number
+  limit: number
+  offset: number
 
   constructor() {
     this.docs = []
@@ -13,8 +13,8 @@ export class Page<T> {
 }
 
 export class QuerySettingsSortBy {
-  fieldName: string | undefined
-  sortDesc: boolean | undefined
+  fieldName: string = ''
+  sortDesc: boolean = false
 
   constructor(fields: Partial<QuerySettingsSortBy>) {
     Object.assign(this, fields)
@@ -22,12 +22,12 @@ export class QuerySettingsSortBy {
 }
 
 export class QuerySettings {
-  limit?: number = 25
-  offset?: number = 0
-  sortBy?: QuerySettingsSortBy[] = [new QuerySettingsSortBy({ fieldName: 'createdAtUTC', sortDesc: false })]
-  sortDesc?: boolean = false
-  filters?: Record<string, string | string[]> = {}
-  count?: boolean = false
+  limit: number = 25
+  offset: number = 0
+  sortBy: QuerySettingsSortBy[] = [new QuerySettingsSortBy({ fieldName: 'createdAtUTC', sortDesc: false })]
+  sortDesc: boolean = false
+  filters: Record<string, string | string[]> = {}
+  count: boolean = false
   startDateISO: string | null = null
   endDateISO: string | null = null
 
