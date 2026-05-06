@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs'
-import { base64Decode } from '@nodevault/platform.components.utils'
+import { base64Decode, decrypt } from '@nodevault/platform.components.utils'
 import { build, type EnvironmentSettings } from '@nodevault/platform.components.configuration.core'
 import { server as baseline } from './configuration.js'
 import type { ServerConfiguration } from './configuration.js'
@@ -33,4 +33,5 @@ export const serverConfiguration = build<ServerConfiguration>(baseline, environm
   applyTestOverrides: isTest,
   freeze: !isTest,
   extras: { environment },
+  decrypt,
 })

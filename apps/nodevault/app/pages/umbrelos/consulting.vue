@@ -6,7 +6,7 @@
       align="center">
       <template #links>
         <UButton
-          to="mailto:hello@nodevault.io"
+          :to="`mailto:${config.contact.email}`"
           size="xl"
           icon="i-lucide-mail">
           Get in Touch
@@ -72,7 +72,7 @@
           </ul>
 
           <UButton
-            to="mailto:hello@nodevault.io"
+            :to="`mailto:${config.contact.email}`"
             :variant="tier.highlight ? 'solid' : 'outline'"
             color="neutral"
             icon="i-lucide-arrow-right"
@@ -127,6 +127,21 @@
 </template>
 
 <script setup lang="ts">
+import { useConfig } from '@nodevault/platform.components.configuration.client'
+
+useSeoMeta({
+  title: 'UmbrelOS Home Network Setup & Consulting | NodeVault',
+  description: 'We design, source, install, and configure your UmbrelOS home server — then hand it over with a full training session. Get a working, private home network without reading a single tutorial.',
+  ogTitle: 'UmbrelOS Home Network Setup & Consulting | NodeVault',
+  ogDescription: 'Expert UmbrelOS setup from NodeVault. We handle everything — hardware sourcing, installation, configuration, and training.',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'UmbrelOS Setup & Consulting | NodeVault',
+  twitterDescription: 'Full UmbrelOS home server setup and consulting service. We handle everything so you don\'t have to.',
+  keywords: 'UmbrelOS setup, home server consulting, self-hosted setup service, Nextcloud installation, home network configuration, UmbrelOS UK',
+})
+
+const config = useConfig()
 const tiers = [
   {
     name: 'Advice Session',

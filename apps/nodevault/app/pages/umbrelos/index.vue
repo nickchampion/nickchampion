@@ -78,6 +78,18 @@
 </template>
 
 <script setup lang="ts">
+useSeoMeta({
+  title: 'UmbrelOS Home Server Setup | NodeVault',
+  description: 'Replace Dropbox, Google Photos, and cloud subscriptions with apps you run at home on your own hardware. NodeVault designs and configures your personal UmbrelOS server.',
+  ogTitle: 'UmbrelOS Home Server Setup | NodeVault',
+  ogDescription: 'Own your data. Replace cloud subscriptions with a personal home server running Nextcloud, Bitwarden, and more.',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'UmbrelOS Home Server Setup | NodeVault',
+  twitterDescription: 'Replace Dropbox, Google Photos, and cloud services with apps you run at home. NodeVault sets it up for you.',
+  keywords: 'UmbrelOS, self-hosted, home server, Nextcloud, replace Dropbox, personal cloud, digital sovereignty, self-hosted server setup, private cloud',
+})
+
 const apps = [
   {
     name: 'Nextcloud',

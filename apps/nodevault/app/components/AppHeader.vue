@@ -4,6 +4,13 @@ import type { NavigationMenuItem } from '@nuxt/ui'
 defineProps<{
   links: NavigationMenuItem[]
 }>()
+
+const mobileOpen = ref(false)
+const route = useRoute()
+
+watch(() => route.path, () => {
+  mobileOpen.value = false
+})
 </script>
 
 <template>
@@ -13,6 +20,7 @@ defineProps<{
         to="/"
         class="flex items-center gap-2.5 shrink-0">
         <AppLogo class="size-8" />
+
         <span class="font-semibold text-sm tracking-tight">NodeVault</span>
       </NuxtLink>
 
@@ -22,7 +30,52 @@ defineProps<{
         color="neutral"
         class="hidden sm:flex" />
 
-      <UColorModeButton class="shrink-0" />
+      <div class="flex items-center gap-2 shrink-0">
+        <UColorModeButton />
+
+        <UButton
+          class="flex sm:hidden"
+          variant="ghost"
+          color="neutral"
+          :icon="mobileOpen ? 'i-lucide-x' : 'i-lucide-menu'"
+          aria-label="Toggle menu"
+          @click="mobileOpen = true" />
+      </div>
     </UContainer>
   </header>
+
+  <USlideover
+    v-model:open="mobileOpen"
+    side="right"
+    :ui="{ content: 'w-72' }">
+    <template #content>
+      <div class="flex flex-col h-full">
+        <div class="flex items-center justify-between px-4 h-16 border-b border-default shrink-0">
+          <NuxtLink
+            to="/"
+            class="flex items-center gap-2.5"
+            @click="mobileOpen = false">
+            <AppLogo class="size-8" />
+            <span class="font-semibold text-sm tracking-tight">NodeVault</span>
+          </NuxtLink>
+
+          <UButton
+            variant="ghost"
+            color="neutral"
+            icon="i-lucide-x"
+            aria-label="Close menu"
+            @click="mobileOpen = false" />
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-4">
+          <UNavigationMenu
+            :items="links"
+            orientation="vertical"
+            variant="link"
+            color="neutral"
+            class="w-full" />
+        </div>
+      </div>
+    </template>
+  </USlideover>
 </template>

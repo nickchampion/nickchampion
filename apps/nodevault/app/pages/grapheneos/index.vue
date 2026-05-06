@@ -13,7 +13,7 @@
         </UButton>
 
         <UButton
-          to="mailto:hello@nodevault.io"
+          :to="`mailto:${config.contact.email}`"
           size="xl"
           icon="i-lucide-calendar"
           variant="outline"
@@ -64,10 +64,10 @@
           title="Setup Consulting"
           description="Already have a Pixel or want to buy one yourself? We'll walk you through installing GrapheneOS, configuring privacy settings, and replacing Google apps — via video call at your own pace."
           icon="i-lucide-video"
-          to="mailto:hello@nodevault.io">
+          :to="`mailto:${config.contact.email}`">
           <template #footer>
             <UButton
-              to="mailto:hello@nodevault.io"
+              :to="`mailto:${config.contact.email}`"
               size="sm"
               variant="outline"
               color="neutral"
@@ -97,6 +97,21 @@
 </template>
 
 <script setup lang="ts">
+import { useConfig } from '@nodevault/platform.components.configuration.client'
+
+useSeoMeta({
+  title: 'GrapheneOS Phones | NodeVault — Hardened Private Android',
+  description: 'GrapheneOS is a hardened, open-source Android fork for Google Pixel phones. Zero Google tracking, full app sandboxing, and hardened memory. Buy pre-configured from NodeVault.',
+  ogTitle: 'GrapheneOS Phones | NodeVault',
+  ogDescription: 'Zero Google tracking, full app sandboxing, hardened memory. Buy a pre-configured GrapheneOS Pixel from NodeVault.',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'GrapheneOS Phones | NodeVault',
+  twitterDescription: 'The most secure Android experience available. Pre-configured, hardened, ready to use.',
+  keywords: 'GrapheneOS, privacy phone, hardened Android, Google Pixel, no Google tracking, private smartphone, buy GrapheneOS phone, open source Android',
+})
+
+const config = useConfig()
 const features = [
   {
     title: 'Zero Google Services',

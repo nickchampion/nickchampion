@@ -1,9 +1,5 @@
-import { fileURLToPath } from 'node:url'
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin'
 import { defineNuxtConfig, type NuxtConfig } from 'nuxt/config'
-
-const aliases: Record<string, string> = {}
-const dist = 'web'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig(<NuxtConfig>{
@@ -14,12 +10,6 @@ export default defineNuxtConfig(<NuxtConfig>{
   },
 
   ssr: true,
-
-  alias: {
-    ...aliases,
-    '@nodevault': fileURLToPath(new URL('app', import.meta.url)),
-    '@nodevault/*': `${fileURLToPath(new URL('app', import.meta.url))}/*`,
-  },
 
   imports: {
     autoImport: true,
@@ -81,13 +71,12 @@ export default defineNuxtConfig(<NuxtConfig>{
       environment: process.env.NUXT_PUBLIC_ENVIRONMENT || '',
       version: process.env.NUXT_PUBLIC_VERSION || '',
       api: '',
-      dist: dist,
     },
   },
 
   vite: {
     plugins: [nxViteTsPaths()],
-    cacheDir: '../../node_modules/.vite/apps/trading',
+    cacheDir: '../../node_modules/.vite/apps/nodevault',
     build: {
       sourcemap: true,
       target: 'es2022',
@@ -96,6 +85,10 @@ export default defineNuxtConfig(<NuxtConfig>{
       fs: {
         strict: false,
       },
+      allowedHosts: [
+        'www.nodevault.local',
+        'www.nodevault.cloud',
+      ],
     },
     esbuild: {
       target: 'es2022',

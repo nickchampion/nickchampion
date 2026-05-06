@@ -1,6 +1,7 @@
 import { Api } from '@nodevault/platform.components.api.server'
 import { composeOpenApiDocument } from '@nodevault/platform.components.api.schemas'
 import { indexes, models } from '@nodevault/platform.components.domain'
+import { serverConfiguration } from '@nodevault/platform.components.configuration.server'
 import { apiHandlers } from './handlers/index.js'
 
 /**
@@ -14,7 +15,7 @@ import { apiHandlers } from './handlers/index.js'
 const start = async () => {
   const api = new Api(
     {
-      host: 'dev.nodevault.cloud',
+      host: serverConfiguration.dev ? 'api.nodevault.local' : undefined,
       port: 9002,
     },
     {

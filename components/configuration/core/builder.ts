@@ -1,4 +1,3 @@
-import { decrypt } from '@nodevault/platform.components.utils'
 import type { EnvironmentSettings } from './types.js'
 
 export interface BuildOptions {
@@ -6,6 +5,7 @@ export interface BuildOptions {
   applyTestOverrides?: boolean
   freeze?: boolean
   extras?: Record<string, any>
+  decrypt?: (text: string, key: string, salt?: string) => string | null
 }
 
 const settings = {
@@ -47,7 +47,7 @@ const overrideProperty = (configuration: any, pathParts: string[], index: number
  * 3. If its an object but has no default property then recursively call this function for its child properties
  * 4. Finally If the property value is a function or string just copy the value to the resulting configuration
  */
-const assignProperty = (environment: EnvironmentSettings, parent: any, name: string, value: any) => {
+const assignProperty = (environment: EnvironmentSettings, parent: any, name: string, value: any, decrypt?: BuildOptions['decrypt']) => {
   if (!value || Array.isArray(value)) {
     parent[name] = value
   } else if (typeof value === 'object' && Object.prototype.hasOwnProperty.call(value, settings.default)) {
@@ -69,12 +69,12 @@ const assignProperty = (environment: EnvironmentSettings, parent: any, name: str
     } else if (extracted.toString().toLowerCase().startsWith('env$')) {
       parent[name] = process.env[extracted.toString().split('$')[1].toUpperCase()]
     } else {
-      parent[name] = encrypted && extracted ? decrypt(extracted, environment.key!, environment.salt!) : extracted
+      parent[name] = encrypted && extracted && decrypt ? decrypt(extracted, environment.key!, environment.salt!) : extracted
     }
   } else if (typeof value === 'object') {
     parent[name] = {}
     Object.keys(value).forEach((prop) => {
-      assignProperty(environment, parent[name], prop, value[prop])
+      assignProperty(environment, parent[name], prop, value[prop], decrypt)
     })
   } else if (value?.toString().toLowerCase().startsWith('env$')) {
     parent[name] = process.env[value?.toString().split('$')[1].toUpperCase()]
@@ -90,9 +90,10 @@ const assignProperty = (environment: EnvironmentSettings, parent: any, name: str
  */
 export const build = <T>(baseline: any, environment: EnvironmentSettings, options: BuildOptions = {}): T => {
   const builder: Record<string, any> = {}
+  const { decrypt } = options
 
   Object.keys(baseline).forEach((prop) => {
-    assignProperty(environment, builder, prop, baseline[prop])
+    assignProperty(environment, builder, prop, baseline[prop], decrypt)
   })
 
   if (options.overrides) {
@@ -101,27 +102,15 @@ export const build = <T>(baseline: any, environment: EnvironmentSettings, option
     const applyOverride = (path: string) => {
       let value = local[path]
 
-      if (path.startsWith('encrypted.')) {
+      if (path.startsWith('encrypted.') && decrypt) {
         value = decrypt(value, environment.key!, environment.salt!)
         path = path.replace('encrypted.', '')
-      }
-
-      if (path.startsWith('tests.')) {
-        path = path.replace('tests.', '')
       }
 
       overrideProperty(builder, path.split('.'), 0, value)
     }
 
-    Object.keys(local)
-      .filter(k => !k.startsWith('tests.'))
-      .forEach(applyOverride)
-
-    if (options.applyTestOverrides) {
-      Object.keys(local)
-        .filter(k => k.startsWith('tests.'))
-        .forEach(applyOverride)
-    }
+    Object.keys(local).forEach(applyOverride)
   }
 
   if (options.extras) {

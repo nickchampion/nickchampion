@@ -6,7 +6,7 @@
       align="center">
       <template #links>
         <UButton
-          to="mailto:hello@nodevault.io"
+          :to="`mailto:${config.contact.email}`"
           size="xl"
           icon="i-lucide-mail">
           Order Now
@@ -85,7 +85,7 @@
             <span class="font-semibold text-lg">{{ phone.price }}</span>
 
             <UButton
-              to="mailto:hello@nodevault.io"
+              :to="`mailto:${config.contact.email}`"
               size="sm"
               icon="i-lucide-arrow-right"
               trailing>
@@ -125,6 +125,21 @@
 </template>
 
 <script setup lang="ts">
+import { useConfig } from '@nodevault/platform.components.configuration.client'
+
+useSeoMeta({
+  title: 'Buy a Pre-Configured GrapheneOS Phone | NodeVault',
+  description: 'Order a Google Pixel with GrapheneOS pre-installed, hardened, and ready to use out of the box. Pixel 8a, 8, 9, and 9 Pro available. 30 days of support included.',
+  ogTitle: 'Buy a Pre-Configured GrapheneOS Phone | NodeVault',
+  ogDescription: 'Google Pixel phones with GrapheneOS pre-installed and fully hardened. No technical knowledge required. Ships ready to use.',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Buy a Pre-Configured GrapheneOS Phone | NodeVault',
+  twitterDescription: 'Pixel 8a, 8, 9, and 9 Pro with GrapheneOS pre-installed. Hardened, ready to use, 30 days support.',
+  keywords: 'buy GrapheneOS phone, pre-configured GrapheneOS, Google Pixel GrapheneOS, privacy phone UK, Pixel 8a GrapheneOS, Pixel 9 GrapheneOS, GrapheneOS for sale',
+})
+
+const config = useConfig()
 const included = [
   {
     title: 'GrapheneOS Installed',

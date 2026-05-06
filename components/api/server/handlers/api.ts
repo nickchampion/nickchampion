@@ -27,7 +27,7 @@ const mapValidationErrors = (validation: { errors?: { path?: string, message?: s
 
 export type ApiOptions = {
   port: number
-  host: string
+  host?: string
 }
 
 /**

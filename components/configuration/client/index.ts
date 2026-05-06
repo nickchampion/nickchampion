@@ -20,8 +20,6 @@ export const useConfig = (config?: RuntimeConfig): ClientConfiguration => {
       extras: {
         environment: environment.environment,
         version: config!.public.version as string,
-        app: config!.public.app as string,
-        dist: config!.public.dist as string,
       },
     })
 

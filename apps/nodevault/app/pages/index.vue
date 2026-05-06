@@ -58,6 +58,18 @@
 </template>
 
 <script setup lang="ts">
+useSeoMeta({
+  title: 'NodeVault | Privacy Phones & Self-Hosted Home Networks',
+  description: 'NodeVault helps you reclaim your digital sovereignty — from private smartphones running GrapheneOS to self-hosted home networks powered by UmbrelOS. No Big Tech surveillance.',
+  ogTitle: 'NodeVault | Privacy Phones & Self-Hosted Home Networks',
+  ogDescription: 'NodeVault helps you reclaim your digital sovereignty — from private smartphones running GrapheneOS to self-hosted home networks powered by UmbrelOS.',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'NodeVault | Privacy Phones & Self-Hosted Home Networks',
+  twitterDescription: 'GrapheneOS phones and UmbrelOS home servers. Own every layer of your digital life.',
+  keywords: 'privacy phone, GrapheneOS, UmbrelOS, self-hosted, digital sovereignty, no tracking, private smartphone, home server',
+})
+
 const reasons = [
   {
     title: 'Your Phone Tracks Everything',

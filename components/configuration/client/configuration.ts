@@ -3,28 +3,32 @@ import type { Environment } from '@nodevault/platform.components.configuration.c
 export interface ClientConfiguration {
   version: string
   environment: Environment
-  dist: string
   app: string
   platform: {
     api: string
     apiProxy: string
     assets: string
   }
+  contact: {
+    email: string
+  }
 }
 
 export const clientConfiguration: any = {
   environment: 'env$NUXT_PUBLIC_ENVIRONMENT', // set to the value of NUXT_PUBLIC_ENVIRONMENT env var
   local: 'env$NODE_ENV$development', // will be true if the NODE_ENV env var equals development, otherwise false
-  dist: 'env$NUXT_PUBLIC_DIST',
   platform: {
-    assets: 'https://assets.nodevault.com',
+    assets: 'https://assets.nodevault.cloud',
     apiProxy: {
-      default: 'http://dev.nodevault.cloud',
-      prod: 'https://app.nodevault.com/api',
+      default: 'http://api.nodevault.local:9002',
+      prod: 'https://www.nodevault.cloud/api',
     },
     api: {
-      default: 'http://dev.nodevault.cloud',
+      default: 'http://api.nodevault.local:9002',
       prod: 'https://api.nodevault.cloud',
     },
+  },
+  contact: {
+    email: 'hello@nodevault.cloud',
   },
 }
