@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "build": "./.nodevault/build/build.sh",
+    "db": "tsx ./apps/api/migrations/index.ts",
     "compile": "tsc --noEmit",
     "lint": "nx run-many --target=lint --all --fix",
     "schemas": "tsx ./.nodevault/build/schemas.ts",

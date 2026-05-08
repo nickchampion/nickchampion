@@ -10,14 +10,29 @@ export const authRegister: ApiHandler = async (context): Promise<Response> => {
     firstName, lastName, email, phone,
   } = context.event.payload as RegisterRequestSchema
 
+  const account = new Account({
+    name: `${firstName.trim()} ${lastName.trim()}`,
+    status: 'active',
+  })
+
+  await context.session.store(account)
+
   const user = new User({
     firstName: firstName.trim(),
     lastName: lastName.trim(),
     email: email.toLowerCase().trim(),
-    phone: phone,
+    phone: phone
+      ? {
+        countryCode: phone.countryCode,
+        number: phone.number.replace(' ', ''),
+      }
+      : null,
+    accountId: account.id,
     status: 'active',
     roles: ['user'],
   })
+
+  await context.session.store(user)
 
   const userConstraints = await acquireUniqueConstraints(context, user.id, user.email)
 
@@ -27,17 +42,6 @@ export const authRegister: ApiHandler = async (context): Promise<Response> => {
 
     return userConstraints.response
   }
-
-  const account = new Account({
-    name: `${firstName.trim()} ${lastName.trim()}`,
-    status: 'active',
-  })
-
-  await context.session.store(account)
-
-  user.accountId = account.id
-
-  await context.session.store(user)
 
   const authInfo = new AuthInfo(user, account)
   const authTokens = createAuthTokenForUser(authInfo)

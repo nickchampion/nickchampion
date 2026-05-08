@@ -7,13 +7,13 @@ export class LoginToken extends BaseModel {
   used: boolean = false
 
   constructor(fields?: Partial<LoginToken>) {
-    super(LoginToken.index, 'login-tokens')
+    super(LoginToken.index, 'LoginTokens')
     Object.assign(this, fields ?? {})
   }
 
   static index = 'LoginTokens'
 
   static id(id: string): string {
-    return id && !id.includes('/') ? `tokens/${id.toUpperCase()}` : id
+    return id && !id.includes('/') ? `LoginTokens/${id.toUpperCase()}` : id
   }
 }

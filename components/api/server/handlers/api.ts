@@ -49,7 +49,7 @@ export class Api {
       'content-type',
       'accept-version',
       'x-authorization-refresh',
-      'x-timezone-offset',
+      'x-device-info',
       'x-version',
     ],
     responseHeaders: [
@@ -63,7 +63,7 @@ export class Api {
       'x-elapsed',
       'x-api-version',
     ],
-    allowOrigin: ['dev'].includes(serverConfiguration.environment.environment) ? '*' : serverConfiguration.app,
+    allowOrigin: serverConfiguration.app,
   }
 
   constructor(

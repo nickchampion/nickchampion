@@ -10,7 +10,7 @@ useHead({ title: 'Your NodeVault sign-in link' })
 const route = useRoute()
 const name = computed(() => String(route.query.name ?? ''))
 const code = computed(() => String(route.query.code ?? ''))
-const loginUrl = computed(() => `${config.platform.app}/auth/verify?code=${code.value}`)
+const loginUrl = computed(() => `${config.platform.app}/auth/login?code=${code.value}`)
 </script>
 
 <template>
@@ -32,15 +32,17 @@ const loginUrl = computed(() => `${config.platform.app}/auth/verify?code=${code.
     cellspacing="0"
     border="0"
     style="margin:0 0 28px;">
-    <tr>
-      <td style="border-radius:8px;background-color:#6366f1;">
-        <a
-          :href="loginUrl"
-          style="display:inline-block;padding:12px 28px;font-size:14px;font-weight:600;color:#ffffff;text-decoration:none;letter-spacing:-0.01em;border-radius:8px;">
-          Sign in to NodeVault
-        </a>
-      </td>
-    </tr>
+    <tbody>
+      <tr>
+        <td style="border-radius:8px;background-color:#6366f1;">
+          <a
+            :href="loginUrl"
+            style="display:inline-block;padding:12px 28px;font-size:14px;font-weight:600;color:#ffffff;text-decoration:none;letter-spacing:-0.01em;border-radius:8px;">
+            Sign in to NodeVault
+          </a>
+        </td>
+      </tr>
+    </tbody>
   </table>
 
   <table
@@ -49,9 +51,11 @@ const loginUrl = computed(() => `${config.platform.app}/auth/verify?code=${code.
     cellspacing="0"
     border="0"
     style="margin:0 0 24px;">
-    <tr>
-      <td style="border-top:1px solid #27272a;" />
-    </tr>
+    <tbody>
+      <tr>
+        <td style="border-top:1px solid #27272a;" />
+      </tr>
+    </tbody>
   </table>
 
   <p style="margin:28px 0 0;font-size:12px;color:#52525b;line-height:1.6;">

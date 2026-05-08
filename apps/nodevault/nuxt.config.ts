@@ -67,10 +67,8 @@ export default defineNuxtConfig(<NuxtConfig>{
 
   runtimeConfig: {
     public: {
-      app: 'nodevault',
       environment: process.env.NUXT_PUBLIC_ENVIRONMENT || '',
       version: process.env.NUXT_PUBLIC_VERSION || '',
-      api: '',
     },
   },
 

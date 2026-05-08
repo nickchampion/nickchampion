@@ -18,7 +18,7 @@
           "${workspaceFolder}/node_modules/**",
       ],
       "resolveSourceMapLocations": [
-        "${workspaceFolder}/modules/**",
+        "${workspaceFolder}/apps/api/**",
         "${workspaceFolder}/components/**",
         "${workspaceFolder}/integrations/**",
         "!**/node_modules/**"

@@ -5,7 +5,6 @@ import { isFutureDate, toUtcIso } from '@nodevault/platform.components.utils'
 export const useAuthStore = defineStore('auth', () => {
   const device = useDevice()
   const config = useConfig()
-  const user = ref<UserSchema | null>(null)
 
   const cookieOptions = {
     secure: config.environment !== 'dev',
@@ -13,8 +12,10 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const auth = useCookie<string | null>('nodevault-auth', cookieOptions)
-  const refresh = useCookie<string | null>('nodevault-refresh', cookieOptions)
   const expires = useCookie<string | null>('nodevault-expires', cookieOptions)
+  const userCookie = useCookie<UserSchema | null>('nodevault-user', cookieOptions)
+
+  const user = ref<UserSchema | null>(userCookie.value ?? null)
 
   const isCloudflareWorker = () => {
     return typeof globalThis !== 'undefined'
@@ -25,8 +26,8 @@ export const useAuthStore = defineStore('auth', () => {
 
   const cookies = [
     { ref: auth, key: 'nodevault-auth' },
-    { ref: refresh, key: 'nodevault-refresh' },
     { ref: expires, key: 'nodevault-expires' },
+    { ref: userCookie, key: 'nodevault-user' },
   ]
 
   const authenticated = (): boolean => {
@@ -37,7 +38,7 @@ export const useAuthStore = defineStore('auth', () => {
     return {
       tokens: {
         access: auth.value,
-        refresh: refresh.value,
+        refresh: null,
       },
       device: determineDeviceInfo(device),
       baseUri: isCloudflareWorker() ? config.platform.api : config.platform.apiProxy,
@@ -45,10 +46,10 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  const logout = (clearUser: boolean = true) => {
+  const logout = () => {
     auth.value = null
-    refresh.value = clearUser ? null : refresh.value
     expires.value = null
+    userCookie.value = null
     user.value = null
 
     cookies.forEach(({ key }) => {
@@ -61,7 +62,13 @@ export const useAuthStore = defineStore('auth', () => {
       auth.value = verifyResponse.data.tokens.access!
       expires.value = toUtcIso(verifyResponse.data.tokens.expiresAtUTC!)
       user.value = verifyResponse.data.user
+      userCookie.value = verifyResponse.data.user
     }
+  }
+
+  const setUser = (updated: UserSchema) => {
+    user.value = updated
+    userCookie.value = updated
   }
 
   const userHasRole = (role: UserSchema['roles'][number]): boolean => {
@@ -70,11 +77,11 @@ export const useAuthStore = defineStore('auth', () => {
 
   return {
     auth,
-    refresh,
     expires,
     user,
     logout,
     setAuthTokens,
+    setUser,
     authenticated,
     userHasRole,
     apiOptions,

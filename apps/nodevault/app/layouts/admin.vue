@@ -5,25 +5,27 @@
         to="/"
         class="flex items-center gap-2.5">
         <AppLogo class="size-7 shrink-0" />
+
         <span class="font-semibold text-sm tracking-tight">NodeVault</span>
       </NuxtLink>
 
-      <div class="flex items-center gap-2">
-        <p class="text-sm text-muted hidden sm:block">
-          Admin
-        </p>
-
-        <UAvatar
-          icon="i-lucide-user"
-          size="sm" />
-
+      <UDropdownMenu :items="userMenuItems">
         <UButton
-          icon="i-lucide-log-out"
           variant="ghost"
           color="neutral"
           size="sm"
-          to="/" />
-      </div>
+          class="flex items-center gap-2">
+          <UIcon
+            name="i-lucide-circle-user"
+            class="size-5 shrink-0" />
+
+          <span class="text-sm font-medium hidden sm:block">{{ displayName }}</span>
+
+          <UIcon
+            name="i-lucide-chevron-down"
+            class="size-3 text-muted" />
+        </UButton>
+      </UDropdownMenu>
     </header>
 
     <div class="flex flex-1 overflow-hidden">
@@ -43,6 +45,28 @@
 
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
+
+const router = useRouter()
+const authStore = useAuthStore()
+
+const displayName = computed(() => {
+  const u = authStore.user
+
+  if (!u) return null
+
+  return u.firstName ? `${u.firstName} ${u.lastName}`.trim() : u.email
+})
+
+const userMenuItems = [[
+  {
+    label: 'Sign out',
+    icon: 'i-lucide-log-out',
+    onSelect: () => {
+      authStore.logout()
+      router.push('/')
+    },
+  },
+]]
 
 const navLinks: NavigationMenuItem[][] = [
   [

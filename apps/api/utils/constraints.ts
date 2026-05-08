@@ -48,7 +48,7 @@ export const acquireUniqueConstraints = async (
 ): Promise<UserUniqueConstraints> => {
   const constraints = new UserUniqueConstraints()
 
-  constraints.email = await acquireConstraint(context, userId, 'Emails', email)
+  constraints.email = await acquireConstraint(context, userId, 'emails', email)
 
   if (!constraints.email) {
     constraints.response = context.event.response.badRequestCustom('email', `The email provided is already in use ${email}`, 409)

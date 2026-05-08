@@ -24,8 +24,8 @@
     </UPageHero>
 
     <UPageSection
-      title="Two Ways to Take Back Control"
-      description="Whether it's the phone in your pocket or the network in your home, we help you own every layer of your digital life."
+      title="Three Ways to Take Back Control"
+      description="Whether it's the phone in your pocket, the network in your home, or the data your business depends on — we help you own every layer of your digital life."
       align="center">
       <UPageGrid>
         <UPageCard
@@ -39,6 +39,12 @@
           description="Replace Dropbox, Google Photos, Spotify, and more with apps you run at home. We design and configure your personal server so you can leave Big Tech behind for good."
           icon="i-lucide-server"
           to="/umbrelos" />
+
+        <UPageCard
+          title="Small Business Security"
+          description="Customer data, financial records, and team communications deserve real protection. We bring enterprise-grade privacy tools to small businesses — without the enterprise price tag."
+          icon="i-lucide-building-2"
+          to="/business" />
       </UPageGrid>
     </UPageSection>
 
