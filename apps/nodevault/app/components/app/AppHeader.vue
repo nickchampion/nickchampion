@@ -16,6 +16,15 @@
         class="hidden sm:flex" />
 
       <div class="flex items-center gap-2 shrink-0">
+        <ClientOnly>
+          <UButton
+            :icon="colorMode.value === 'dark' ? 'i-lucide-sun' : 'i-lucide-moon'"
+            variant="ghost"
+            color="neutral"
+            aria-label="Toggle colour mode"
+            @click="colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'" />
+        </ClientOnly>
+
         <UDropdownMenu
           v-if="authStore.authenticated()"
           :items="userMenuItems"
@@ -146,6 +155,7 @@ defineProps<{
   links: NavigationMenuItem[]
 }>()
 
+const colorMode = useColorMode()
 const mobileOpen = ref(false)
 const route = useRoute()
 const router = useRouter()

@@ -120,7 +120,7 @@ const features = [
   },
   {
     title: 'Full App Sandboxing',
-    description: 'Every app runs in complete isolation. Apps can\'t access your contacts, location, camera, or microphone without explicit per-session permission. Permissions are revoked when the app closes.',
+    description: 'Every app runs in strong isolation (hardened app sandbox). Apps cannot access your contacts, location, camera, or microphone without explicit user permission. GrapheneOS also adds extra toggles (e.g., network and sensors) and scoped storage controls for finer-grained privacy.',
     icon: 'i-lucide-box',
   },
   {

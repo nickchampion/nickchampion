@@ -77,7 +77,7 @@
             <UCheckboxGroup
               v-model="state.interests"
               :items="interestOptions"
-              orientation="horizontal"
+              orientation="vertical"
               class="flex-wrap gap-x-6 gap-y-2" />
           </UFormField>
 
@@ -87,7 +87,7 @@
             required>
             <UTextarea
               v-model="state.message"
-              placeholder="Tell us what you're looking for..."
+              placeholder="Include any other information that may be relevant..."
               :rows="5"
               class="w-full" />
           </UFormField>

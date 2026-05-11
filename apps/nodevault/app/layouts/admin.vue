@@ -9,23 +9,35 @@
         <span class="font-semibold text-sm tracking-tight">NodeVault</span>
       </NuxtLink>
 
-      <UDropdownMenu :items="userMenuItems">
-        <UButton
-          variant="ghost"
-          color="neutral"
-          size="sm"
-          class="flex items-center gap-2">
-          <UIcon
-            name="i-lucide-circle-user"
-            class="size-5 shrink-0" />
+      <div class="flex items-center gap-1">
+        <ClientOnly>
+          <UButton
+            :icon="colorMode.value === 'dark' ? 'i-lucide-sun' : 'i-lucide-moon'"
+            variant="ghost"
+            color="neutral"
+            size="sm"
+            aria-label="Toggle colour mode"
+            @click="colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'" />
+        </ClientOnly>
 
-          <span class="text-sm font-medium hidden sm:block">{{ displayName }}</span>
+        <UDropdownMenu :items="userMenuItems">
+          <UButton
+            variant="ghost"
+            color="neutral"
+            size="sm"
+            class="flex items-center gap-2">
+            <UIcon
+              name="i-lucide-circle-user"
+              class="size-5 shrink-0" />
 
-          <UIcon
-            name="i-lucide-chevron-down"
-            class="size-3 text-muted" />
-        </UButton>
-      </UDropdownMenu>
+            <span class="text-sm font-medium hidden sm:block">{{ displayName }}</span>
+
+            <UIcon
+              name="i-lucide-chevron-down"
+              class="size-3 text-muted" />
+          </UButton>
+        </UDropdownMenu>
+      </div>
     </header>
 
     <div class="flex flex-1 overflow-hidden">
@@ -46,6 +58,7 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
 
+const colorMode = useColorMode()
 const router = useRouter()
 const authStore = useAuthStore()
 
@@ -70,10 +83,10 @@ const userMenuItems = [[
 
 const navLinks: NavigationMenuItem[][] = [
   [
-    { label: 'Dashboard', icon: 'i-lucide-layout-dashboard', to: '/admin' },
-    { label: 'Vault', icon: 'i-lucide-key-round', to: '/admin/vault' },
-    { label: 'Users', icon: 'i-lucide-users', to: '/admin/users' },
-    { label: 'Settings', icon: 'i-lucide-settings', to: '/admin/settings' },
+    { label: 'Dashboard', icon: 'i-lucide-layout-dashboard', to: '/account' },
+    { label: 'GDPR Manager', icon: 'i-lucide-clipboard-check', to: '/account/gdpr' },
+    { label: 'Documents', icon: 'i-lucide-file-text', to: '/account/documents' },
+    { label: 'Settings', icon: 'i-lucide-settings', to: '/account/settings' },
   ],
   [
     { label: 'View Site', icon: 'i-lucide-globe', to: '/' },

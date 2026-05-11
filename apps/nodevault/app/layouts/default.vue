@@ -15,6 +15,24 @@ import type { NavigationMenuItem } from '@nuxt/ui'
 
 const navLinks: NavigationMenuItem[] = [
   {
+    label: 'Small Businesses',
+    to: '/business',
+    children: [
+      {
+        label: 'Overview', description: 'Tools and infrastructure for small professional practices', to: '/business', icon: 'i-lucide-building-2',
+      },
+      {
+        label: 'GDPR Compliance', description: 'Your legal obligations and how to meet them', to: '/gdpr', icon: 'i-lucide-scroll-text',
+      },
+      {
+        label: 'Secure Infrastructure', description: 'EU-hosted, GDPR-compliant data storage', to: '/business/servers', icon: 'i-lucide-server',
+      },
+      {
+        label: 'Secure Devices', description: 'Hardened phones for you and your team', to: '/business/phones', icon: 'i-lucide-smartphone',
+      },
+    ],
+  },
+  {
     label: 'GrapheneOS',
     to: '/grapheneos',
     children: [
@@ -41,21 +59,6 @@ const navLinks: NavigationMenuItem[] = [
       },
       {
         label: 'App Reviews', description: 'Self-hosted app directory', to: '/umbrelos/apps', icon: 'i-lucide-layout-grid',
-      },
-    ],
-  },
-  {
-    label: 'Small Business',
-    to: '/business',
-    children: [
-      {
-        label: 'Overview', description: 'Privacy & security for small businesses', to: '/business', icon: 'i-lucide-building-2',
-      },
-      {
-        label: 'Server Infrastructure', description: 'Self-hosted apps for your whole team', to: '/business/servers', icon: 'i-lucide-server',
-      },
-      {
-        label: 'Phone Fleet', description: 'GrapheneOS devices for your team', to: '/business/phones', icon: 'i-lucide-smartphone',
       },
     ],
   },
