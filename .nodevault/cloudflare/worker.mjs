@@ -24,12 +24,11 @@ const patchEventTargets = () => {
 patchEventTargets()
 
 // eslint-disable-next-line import/first
-import 'regenerator-runtime/runtime'
-// eslint-disable-next-line import/first
 import * as worker from './index.mjs'
 
 const isAllowedOrigin = (origin) => {
   return /^https?:\/\/([a-zA-Z0-9-]+\.)*nodevault\.cloud(:\d+)?$/.test(origin)
+    || /^https?:\/\/([a-zA-Z0-9-]+\.)*nickchampion\.me(:\d+)?$/.test(origin)
     || /^https?:\/\/localhost(:\d+)?$/.test(origin)
     || /^https?:\/\/127\.0\.0\.1(:\d+)?$/.test(origin)
     || /^https?:\/\/192\.168\.0\.\d+(:\d+)?$/.test(origin)

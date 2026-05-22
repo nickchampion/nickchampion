@@ -20,7 +20,7 @@
       "options": {
         "commands": [
           {
-            "command": "npx nuxi build && cp ./../../.nodevault/cloudflare/worker.mjs ./.output/server/worker.mjs"
+            "command": "npx nuxi build"
           }
         ],
         "cwd": "apps/nickchampion"

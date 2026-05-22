@@ -1,6 +1,6 @@
 <template>
   <img
-    src="/avatar.png"
+    src="/avatar.jpeg"
     alt="Nick Champion"
     class="rounded-full object-cover" />
 </template>

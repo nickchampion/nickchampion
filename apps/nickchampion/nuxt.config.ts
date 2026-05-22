@@ -9,7 +9,7 @@ export default defineNuxtConfig(<NuxtConfig>{
     compatibilityVersion: 4,
   },
 
-  ssr: true,
+  ssr: false,
 
   imports: {
     autoImport: true,
@@ -109,7 +109,7 @@ export default defineNuxtConfig(<NuxtConfig>{
         },
       ],
       link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'icon', type: 'image/jpeg', href: '/favicon.jpeg' },
       ],
     },
   },
