@@ -21,6 +21,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Detect changes
+        uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            api:
+              - 'apps/api/**'
+              - 'components/**'
+              - 'integrations/**'
+            nodevault:
+              - 'apps/nodevault/**'
+              - 'components/**'
+              - 'integrations/**'
+            nickchampion:
+              - 'apps/nickchampion/**'
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -38,6 +54,11 @@ jobs:
       - name: Generate schemas
         run: pnpm run schemas
 
+      - name: Prepare Nuxt apps
+        run: |
+          pnpm nuxi prepare apps/nodevault
+          pnpm nuxi prepare apps/nickchampion
+
       - name: Lint
         run: pnpm run lint
 
@@ -45,28 +66,51 @@ jobs:
         run: pnpm tsc --noEmit
 
       - name: Build API
+        if: steps.changes.outputs.api == 'true' || github.event_name == 'workflow_dispatch'
         env:
           NODEVAULT: ${{ secrets.NODEVAULT_CONFIGURATION }}
         run: pnpm nx build @nodevault/platform.apps.api
 
-      - name: Build Nuxt
+      - name: Build Nuxt (nodevault)
+        if: steps.changes.outputs.nodevault == 'true' || github.event_name == 'workflow_dispatch'
         env:
           NITRO_PRESET: cloudflare_module
           NUXT_PUBLIC_ENVIRONMENT: prod
           NUXT_PUBLIC_VERSION: ${{ github.sha }}
         run: pnpm nx build @nodevault/platform.apps.nodevault
 
+      - name: Build Nuxt (nickchampion)
+        if: steps.changes.outputs.nickchampion == 'true' || github.event_name == 'workflow_dispatch'
+        env:
+          NITRO_PRESET: cloudflare_module
+          NUXT_PUBLIC_ENVIRONMENT: prod
+          NUXT_PUBLIC_VERSION: ${{ github.sha }}
+        run: pnpm nx build @nodevault/platform.apps.nickchampion
+
       - name: Setup flyctl
+        if: steps.changes.outputs.api == 'true' || github.event_name == 'workflow_dispatch'
         uses: superfly/flyctl-actions/setup-flyctl@master
 
       - name: Deploy API to Fly.io
+        if: steps.changes.outputs.api == 'true' || github.event_name == 'workflow_dispatch'
+        continue-on-error: true
         working-directory: apps/api
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
         run: flyctl deploy --local-only
 
-      - name: Deploy Nuxt to Cloudflare Workers
+      - name: Deploy NodeVault to Cloudflare Workers
+        if: steps.changes.outputs.nodevault == 'true' || github.event_name == 'workflow_dispatch'
+        continue-on-error: true
         working-directory: apps/nodevault
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler deploy
+
+      - name: Deploy NickChampion to Cloudflare Workers
+        if: steps.changes.outputs.nickchampion == 'true' || github.event_name == 'workflow_dispatch'
+        working-directory: apps/nickchampion
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

@@ -1,4 +1,4 @@
-app = "nodevault-api"
+app = "node-vault"
 primary_region = "lhr"
 
 [build]
