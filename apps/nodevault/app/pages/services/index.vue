@@ -64,7 +64,8 @@
             color="neutral"
             icon="i-lucide-arrow-right"
             trailing
-            block>
+            block
+            @click="trackServiceCta('phone', plan.name, plan.price)">
             Book This Service
           </UButton>
         </UCard>
@@ -131,7 +132,8 @@
             color="neutral"
             icon="i-lucide-arrow-right"
             trailing
-            block>
+            block
+            @click="trackServiceCta('home_server', tier.name, tier.price)">
             Get started
           </UButton>
         </UCard>
@@ -198,7 +200,8 @@
             color="neutral"
             icon="i-lucide-arrow-right"
             trailing
-            block>
+            block
+            @click="trackServiceCta('router', plan.name, plan.price)">
             Book Installation
           </UButton>
         </UCard>
@@ -236,6 +239,12 @@
 </template>
 
 <script setup lang="ts">
+const posthog = usePostHog()
+
+const trackServiceCta = (service: string, plan: string, price: string) => {
+  posthog?.capture('service_cta_clicked', { service, plan, price })
+}
+
 useSeoMeta({
   title: 'Consultancy Services | NodeVault',
   description: 'Hands-on privacy setup services: bespoke GrapheneOS phones, UmbrelOS home server setup, and Privacy Router installation. We source, configure, and install — you just use it.',

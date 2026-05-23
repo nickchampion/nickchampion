@@ -8,7 +8,8 @@
         <UButton
           to="/grapheneos/phones"
           size="xl"
-          icon="i-lucide-smartphone">
+          icon="i-lucide-smartphone"
+          @click="posthog?.capture('grapheneos_phone_cta_clicked', { cta: 'buy_phone' })">
           Buy a Pre-Configured Phone
         </UButton>
 
@@ -17,7 +18,8 @@
           size="xl"
           icon="i-lucide-calendar"
           variant="outline"
-          color="neutral">
+          color="neutral"
+          @click="posthog?.capture('grapheneos_phone_cta_clicked', { cta: 'book_consultation' })">
           Book a Setup Consultation
         </UButton>
       </template>
@@ -98,6 +100,8 @@
 
 <script setup lang="ts">
 import { useConfig } from '@nodevault/platform.components.nodevault.client'
+
+const posthog = usePostHog()
 
 useSeoMeta({
   title: 'GrapheneOS Phones | NodeVault — Hardened Private Android',

@@ -104,6 +104,7 @@ useSeoMeta({ title: 'Create Account | NodeVault' })
 
 const router = useRouter()
 const authStore = useAuthStore()
+const posthog = usePostHog()
 
 const defaultState = (): RegisterRequestSchema => ({
   firstName: '',
@@ -129,6 +130,8 @@ const submit = async () => {
 
   if (response.success) {
     authStore.setAuthTokens(response)
+    posthog?.identify(authStore.user?.id, { email: authStore.user?.email, firstName: state.firstName, lastName: state.lastName })
+    posthog?.capture('account_registered', { email: state.email })
     await router.replace('/account')
   } else {
     error.value = response.status === 'conflict'

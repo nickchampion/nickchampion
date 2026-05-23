@@ -138,6 +138,7 @@ const defaultState = () => ({
 })
 
 const api = useApiClient()
+const posthog = usePostHog()
 const state = reactive(defaultState())
 const pending = ref(false)
 const submitted = ref(false)
@@ -151,6 +152,7 @@ const submit = async () => {
 
   if (response.success) {
     submitted.value = true
+    posthog?.capture('contact_form_submitted', { interests: state.interests })
   } else {
     error.value = response.error?.message ?? 'Failed to send your message. Please try again.'
   }

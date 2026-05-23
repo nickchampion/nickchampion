@@ -94,7 +94,7 @@ export const server = {
     },
   },
   ntfy: {
-    host: 'https://nfty.nickchampion.me',
+    host: 'https://ntfy.nickchampion.me',
     topics: {
       phone: 'bkw1Nzhkcy',
     },

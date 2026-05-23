@@ -20,6 +20,8 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@posthog/nuxt": "^1.7.42",
+    "posthog-node": "^4.14.1",
     "@iconify-json/lucide": "^1.2.105",
     "@iconify-json/simple-icons": "^1.2.80",
     "@nuxt/kit": "^4.4.2",

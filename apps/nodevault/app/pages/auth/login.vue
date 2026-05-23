@@ -125,6 +125,7 @@ const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
 const config = useConfig()
+const posthog = usePostHog()
 
 const state = reactive({ email: config.environment === 'dev' ? 'mail@nickchampion.me' : '' })
 const pending = ref(false)
@@ -145,6 +146,7 @@ const submit = async () => {
 
   if (response.success) {
     sent.value = true
+    posthog?.capture('login_requested', { email: state.email })
   } else {
     error.value = 'Something went wrong. Please try again.'
   }
@@ -160,9 +162,12 @@ const verify = async (code: string) => {
 
   if (response.success) {
     authStore.setAuthTokens(response)
+    posthog?.identify(authStore.user?.id, { email: authStore.user?.email })
+    posthog?.capture('login_verified')
     await router.replace('/account')
   } else {
     error.value = 'Invalid or expired link. Please request a new one.'
+    posthog?.capture('login_failed')
     verifying.value = false
   }
 }

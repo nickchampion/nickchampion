@@ -4,6 +4,8 @@ import { useRuntimeConfig } from 'nuxt/app'
 import { clientConfiguration as baseline } from './configuration.js'
 import type { ClientConfiguration } from './configuration.js'
 
+export { baseline as clientConfiguration }
+
 let client: ClientConfiguration | null = null
 
 export const useConfig = (config?: RuntimeConfig): ClientConfiguration => {

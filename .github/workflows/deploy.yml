@@ -36,6 +36,7 @@ jobs:
               - 'integrations/**'
             nickchampion:
               - 'apps/nickchampion/**'
+              - 'components/**'
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -72,7 +73,7 @@ jobs:
         run: pnpm nx build @nodevault/platform.apps.api
 
       - name: Build Nuxt (nodevault)
-        #if: steps.changes.outputs.nodevault == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.changes.outputs.nodevault == 'true' || github.event_name == 'workflow_dispatch'
         env:
           NITRO_PRESET: cloudflare_module
           NUXT_PUBLIC_ENVIRONMENT: prod
@@ -80,7 +81,7 @@ jobs:
         run: pnpm nx build @nodevault/platform.apps.nodevault
 
       - name: Build Nuxt (nickchampion)
-        #if: steps.changes.outputs.nickchampion == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.changes.outputs.nickchampion == 'true' || github.event_name == 'workflow_dispatch'
         env:
           NITRO_PRESET: cloudflare_module
           NUXT_PUBLIC_ENVIRONMENT: prod
@@ -100,7 +101,7 @@ jobs:
         run: flyctl deploy --local-only
 
       - name: Deploy NodeVault to Cloudflare Workers
-        #if: steps.changes.outputs.nodevault == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.changes.outputs.nodevault == 'true' || github.event_name == 'workflow_dispatch'
         continue-on-error: true
         working-directory: apps/nodevault
         env:
@@ -110,7 +111,7 @@ jobs:
           npx wrangler deploy
 
       - name: Deploy NickChampion to Cloudflare Workers
-        #if: steps.changes.outputs.nickchampion == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.changes.outputs.nickchampion == 'true' || github.event_name == 'workflow_dispatch'
         working-directory: apps/nickchampion
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

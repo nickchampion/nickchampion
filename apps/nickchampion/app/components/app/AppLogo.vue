@@ -3,10 +3,15 @@
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 32 32"
     aria-label="Nick Champion">
-    <rect width="32" height="32" rx="7" fill="#0f172a" />
+    <rect
+      width="32"
+      height="32"
+      rx="7"
+      fill="#0f172a" />
+
     <text
       x="16"
-      y="22"
+      y="21"
       text-anchor="middle"
       font-family="system-ui, -apple-system, sans-serif"
       font-size="13"

@@ -71,6 +71,16 @@ export default defineNuxtConfig(<NuxtConfig>{
     },
   },
 
+  posthogConfig: {
+    publicKey: process.env.NUXT_PUBLIC_POSTHOG || '',
+    host: 'https://eu.i.posthog.com',
+    clientConfig: {
+      capture_exceptions: true,
+      opt_out_capturing_by_default: process.env.NUXT_PUBLIC_ENVIRONMENT !== 'prod',
+      __add_tracing_headers: ['nodevault.cloud', 'www.nodevault.cloud'],
+    },
+  },
+
   vite: {
     plugins: [nxViteTsPaths()],
     cacheDir: '../../node_modules/.vite/apps/nodevault',
@@ -123,6 +133,7 @@ export default defineNuxtConfig(<NuxtConfig>{
     '@vueuse/nuxt',
     '@pinia/nuxt',
     '@nuxtjs/device',
+    '@posthog/nuxt',
   ],
 
   /* modules */
