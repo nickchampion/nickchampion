@@ -19,17 +19,17 @@
           </h2>
 
           <p class="text-muted max-w-sm mx-auto">
-            We're working on practical guides covering GrapheneOS, UmbrelOS, privacy routers, and everyday privacy habits. Check back soon.
+            We're working on practical guides covering GrapheneOS, UmbrelOS, OPNSense Routers, and everyday privacy habits. Check back soon.
           </p>
         </div>
 
         <div class="flex flex-wrap justify-center gap-3 pt-2">
           <UButton
-            to="/phones"
+            to="/grapheneos"
             variant="outline"
             color="neutral"
             icon="i-lucide-smartphone">
-            Privacy Phones
+            GrapheneOS
           </UButton>
 
           <UButton
@@ -37,15 +37,15 @@
             variant="outline"
             color="neutral"
             icon="i-lucide-server">
-            Home Server
+            UmbrelOS
           </UButton>
 
           <UButton
-            to="/privacy-router"
+            to="/opnsense"
             variant="outline"
             color="neutral"
             icon="i-lucide-box">
-            Privacy Router
+            OPNSense Router
           </UButton>
         </div>
       </UCard>
@@ -56,7 +56,7 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'Blog | NodeVault',
-  description: 'Practical privacy guides, how-tos, and plain-English explanations of GrapheneOS, UmbrelOS, privacy routers, and everyday privacy tools. Coming soon.',
+  description: 'Practical privacy guides, how-tos, and plain-English explanations of GrapheneOS, UmbrelOS, OPNSense routers, and everyday privacy tools. Coming soon.',
   ogTitle: 'The NodeVault Blog',
   ogDescription: 'Practical privacy guides and how-tos. Coming soon.',
   ogType: 'website',

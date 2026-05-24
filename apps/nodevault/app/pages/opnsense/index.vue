@@ -15,12 +15,10 @@
         </UButton>
 
         <UButton
-          to="/company/contact"
-          size="xl"
-          icon="i-lucide-message-circle"
-          variant="ghost"
-          color="neutral">
-          Need help getting started?
+          to="/services"
+          size="lg"
+          icon="i-lucide-message-circle">
+          Need help getting started
         </UButton>
       </template>
     </UPageHero>
@@ -112,8 +110,8 @@
 
     <UPageSection
       id="how-it-works"
-      title="How a privacy router works"
-      description="A privacy router sits between your ISP router and your home network. It inspects DNS queries, blocks trackers before they connect, routes traffic through VPN, and keeps your IoT devices away from your main network."
+      title="How the OPNSense router works"
+      description="An OPNSense router sits between your ISP router and your home network. It inspects DNS queries, blocks trackers before they connect, routes traffic through VPN, and keeps your IoT devices away from your main network."
       align="center">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
         <div
@@ -140,7 +138,7 @@
         class="mt-10 text-left max-w-2xl mx-auto"
         icon="i-lucide-code"
         color="primary">
-        The full software stack — Pi-hole, AdGuard Home, WireGuard, and OpenWRT — is open source, auditable, and community-maintained. You own the hardware, you own the configuration, and there's no vendor lock-in.
+        The full software stack — AdGuard Home, WireGuard VPN, and OPNSense — is open source, auditable, and community-maintained. You own the hardware, you own the configuration, and there's no vendor lock-in.
       </UCallout>
     </UPageSection>
 
@@ -196,44 +194,18 @@
           :icon="audience.icon" />
       </UPageGrid>
     </UPageSection>
-
-    <UPageSection align="center">
-      <UCard class="max-w-2xl mx-auto text-center p-8 space-y-4">
-        <UIcon
-          name="i-lucide-message-circle"
-          class="size-10 text-primary mx-auto" />
-
-        <h2 class="text-2xl font-bold">
-          Want some guidance?
-        </h2>
-
-        <p class="text-muted">
-          If you're thinking about setting up a privacy router and would like some advice — what hardware to use, which software stack makes sense, or how VLANs work — feel free to get in touch. Happy to help.
-        </p>
-
-        <UButton
-          to="/company/contact"
-          size="xl"
-          variant="outline"
-          color="neutral"
-          icon="i-lucide-arrow-right"
-          trailing>
-          Get in touch
-        </UButton>
-      </UCard>
-    </UPageSection>
   </UPage>
 </template>
 
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Privacy Router — Protect Your Home Network | NodeVault',
-  description: 'Smart TVs, voice assistants, and IoT devices phone home constantly. A privacy router with Pi-hole, WireGuard VPN, and VLANs blocks tracking and isolates risky devices for every device on your network.',
-  ogTitle: 'Privacy Router — Home Network Protection | NodeVault',
+  title: 'OPNSense Router — Protect Your Home Network | NodeVault',
+  description: 'Smart TVs, voice assistants, and IoT devices phone home constantly. A privacy router with AdGuard Home, WireGuard VPN, and VLANs blocks tracking and isolates risky devices for every device on your network.',
+  ogTitle: 'OPNSense Router — Home Network Protection | NodeVault',
   ogDescription: 'DNS-level tracking protection and VLAN isolation for your home network. Covers every device without installing anything on each one.',
   ogType: 'website',
   twitterCard: 'summary_large_image',
-  keywords: 'privacy router, Pi-hole home, DNS blocker, WireGuard VPN home, VLAN isolation home network, IoT security home, AdGuard Home',
+  keywords: 'OPNSense router, AdGuard home, DNS blocker, WireGuard VPN home, VLAN isolation home network, IoT security home',
 })
 
 const iotThreats = [
@@ -272,7 +244,7 @@ const iotThreats = [
 const howItWorks = [
   {
     title: 'Plug in',
-    description: 'The privacy router connects between your ISP router and your home network. All traffic passes through it.',
+    description: 'The OPNSense router connects between your ISP router and your home network. All traffic passes through it.',
   },
   {
     title: 'DNS intercept',

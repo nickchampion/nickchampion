@@ -39,52 +39,53 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-4">
         <UCard
           v-for="area in areas"
-          :key="area.title"
-          class="flex flex-col gap-4">
-          <div class="flex items-start gap-4">
-            <div class="flex items-center justify-center size-12 rounded-xl bg-primary/10 shrink-0">
-              <UIcon
-                :name="area.icon"
-                class="size-6 text-primary" />
+          :key="area.title">
+          <div class="flex flex-col gap-5 h-full">
+            <div class="flex items-start gap-4">
+              <div class="flex items-center justify-center size-12 rounded-xl bg-primary/10 shrink-0">
+                <UIcon
+                  :name="area.icon"
+                  class="size-6 text-primary" />
+              </div>
+
+              <div class="flex-1">
+                <h3 class="font-semibold text-lg leading-tight">
+                  {{ area.title }}
+                </h3>
+
+                <p class="text-sm text-primary font-medium mt-0.5">
+                  {{ area.tagline }}
+                </p>
+              </div>
             </div>
 
-            <div class="flex-1">
-              <h3 class="font-semibold text-lg leading-tight">
-                {{ area.title }}
-              </h3>
+            <p class="text-sm text-muted flex-1">
+              {{ area.description }}
+            </p>
 
-              <p class="text-sm text-primary font-medium mt-0.5">
-                {{ area.tagline }}
-              </p>
-            </div>
+            <ul class="space-y-2 text-left border-t border-(--ui-border) pt-4">
+              <li
+                v-for="point in area.points"
+                :key="point"
+                class="flex items-start gap-2 text-sm">
+                <UIcon
+                  name="i-lucide-check"
+                  class="size-4 text-primary shrink-0 mt-0.5" />
+
+                <span>{{ point }}</span>
+              </li>
+            </ul>
+
+            <UButton
+              :to="area.href"
+              variant="outline"
+              color="neutral"
+              icon="i-lucide-arrow-right"
+              trailing
+              block>
+              {{ area.cta }}
+            </UButton>
           </div>
-
-          <p class="text-sm text-muted flex-1">
-            {{ area.description }}
-          </p>
-
-          <ul class="space-y-1.5">
-            <li
-              v-for="point in area.points"
-              :key="point"
-              class="flex items-start gap-2 text-sm">
-              <UIcon
-                name="i-lucide-check"
-                class="size-4 text-primary shrink-0 mt-0.5" />
-
-              <span>{{ point }}</span>
-            </li>
-          </ul>
-
-          <UButton
-            :to="area.href"
-            variant="outline"
-            color="neutral"
-            icon="i-lucide-arrow-right"
-            trailing
-            block>
-            {{ area.cta }}
-          </UButton>
         </UCard>
       </div>
     </UPageSection>
@@ -138,18 +139,18 @@
           Not sure where to start?
         </h2>
 
-        <p class="text-muted">
+        <p class="text-muted py-4">
           Privacy can feel overwhelming. If you'd like some guidance on any of the above — which approach makes sense for you, what hardware to buy, or how to get started — feel free to get in touch. No sales pitch, no obligation.
         </p>
 
         <UButton
-          to="/company/contact"
+          to="/services"
           size="xl"
           variant="outline"
           color="neutral"
           icon="i-lucide-arrow-right"
           trailing>
-          Get in touch
+          See how we can help
         </UButton>
       </UCard>
     </UPageSection>
@@ -172,7 +173,7 @@ const areas = [
     title: 'De-Google Your Phone',
     tagline: 'GrapheneOS on a Google Pixel',
     icon: 'i-lucide-smartphone',
-    href: '/phones',
+    href: '/grapheneos',
     cta: 'Learn About GrapheneOS',
     description: 'Stock Android sends a constant stream of data to Google — location, app usage, contacts, voice queries. GrapheneOS removes all of this at the OS level, giving you a fully functional Android phone with zero telemetry.',
     points: [
@@ -187,7 +188,7 @@ const areas = [
     tagline: 'Self-hosted with UmbrelOS',
     icon: 'i-lucide-server',
     href: '/umbrelos',
-    cta: 'Learn About Self-Hosting',
+    cta: 'Learn About UmbrelOS',
     description: 'Every file you store with Google, Dropbox, or Apple is subject to their terms of service, data mining, and the risk of account closure or breach. A home server costs around £130 and runs indefinitely — on hardware you own, in a place you control.',
     points: [
       'Replace Dropbox, Google Photos and iCloud with your own server',
@@ -200,8 +201,8 @@ const areas = [
     title: 'Secure Your Network',
     tagline: 'DNS blocking, VPN & VLAN isolation',
     icon: 'i-lucide-box',
-    href: '/privacy-router',
-    cta: 'Learn About Privacy Router',
+    href: '/opnsense',
+    cta: 'Learn About OPNSense Router',
     description: 'Your smart TV, voice assistant, and IoT devices are phoning home constantly — often without any way to opt out. A privacy router running Pi-hole, WireGuard, and VLANs blocks tracking at the network level and isolates devices that can\'t be trusted.',
     points: [
       'DNS-level ad and tracker blocking for every device',

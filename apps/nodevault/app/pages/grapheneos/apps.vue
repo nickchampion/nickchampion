@@ -6,19 +6,20 @@
       align="center">
       <template #links>
         <UButton
-          to="/grapheneos/phones"
+          href="https://grapheneos.org/"
+          target="_blank"
           size="lg"
-          icon="i-lucide-smartphone">
-          Get a Pre-Configured Phone
+          icon="i-lucide-external-link"
+          variant="ghost"
+          color="neutral">
+          GrapheneOS Website
         </UButton>
 
         <UButton
-          to="/grapheneos"
+          to="/services"
           size="lg"
-          icon="i-lucide-arrow-left"
-          variant="outline"
-          color="neutral">
-          About GrapheneOS
+          icon="i-lucide-message-circle">
+          Need help getting started
         </UButton>
       </template>
     </UPageHero>

@@ -6,19 +6,20 @@
       align="center">
       <template #links>
         <UButton
-          to="/umbrelos/consulting"
+          href="https://getumbrel.com"
+          target="_blank"
           size="lg"
-          icon="i-lucide-wrench">
-          Get Expert Setup Help
+          icon="i-lucide-external-link"
+          variant="ghost"
+          color="neutral">
+          UmbrelOS Website
         </UButton>
 
         <UButton
-          to="/umbrelos"
+          to="/services"
           size="lg"
-          icon="i-lucide-arrow-left"
-          variant="outline"
-          color="neutral">
-          About UmbrelOS
+          icon="i-lucide-message-circle">
+          Need help getting started
         </UButton>
       </template>
     </UPageHero>

@@ -1,8 +1,8 @@
 <template>
   <UPage>
     <UPageHero
-      title="Consultancy Services"
-      description="We offer hands-on setup services for every area we cover. Tell us what you need — we handle the sourcing, configuration, and installation, and hand it over ready to use."
+      title="Setup Services"
+      description="We install and configure your privacy tools — you just use them. No tutorials, no trial and error. Send us your device, or we'll source what you need and ship it ready to go."
       align="center">
       <template #links>
         <UButton
@@ -15,127 +15,83 @@
     </UPageHero>
 
     <UPageSection
-      title="Privacy Phone Setup"
-      description="A bespoke GrapheneOS phone configured exactly to your specification — sourced, installed, and ready to use."
+      title="Individual Services"
+      description="Each service is available on its own, or bundle all three with the Gold Package below."
       align="center">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4 max-w-4xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
         <UCard
-          v-for="plan in phonePlans"
-          :key="plan.name"
-          :class="['flex flex-col gap-4', plan.highlight ? 'ring-2 ring-primary' : '']">
-          <div>
-            <div class="flex items-center justify-between gap-2 mb-1">
-              <h3 class="font-semibold text-lg">
-                {{ plan.name }}
-              </h3>
+          v-for="service in services"
+          :key="service.title">
+          <div class="flex flex-col gap-5 h-full">
+            <div class="flex items-start gap-4">
+              <div class="flex items-center justify-center size-12 rounded-xl bg-primary/10 shrink-0">
+                <UIcon
+                  :name="service.icon"
+                  class="size-6 text-primary" />
+              </div>
 
-              <UBadge
-                v-if="plan.highlight"
-                color="primary"
-                variant="subtle"
-                label="Most popular" />
-            </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h3 class="font-semibold text-lg leading-tight">
+                    {{ service.title }}
+                  </h3>
 
-            <p class="text-3xl font-bold mt-1">
-              {{ plan.price }}
-            </p>
+                  <UBadge
+                    v-if="service.optional"
+                    color="neutral"
+                    variant="subtle"
+                    size="xs"
+                    label="Optional" />
+                </div>
 
-            <p class="text-sm text-muted mt-1">
-              {{ plan.description }}
-            </p>
-          </div>
-
-          <ul class="space-y-2 flex-1">
-            <li
-              v-for="feature in plan.features"
-              :key="feature"
-              class="flex items-start gap-2 text-sm">
-              <UIcon
-                name="i-lucide-check-circle"
-                class="size-4 text-primary shrink-0 mt-0.5" />
-
-              <span>{{ feature }}</span>
-            </li>
-          </ul>
-
-          <UButton
-            to="/company/contact"
-            :variant="plan.highlight ? 'solid' : 'outline'"
-            color="neutral"
-            icon="i-lucide-arrow-right"
-            trailing
-            block
-            @click="trackServiceCta('phone', plan.name, plan.price)">
-            Book This Service
-          </UButton>
-        </UCard>
-      </div>
-
-      <p class="text-sm text-muted text-center mt-6">
-        Turnaround 2–4 business days from order. Phone delivered by tracked courier or collected in person.
-      </p>
-    </UPageSection>
-
-    <UDivider class="my-4" />
-
-    <UPageSection
-      title="Home Server Setup (UmbrelOS)"
-      description="We design, source, install, and configure your UmbrelOS home server — then hand it over with a full training session. You get a working private home network without reading a single tutorial."
-      align="center">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-        <UCard
-          v-for="tier in homeServerTiers"
-          :key="tier.name"
-          :class="['flex flex-col gap-4', tier.highlight ? 'ring-2 ring-primary' : '']">
-          <div class="space-y-1">
-            <div class="flex items-center justify-between gap-2">
-              <h3 class="font-semibold text-lg">
-                {{ tier.name }}
-              </h3>
-
-              <UBadge
-                v-if="tier.highlight"
-                color="primary"
-                variant="subtle"
-                label="Most popular" />
+                <p class="text-3xl font-bold mt-1">
+                  {{ service.price }}
+                </p>
+              </div>
             </div>
 
             <p class="text-sm text-muted">
-              {{ tier.tagline }}
+              {{ service.description }}
             </p>
-          </div>
 
-          <p class="text-3xl font-bold">
-            {{ tier.price }}
-          </p>
+            <ul class="space-y-2 text-left border-t border-(--ui-border) pt-4 flex-1">
+              <li
+                v-for="feature in service.features"
+                :key="feature"
+                class="flex items-start gap-2 text-sm">
+                <UIcon
+                  name="i-lucide-check"
+                  class="size-4 text-primary shrink-0 mt-0.5" />
 
-          <p class="text-sm text-muted flex-1">
-            {{ tier.description }}
-          </p>
+                <span>{{ feature }}</span>
+              </li>
+            </ul>
 
-          <ul class="space-y-2">
-            <li
-              v-for="item in tier.includes"
-              :key="item"
-              class="flex items-start gap-2 text-sm">
+            <p
+              v-if="service.addon"
+              class="text-xs text-muted border-t border-(--ui-border) pt-3 text-left">
               <UIcon
-                name="i-lucide-check"
-                class="size-4 text-primary shrink-0 mt-0.5" />
+                name="i-lucide-plus-circle"
+                class="size-3 inline mr-1 shrink-0" />{{ service.addon }}
+            </p>
 
-              <span>{{ item }}</span>
-            </li>
-          </ul>
+            <p
+              v-if="service.note"
+              class="text-xs text-muted text-left">
+              {{ service.note }}
+            </p>
 
-          <UButton
-            to="/company/contact"
-            :variant="tier.highlight ? 'solid' : 'outline'"
-            color="neutral"
-            icon="i-lucide-arrow-right"
-            trailing
-            block
-            @click="trackServiceCta('home_server', tier.name, tier.price)">
-            Get started
-          </UButton>
+            <UButton
+              to="/company/contact"
+              variant="outline"
+              color="neutral"
+              icon="i-lucide-arrow-right"
+              trailing
+              block
+              @click="trackServiceCta(service.title, service.price)">
+              {{ service.cta }}
+            </UButton>
+          </div>
         </UCard>
       </div>
     </UPageSection>
@@ -143,96 +99,132 @@
     <UDivider class="my-4" />
 
     <UPageSection
-      title="Privacy Router Installation"
-      description="We source the hardware, build the appliance, configure DNS blocking, VPN, and VLAN isolation, and install it in your home. Every device on your network protected from day one."
+      title="The Gold Package"
+      description="All three services in one. GrapheneOS on your phone, UmbrelOS on your server, and an OPNSense router shipped ready to plug in."
       align="center">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4 max-w-4xl mx-auto">
-        <UCard
-          v-for="plan in routerPlans"
-          :key="plan.name"
-          class="flex flex-col gap-5">
-          <div>
-            <div class="flex items-center gap-2 mb-2">
-              <h3 class="font-semibold text-lg">
-                {{ plan.name }}
-              </h3>
+      <UCard class="max-w-3xl mx-auto ring-2 ring-primary mt-4">
+        <div class="flex flex-col gap-6">
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <div class="flex items-center gap-3">
+              <div class="flex items-center justify-center size-12 rounded-xl bg-primary/10 shrink-0">
+                <UIcon
+                  name="i-lucide-package"
+                  class="size-6 text-primary" />
+              </div>
 
-              <UBadge
-                v-if="plan.badge"
-                :color="plan.badgeColor"
-                variant="subtle"
-                size="xs">
-                {{ plan.badge }}
-              </UBadge>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h3 class="text-xl font-bold">
+                    Gold Package
+                  </h3>
+
+                  <UBadge
+                    color="primary"
+                    variant="subtle"
+                    label="Best value" />
+                </div>
+
+                <p class="text-sm text-muted mt-0.5">
+                  Phone and server hardware provided by you — router sourced and shipped by NodeVault.
+                </p>
+              </div>
             </div>
 
-            <p class="text-3xl font-bold">
-              {{ plan.price }}
-            </p>
-
-            <p
-              v-if="plan.subscription"
-              class="text-sm text-muted mt-0.5">
-              + {{ plan.subscription }}/mo optional subscription
-            </p>
-
-            <p class="text-sm text-muted mt-2">
-              {{ plan.description }}
+            <p class="text-4xl font-bold shrink-0">
+              £600
             </p>
           </div>
 
-          <ul class="space-y-2 flex-1">
-            <li
-              v-for="feature in plan.features"
-              :key="feature"
-              class="flex items-start gap-2 text-sm">
-              <UIcon
-                name="i-lucide-check-circle"
-                class="size-4 text-primary shrink-0 mt-0.5" />
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 border-t border-(--ui-border) pt-6">
+            <div
+              v-for="section in goldSections"
+              :key="section.title">
+              <p class="font-semibold text-sm mb-3 flex items-center gap-2">
+                <UIcon
+                  :name="section.icon"
+                  class="size-4 text-primary" />
 
-              <span>{{ feature }}</span>
-            </li>
-          </ul>
+                {{ section.title }}
+              </p>
+
+              <ul class="space-y-1.5 text-left">
+                <li
+                  v-for="item in section.items"
+                  :key="item"
+                  class="flex items-start gap-2 text-sm text-muted">
+                  <UIcon
+                    name="i-lucide-check"
+                    class="size-3.5 text-primary shrink-0 mt-0.5" />
+
+                  <span>{{ item }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
 
           <UButton
             to="/company/contact"
-            variant="outline"
-            color="neutral"
+            size="lg"
             icon="i-lucide-arrow-right"
             trailing
             block
-            @click="trackServiceCta('router', plan.name, plan.price)">
-            Book Installation
+            @click="trackServiceCta('Gold Package', '£600')">
+            Book the Gold Package
           </UButton>
-        </UCard>
-      </div>
-
-      <p class="text-sm text-muted text-center mt-6">
-        Subscription covers software updates, blocklist updates, remote monitoring, and priority support. Optional — the router continues to work without it.
-      </p>
+        </div>
+      </UCard>
     </UPageSection>
 
-    <UPageSection align="center">
-      <UCard class="max-w-2xl mx-auto text-center p-8 space-y-4">
-        <UIcon
-          name="i-lucide-message-circle"
-          class="size-10 text-primary mx-auto" />
+    <UDivider class="my-4" />
 
-        <h2 class="text-2xl font-bold">
-          Not sure which service you need?
-        </h2>
+    <UPageSection
+      title="Ongoing Support"
+      description="Stay covered after setup — for £10 a month you always have someone to turn to."
+      align="center">
+      <UCard class="max-w-2xl mx-auto mt-4">
+        <div class="flex flex-col sm:flex-row gap-6 items-start">
+          <div class="flex items-center justify-center size-16 rounded-xl bg-primary/10 shrink-0">
+            <UIcon
+              name="i-lucide-life-buoy"
+              class="size-8 text-primary" />
+          </div>
 
-        <p class="text-muted">
-          Drop us a message and we'll talk through your situation — no commitment, no pressure. We'll tell you honestly what we think will make the most difference for you.
-        </p>
+          <div class="flex flex-col gap-4 flex-1">
+            <div>
+              <p class="text-3xl font-bold">
+                £10 <span class="text-base font-normal text-muted">/ month</span>
+              </p>
 
-        <UButton
-          to="/company/contact"
-          size="xl"
-          icon="i-lucide-arrow-right"
-          trailing>
-          Get in Touch
-        </UButton>
+              <p class="text-sm text-muted mt-1">
+                Priority email support, help with anything that breaks or changes, and advice on new tools. Cancel any time.
+              </p>
+            </div>
+
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-left">
+              <li
+                v-for="item in supportFeatures"
+                :key="item"
+                class="flex items-start gap-2 text-sm">
+                <UIcon
+                  name="i-lucide-check"
+                  class="size-4 text-primary shrink-0 mt-0.5" />
+
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+
+            <UButton
+              to="/company/contact"
+              variant="outline"
+              color="neutral"
+              icon="i-lucide-arrow-right"
+              trailing
+              class="self-start"
+              @click="trackServiceCta('Support Subscription', '£10/month')">
+              Add Ongoing Support
+            </UButton>
+          </div>
+        </div>
       </UCard>
     </UPageSection>
   </UPage>
@@ -241,137 +233,119 @@
 <script setup lang="ts">
 const posthog = usePostHog()
 
-const trackServiceCta = (service: string, plan: string, price: string) => {
-  posthog?.capture('service_cta_clicked', { service, plan, price })
+const trackServiceCta = (service: string, price: string) => {
+  posthog?.capture('service_cta_clicked', { service, price })
 }
 
 useSeoMeta({
-  title: 'Consultancy Services | NodeVault',
-  description: 'Hands-on privacy setup services: bespoke GrapheneOS phones, UmbrelOS home server setup, and Privacy Router installation. We source, configure, and install — you just use it.',
-  ogTitle: 'Consultancy Services | NodeVault',
-  ogDescription: 'GrapheneOS phone setup, UmbrelOS home server installation, and Privacy Router configuration. We handle everything.',
+  title: 'Setup Services | NodeVault',
+  description: 'Hands-on privacy setup services. GrapheneOS installation, UmbrelOS home server setup, and OPNSense router — configured and ready to use. From £100.',
+  ogTitle: 'Privacy Setup Services | NodeVault',
+  ogDescription: 'GrapheneOS phone setup, UmbrelOS home server installation, and OPNSense router configuration. We handle everything — you just use it.',
   ogType: 'website',
   twitterCard: 'summary_large_image',
-  keywords: 'privacy setup service UK, GrapheneOS installation UK, UmbrelOS setup service, home network privacy setup, privacy router installation UK',
+  keywords: 'privacy setup service UK, GrapheneOS installation UK, UmbrelOS setup service, OPNSense router setup, home network privacy setup',
 })
 
-const phonePlans = [
+const services = [
   {
-    name: 'Installation Only',
-    price: '£200',
-    highlight: false,
-    description: 'Supply your own compatible Pixel (6–9). We install GrapheneOS and hand it back configured and ready.',
+    title: 'GrapheneOS Setup',
+    icon: 'i-lucide-smartphone',
+    price: '£100',
+    optional: false,
+    description: 'Send us your compatible Google Pixel and we\'ll install GrapheneOS, apply security hardening, and set up to 10 apps of your choice — then hand it back ready to use.',
     features: [
-      'GrapheneOS installation on your device',
-      'Bootloader relocked, verified boot confirmed',
-      'Base privacy app stack (browser, messaging)',
-      'Permission review and lockdown',
-      'Written setup guide',
+      'GrapheneOS installation with bootloader relocked',
+      'Security hardening applied out of the box',
+      'Up to 10 apps installed to your specification',
+      'Apps chosen during the booking process',
+      '20-minute handover session',
+      '1 month email support',
+    ],
+    note: 'Compatible with Google Pixel 6 through Pixel 10. You supply the phone.',
+    addon: null,
+    cta: 'Book GrapheneOS Setup',
+  },
+  {
+    title: 'UmbrelOS Setup',
+    icon: 'i-lucide-server',
+    price: '£100',
+    optional: true,
+    description: 'UmbrelOS is genuinely easy to set up yourself — but if you\'d like us to handle it and walk you through everything, we\'re happy to.',
+    features: [
+      'UmbrelOS installation (if not already set up)',
+      'Up to 10 apps installed and configured',
+      'Apps chosen during the booking process',
+      '20-minute handover session',
+      '1 month email support',
+    ],
+    note: 'You\'ll need to have purchased your server hardware before booking. We recommend a Raspberry Pi 5.',
+    addon: null,
+    cta: 'Book UmbrelOS Setup',
+  },
+  {
+    title: 'OPNSense Router',
+    icon: 'i-lucide-shield-check',
+    price: '£300',
+    optional: false,
+    description: 'We source the hardware, install OPNSense, configure AdGuard Home, WireGuard VPN, and VLAN isolation — then ship it to you ready to plug in. No setup required on your end.',
+    features: [
+      'Router hardware sourced by NodeVault',
+      'OPNSense installed and configured',
+      'AdGuard Home — network-wide ad and tracker blocking',
+      'WireGuard VPN gateway',
+      'VLAN isolation for IoT and trusted devices',
+      '1 Wi-Fi access point included',
+      'Shipped ready to plug in',
+      '20-minute handover session',
+      '2 months email support',
+    ],
+    note: null,
+    addon: 'Additional access points £100 each — ideal for larger homes.',
+    cta: 'Order a Router',
+  },
+]
+
+const goldSections = [
+  {
+    title: 'GrapheneOS Phone',
+    icon: 'i-lucide-smartphone',
+    items: [
+      'GrapheneOS installed and hardened',
+      'Up to 10 apps to your spec',
+      '20-minute handover',
+      '1 month email support',
     ],
   },
   {
-    name: 'Bespoke Full Setup',
-    price: '£350',
-    highlight: true,
-    description: 'We source the phone, install GrapheneOS, and configure everything to your specification — your apps, your settings, your way.',
-    features: [
-      'Phone sourced on your behalf (Pixel 8a or 9 recommended)',
-      'GrapheneOS installation, bootloader relocked',
-      'Full privacy app stack installed to your spec',
-      'Permission audit and lockdown, app by app',
-      'Accounts and cloud services configured',
-      '30-minute video call handover walkthrough',
-      '30 days email support included',
+    title: 'UmbrelOS Server',
+    icon: 'i-lucide-server',
+    items: [
+      'UmbrelOS installed and configured',
+      'Up to 10 apps to your spec',
+      '20-minute handover',
+      '1 month email support',
+    ],
+  },
+  {
+    title: 'OPNSense Router',
+    icon: 'i-lucide-shield-check',
+    items: [
+      'Hardware sourced and built by NodeVault',
+      'AdGuard, WireGuard & VLANs configured',
+      '1 access point included',
+      'Shipped ready to plug in',
+      '20-minute handover',
+      '2 months email support',
     ],
   },
 ]
 
-const homeServerTiers = [
-  {
-    name: 'Advice Session',
-    tagline: 'Not sure where to start?',
-    price: '£75',
-    highlight: false,
-    description: 'A one-hour video call to assess your situation, recommend hardware, and walk through what UmbrelOS can do for you.',
-    includes: [
-      '1-hour video call',
-      'Personalised hardware recommendations',
-      'Software stack recommendations',
-      'Written summary of what we discussed',
-      'Follow-up email Q&A for 7 days',
-    ],
-  },
-  {
-    name: 'Full Home Server Setup',
-    tagline: 'We handle everything',
-    price: '£350',
-    highlight: true,
-    description: 'We procure hardware (or use yours), install UmbrelOS, configure your chosen apps, set up remote access, and hand over in a training call.',
-    includes: [
-      'Hardware procurement and sourcing',
-      'UmbrelOS installation and configuration',
-      'Up to 5 apps configured (Nextcloud, Vaultwarden, Pi-hole, etc.)',
-      'WireGuard VPN for remote access',
-      'DNS setup and local domain',
-      '2-hour handover and training session',
-      '60 days Signal support included',
-    ],
-  },
-  {
-    name: 'Complete Home Network',
-    tagline: 'Total digital sovereignty',
-    price: '£750',
-    highlight: false,
-    description: 'A comprehensive overhaul: router and network configuration, VLAN segmentation, server setup, all apps, and 3 months of monthly check-ins.',
-    includes: [
-      'Everything in Full Home Server Setup',
-      'Router and network architecture design',
-      'VLAN setup (IoT, guest, trusted device isolation)',
-      'Unlimited apps configured',
-      'Network-wide Pi-hole with custom blocklists',
-      '3 months of monthly check-in calls',
-      'Priority Signal support for 3 months',
-    ],
-  },
-]
-
-const routerPlans = [
-  {
-    name: 'Home Router',
-    price: '£175',
-    subscription: '£12',
-    badge: null,
-    badgeColor: 'neutral' as const,
-    description: 'For households up to 50 devices. Raspberry Pi 5 based, fanless enclosure — sourced, built, and installed by us.',
-    features: [
-      'Components sourced and built by us',
-      'Pi-hole + AdGuard Home DNS filtering',
-      'WireGuard VPN gateway',
-      'Basic VLAN support (2 networks)',
-      'Full home installation included',
-      'NodeVault dashboard access',
-      'Remote onboarding call',
-    ],
-  },
-  {
-    name: 'Office Router',
-    price: '£275',
-    subscription: '£20',
-    badge: 'More Powerful',
-    badgeColor: 'primary' as const,
-    description: 'For homes or offices up to 100 devices. Protectli hardware with dual NICs — sourced, built, and installed by us.',
-    features: [
-      'Components sourced and built by us',
-      'Protectli VP2420 quad-core hardware',
-      'Dual NIC for proper router-mode deployment',
-      'Pi-hole + AdGuard Home with custom blocklists',
-      'WireGuard VPN gateway',
-      'Full VLAN isolation (up to 8 networks)',
-      'Full home installation included',
-      'Traffic logging and query history',
-      'NodeVault dashboard with user management',
-      'Priority support and remote onboarding',
-    ],
-  },
+const supportFeatures = [
+  'Priority email support',
+  'Help with app updates and changes',
+  'Advice on new privacy tools',
+  'Troubleshooting and guidance',
+  'Cancel any time',
 ]
 </script>

@@ -6,24 +6,115 @@
       align="center">
       <template #links>
         <UButton
-          to="/grapheneos/phones"
-          size="xl"
-          icon="i-lucide-smartphone"
-          @click="posthog?.capture('grapheneos_phone_cta_clicked', { cta: 'buy_phone' })">
-          Buy a Pre-Configured Phone
+          href="https://grapheneos.org/"
+          target="_blank"
+          size="lg"
+          icon="i-lucide-external-link"
+          variant="ghost"
+          color="neutral">
+          GrapheneOS Website
         </UButton>
 
         <UButton
-          :to="`mailto:${config.contact.email}`"
-          size="xl"
-          icon="i-lucide-calendar"
-          variant="outline"
-          color="neutral"
-          @click="posthog?.capture('grapheneos_phone_cta_clicked', { cta: 'book_consultation' })">
-          Book a Setup Consultation
+          to="/services"
+          size="lg"
+          icon="i-lucide-message-circle">
+          Need help getting started
         </UButton>
       </template>
     </UPageHero>
+
+    <UPageSection
+      title="Your phone is tracking you. Here's how to stop it."
+      description="Both iOS and Android collect far more data than most people realise — and most of it cannot be turned off through settings. GrapheneOS is a hardened Android operating system that eliminates surveillance at the OS level."
+      align="center">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 max-w-5xl mx-auto">
+        <div class="rounded-2xl border border-default bg-muted/20 p-6 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="flex items-center justify-center size-10 rounded-xl bg-muted shrink-0">
+              <UIcon
+                name="i-lucide-apple"
+                class="size-5" />
+            </div>
+
+            <h3 class="font-bold text-lg">
+              iOS
+            </h3>
+          </div>
+
+          <p class="text-sm text-muted">
+            Apple's privacy marketing is aggressive, but iOS still collects significant data by default.
+          </p>
+
+          <ul class="space-y-2.5">
+            <li
+              v-for="item in iosTracking"
+              :key="item.title"
+              class="flex items-start gap-3 text-sm">
+              <UIcon
+                name="i-lucide-alert-circle"
+                class="size-4 text-warning shrink-0 mt-0.5" />
+
+              <div>
+                <p class="font-medium">
+                  {{ item.title }}
+                </p>
+
+                <p class="text-muted text-xs mt-0.5">
+                  {{ item.detail }}
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="rounded-2xl border border-default bg-muted/20 p-6 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="flex items-center justify-center size-10 rounded-xl bg-muted shrink-0">
+              <UIcon
+                name="i-lucide-smartphone"
+                class="size-5" />
+            </div>
+
+            <h3 class="font-bold text-lg">
+              Stock Android
+            </h3>
+          </div>
+
+          <p class="text-sm text-muted">
+            Google's business model is advertising. Android is the data collection tool.
+          </p>
+
+          <ul class="space-y-2.5">
+            <li
+              v-for="item in androidTracking"
+              :key="item.title"
+              class="flex items-start gap-3 text-sm">
+              <UIcon
+                name="i-lucide-alert-circle"
+                class="size-4 text-error shrink-0 mt-0.5" />
+
+              <div>
+                <p class="font-medium">
+                  {{ item.title }}
+                </p>
+
+                <p class="text-muted text-xs mt-0.5">
+                  {{ item.detail }}
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <UCallout
+        class="mt-8 max-w-3xl mx-auto text-left"
+        icon="i-lucide-info"
+        color="neutral">
+        A 2018 study by Douglas Leith at Trinity College Dublin found that Google Android sends approximately 20 times more data to Google than iOS sends to Apple. A 2021 follow-up by the same researcher found both platforms send device identifiers even when users have opted out of tracking.
+      </UCallout>
+    </UPageSection>
 
     <UPageSection
       title="What Makes GrapheneOS Different"
@@ -36,49 +127,6 @@
           :title="feature.title"
           :description="feature.description"
           :icon="feature.icon" />
-      </UPageGrid>
-    </UPageSection>
-
-    <UPageSection
-      title="Our GrapheneOS Services"
-      description="Whether you want a phone delivered ready to go, or need help setting up your existing Pixel, we've got you covered."
-      align="center">
-      <UPageGrid>
-        <UPageCard
-          title="Pre-Configured Phones"
-          description="Order a Google Pixel with GrapheneOS already installed, hardened settings applied, and recommended apps set up. Ships ready to use — no technical knowledge needed."
-          icon="i-lucide-package"
-          to="/grapheneos/phones">
-          <template #footer>
-            <UButton
-              to="/grapheneos/phones"
-              size="sm"
-              variant="outline"
-              color="neutral"
-              icon="i-lucide-arrow-right"
-              trailing>
-              View phones
-            </UButton>
-          </template>
-        </UPageCard>
-
-        <UPageCard
-          title="Setup Consulting"
-          description="Already have a Pixel or want to buy one yourself? We'll walk you through installing GrapheneOS, configuring privacy settings, and replacing Google apps — via video call at your own pace."
-          icon="i-lucide-video"
-          :to="`mailto:${config.contact.email}`">
-          <template #footer>
-            <UButton
-              :to="`mailto:${config.contact.email}`"
-              size="sm"
-              variant="outline"
-              color="neutral"
-              icon="i-lucide-arrow-right"
-              trailing>
-              Get in touch
-            </UButton>
-          </template>
-        </UPageCard>
       </UPageGrid>
     </UPageSection>
 
@@ -116,6 +164,57 @@ useSeoMeta({
 })
 
 const config = useConfig()
+
+const iosTracking = [
+  {
+    title: 'Device analytics shared with Apple and partners',
+    detail: 'Enabled by default. Covers usage patterns, crash logs, app interactions, and Siri query content.',
+  },
+  {
+    title: 'iCloud backups scanned for CSAM — and more',
+    detail: 'Apple scans iCloud Photo Library contents on-device before upload. The same infrastructure could be applied to other content categories.',
+  },
+  {
+    title: 'Precise location shared for "personalised ads"',
+    detail: 'iOS shares location data with Apple\'s advertising platform. Disabling this requires navigating multiple settings screens and doesn\'t cover all data flows.',
+  },
+  {
+    title: 'Siri processes queries on Apple servers',
+    detail: 'Even with "improve Siri" disabled, voice queries are processed server-side. Audio snippets are retained for a period.',
+  },
+  {
+    title: 'App Store purchase and browsing history retained',
+    detail: 'Apple retains your full App Store history and associates it with your Apple ID indefinitely.',
+  },
+]
+
+const androidTracking = [
+  {
+    title: 'OS-level telemetry to Google every few minutes',
+    detail: 'Research by Trinity College Dublin found stock Android pings Google servers regularly even with no apps running, sharing location, hardware IDs, and network data.',
+  },
+  {
+    title: 'Google Play Services runs with system-level privileges',
+    detail: 'Google Play Services cannot be removed on stock Android. It has access to your contacts, location, app data, and device identifiers — always.',
+  },
+  {
+    title: 'Location history even when "off"',
+    detail: 'Google was found to record location even when users had disabled Location History, using Wi-Fi scan data and Cell ID lookups as proxies.',
+  },
+  {
+    title: 'All search, maps, and Assistant queries retained',
+    detail: 'Every query across Google apps is logged and associated with your Google account. This includes voice queries to Google Assistant.',
+  },
+  {
+    title: 'Ad ID tracks you across every app',
+    detail: 'Android assigns a persistent advertising identifier that follows you across every app. "Resetting" it creates a new ID but doesn\'t delete the history associated with the old one.',
+  },
+  {
+    title: 'Manufacturer and carrier bloatware with own telemetry',
+    detail: 'Samsung, OnePlus, and carrier-branded phones ship with additional apps that run their own telemetry independently of Google.',
+  },
+]
+
 const features = [
   {
     title: 'Zero Google Services',

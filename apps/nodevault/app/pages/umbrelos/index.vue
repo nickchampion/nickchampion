@@ -6,22 +6,20 @@
       align="center">
       <template #links>
         <UButton
-          to="#what-you-can-self-host"
-          size="xl"
-          icon="i-lucide-chevron-down"
-          variant="outline"
-          color="neutral">
-          What Can I Self-Host?
-        </UButton>
-
-        <UButton
           href="https://getumbrel.com"
           target="_blank"
-          size="xl"
+          size="lg"
           icon="i-lucide-external-link"
           variant="ghost"
           color="neutral">
           UmbrelOS Website
+        </UButton>
+
+        <UButton
+          to="/services"
+          size="lg"
+          icon="i-lucide-message-circle">
+          Need help getting started
         </UButton>
       </template>
     </UPageHero>
@@ -51,71 +49,6 @@
             </p>
           </div>
         </div>
-      </div>
-    </UPageSection>
-
-    <UPageSection
-      title="The real cost of cloud storage"
-      description="Cloud subscription costs are designed to feel small individually. They add up quickly."
-      align="center">
-      <div class="max-w-3xl mx-auto mt-4 space-y-3">
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead>
-              <tr class="border-b border-default text-left">
-                <th class="pb-3 font-semibold">Service</th>
-                <th class="pb-3 font-semibold">What it replaces</th>
-                <th class="pb-3 font-semibold">Monthly cost</th>
-                <th class="pb-3 font-semibold">Annual cost</th>
-              </tr>
-            </thead>
-
-            <tbody class="divide-y divide-default">
-              <tr
-                v-for="sub in subscriptions"
-                :key="sub.service">
-                <td class="py-3 font-medium">
-                  {{ sub.service }}
-                </td>
-
-                <td class="py-3 text-muted text-xs">
-                  {{ sub.replaces }}
-                </td>
-
-                <td class="py-3">
-                  {{ sub.monthly }}
-                </td>
-
-                <td class="py-3 font-semibold">
-                  {{ sub.annual }}
-                </td>
-              </tr>
-
-              <tr class="bg-muted/20">
-                <td
-                  class="py-3 font-bold"
-                  colspan="2">
-                  Combined total
-                </td>
-
-                <td class="py-3 font-bold">
-                  ~£35/mo
-                </td>
-
-                <td class="py-3 font-bold text-error">
-                  ~£420/yr
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <UCallout
-          icon="i-lucide-server"
-          color="primary"
-          class="text-left">
-          A Mini PC running UmbrelOS costs around £130 and draws 6W of power — roughly £6/year in electricity. It replaces every service in that table, permanently, with no ongoing costs and no data leaving your home.
-        </UCallout>
       </div>
     </UPageSection>
 
@@ -151,7 +84,6 @@
       title="What hardware do you need?"
       description="UmbrelOS runs on almost anything — but Umbrel also make purpose-built hardware that ships with umbrelOS pre-installed and takes about five minutes to set up."
       align="center">
-
       <!-- Official Umbrel hardware -->
       <div class="mb-8">
         <p class="text-xs font-semibold text-muted uppercase tracking-wide mb-4 text-center">
@@ -162,7 +94,7 @@
           <div
             v-for="option in umbrelHardware"
             :key="option.title"
-            class="rounded-2xl border border-primary/30 bg-primary/5 p-6 flex flex-col gap-4">
+            class="rounded-2xl border border-primary/30 bg-primary/5 p-6 text-left flex flex-col gap-4">
             <div class="flex items-start justify-between gap-3">
               <div>
                 <h3 class="font-bold text-sm">
@@ -251,7 +183,7 @@
               <li
                 v-for="spec in option.specs"
                 :key="spec"
-                class="flex items-start gap-2 text-xs text-muted">
+                class="flex items-start gap-2 text-xs text-muted text-left">
                 <UIcon
                   name="i-lucide-chevron-right"
                   class="size-3.5 text-primary shrink-0 mt-0.5" />
@@ -274,32 +206,6 @@
         color="neutral">
         DIY builds: add an external USB 3.0 hard drive for storage — a 4TB drive costs around £70 and is where your files, photos, and backups will live. Umbrel Home and Pro have internal NVMe storage, though a large external drive is still worthwhile for media libraries.
       </UCallout>
-    </UPageSection>
-
-    <UPageSection align="center">
-      <UCard class="max-w-2xl mx-auto text-center p-8 space-y-4">
-        <UIcon
-          name="i-lucide-message-circle"
-          class="size-10 text-primary mx-auto" />
-
-        <h2 class="text-2xl font-bold">
-          Want some guidance?
-        </h2>
-
-        <p class="text-muted">
-          If you're thinking about setting up a home server and would like some advice — what hardware to buy, how to get started with UmbrelOS, or which apps make sense for your situation — feel free to get in touch. Happy to help.
-        </p>
-
-        <UButton
-          to="/company/contact"
-          size="xl"
-          variant="outline"
-          color="neutral"
-          icon="i-lucide-arrow-right"
-          trailing>
-          Get in touch
-        </UButton>
-      </UCard>
     </UPageSection>
   </UPage>
 </template>
@@ -346,14 +252,6 @@ const cloudConcerns = [
     icon: 'i-lucide-trending-up',
     detail: 'Google One, iCloud, and Dropbox have all increased prices in the past two years. You have no leverage and no alternative if you\'re already locked into their ecosystem.',
   },
-]
-
-const subscriptions = [
-  { service: 'iCloud 2TB', replaces: 'File storage & photo backup', monthly: '£6.99', annual: '£83.88' },
-  { service: 'Dropbox Plus', replaces: 'File storage & sharing', monthly: '£9.99', annual: '£119.88' },
-  { service: 'Google One 2TB', replaces: 'Drive, Photos & Gmail storage', monthly: '£8.99', annual: '£107.88' },
-  { service: 'LastPass / 1Password', replaces: 'Password management', monthly: '£2.99', annual: '£35.88' },
-  { service: 'Plex Pass', replaces: 'Media streaming', monthly: '£4.99', annual: '£59.88' },
 ]
 
 const apps = [
@@ -425,7 +323,7 @@ const reasons = [
 const umbrelHardware = [
   {
     title: 'Umbrel Home',
-    subtitle: 'From $549 · umbrel.com/umbrel-home',
+    subtitle: 'From £429 · umbrel.com/umbrel-home',
     href: 'https://umbrel.com/umbrel-home',
     description: 'Purpose-built hardware from the team behind UmbrelOS. Ships pre-installed and ready in 30 seconds — no setup knowledge required. The simplest possible way to get started.',
     specs: [
@@ -439,7 +337,7 @@ const umbrelHardware = [
   },
   {
     title: 'Umbrel Pro',
-    subtitle: 'Premium · umbrel.com/umbrel-pro',
+    subtitle: 'From £529 · umbrel.com/umbrel-pro',
     href: 'https://umbrel.com/umbrel-pro',
     description: 'The high-end option. Designed for serious storage with up to 32TB across four NVMe slots, FailSafe RAID mode to protect against drive failure, and a premium aluminium and walnut enclosure.',
     specs: [
@@ -456,7 +354,7 @@ const umbrelHardware = [
 const hardware = [
   {
     title: 'Mini PC',
-    subtitle: 'Recommended · ~£120–160',
+    subtitle: 'Recommended · ~£150+',
     icon: 'i-lucide-server',
     description: 'The best all-round option. An Intel N100 or N95 mini PC is silent, uses around 6W idle (under £6/year in electricity), and handles everything including 4K video transcoding.',
     specs: [
@@ -470,7 +368,7 @@ const hardware = [
   },
   {
     title: 'Raspberry Pi 5',
-    subtitle: 'Lightweight option · ~£70–90 board only',
+    subtitle: 'Lightweight option · ~£100 board only',
     icon: 'i-lucide-cpu',
     description: 'A capable platform for lighter workloads — Nextcloud file sync, Vaultwarden, Pi-hole, and Home Assistant. Struggles with 4K video transcoding.',
     specs: [
