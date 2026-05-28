@@ -1,39 +1,44 @@
+<template>
+  <div
+    class="blog-blocks"
+    v-html="html" />
+</template>
+
 <script setup lang="ts">
 import type { BlocksContent, BlockNode, BlockTextNode } from '@nodevault/platform.integrations.strapi'
 
 const props = defineProps<{ blocks: BlocksContent }>()
-
-// ─── Text node renderer ──────────────────────────────────────────────────────
 
 function renderText(node: BlockTextNode): string {
   if (!node.text) return ''
 
   // Escape HTML entities in raw text
   let t = node.text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
 
   // Apply inline formatting — order matters (code first to avoid double-wrapping)
   if (node.code) return `<code>${t}</code>`
+
   if (node.bold) t = `<strong>${t}</strong>`
+
   if (node.italic) t = `<em>${t}</em>`
+
   if (node.underline) t = `<u>${t}</u>`
+
   if (node.strikethrough) t = `<s>${t}</s>`
+
   return t
 }
 
-// ─── Children renderer (mixed block + text nodes) ───────────────────────────
-
 function renderChildren(nodes: (BlockNode | BlockTextNode)[] | undefined): string {
   if (!nodes?.length) return ''
-  return nodes.map(node => node.type === 'text'
-    ? renderText(node as BlockTextNode)
-    : renderBlock(node as BlockNode),
-  ).join('')
-}
 
-// ─── Block renderer ──────────────────────────────────────────────────────────
+  return nodes.map(node => (node.type === 'text'
+    ? renderText(node as BlockTextNode)
+    : renderBlock(node as BlockNode))).join('')
+}
 
 function renderBlock(node: BlockNode): string {
   const inner = renderChildren(node.children)
@@ -44,11 +49,13 @@ function renderBlock(node: BlockNode): string {
 
   if (node.type === 'heading') {
     const tag = `h${node.level ?? 2}`
+
     return `<${tag}>${inner}</${tag}>`
   }
 
   if (node.type === 'list') {
     const tag = node.format === 'ordered' ? 'ol' : 'ul'
+
     return `<${tag}>${inner}</${tag}>`
   }
 
@@ -66,17 +73,20 @@ function renderBlock(node: BlockNode): string {
       .filter(c => c.type === 'text')
       .map(c => (c as BlockTextNode).text ?? '')
       .join('')
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
     const lang = node.language ?? 'plaintext'
+
     return `<pre><code class="language-${lang}">${raw}</code></pre>`
   }
 
   if (node.type === 'image') {
     // Strapi image blocks carry their metadata in a nested `image` object
     const img = (node as BlockNode & { image?: { url: string, alternativeText?: string } }).image
+
     if (!img?.url) return ''
+
     return `<img src="${img.url}" alt="${img.alternativeText ?? ''}" loading="lazy" />`
   }
 
@@ -88,16 +98,8 @@ function renderBlock(node: BlockNode): string {
   return inner
 }
 
-// ─── Final output ─────────────────────────────────────────────────────────────
-
 const html = computed(() => props.blocks?.map(renderBlock).join('') ?? '')
 </script>
-
-<template>
-  <div
-    class="blog-blocks"
-    v-html="html" />
-</template>
 
 <style scoped>
 .blog-blocks :deep(h1),
