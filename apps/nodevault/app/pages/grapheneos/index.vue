@@ -108,12 +108,15 @@
         </div>
       </div>
 
-      <UCallout
+      <UAlert
         class="mt-8 max-w-3xl mx-auto text-left"
         icon="i-lucide-info"
-        color="neutral">
-        A 2018 study by Douglas Leith at Trinity College Dublin found that Google Android sends approximately 20 times more data to Google than iOS sends to Apple. A 2021 follow-up by the same researcher found both platforms send device identifiers even when users have opted out of tracking.
-      </UCallout>
+        color="neutral"
+        variant="subtle">
+        <template #description>
+          A 2018 study by Douglas Leith at Trinity College Dublin found that Google Android sends approximately 20 times more data to Google than iOS sends to Apple. A 2021 follow-up by the same researcher found both platforms send device identifiers even when users have opted out of tracking.
+        </template>
+      </UAlert>
     </UPageSection>
 
     <UPageSection

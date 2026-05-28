@@ -14,7 +14,6 @@ export const useAuthStore = defineStore('auth', () => {
   const auth = useCookie<string | null>('nodevault-auth', cookieOptions)
   const expires = useCookie<string | null>('nodevault-expires', cookieOptions)
   const userCookie = useCookie<UserSchema | null>('nodevault-user', cookieOptions)
-
   const user = ref<UserSchema | null>(userCookie.value ?? null)
 
   const cookies = [

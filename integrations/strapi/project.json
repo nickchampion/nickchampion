@@ -1,0 +1,20 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "@nodevault/platform.integrations.strapi",
+  "sourceRoot": "integrations/strapi",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "integrations/strapi/**/*.ts"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

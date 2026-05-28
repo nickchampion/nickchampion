@@ -1,5 +1,6 @@
 import type { OpenAPIV3 } from 'openapi-types'
-import { StandardResponse } from './common.js'
+import { StandardResponseSchema } from './models.js'
+import { asSchema } from './utils.js'
 
 export const unauthorised: OpenAPIV3.ResponseObject = {
   description: 'Unauthorised',
@@ -32,7 +33,7 @@ export const apiResponses: Record<string, OpenAPIV3.ReferenceObject | OpenAPIV3.
     description: 'Invalid or expired token, please login again.',
     content: {
       'application/json': {
-        schema: StandardResponse,
+        schema: asSchema(StandardResponseSchema),
       },
     },
   },
@@ -40,7 +41,7 @@ export const apiResponses: Record<string, OpenAPIV3.ReferenceObject | OpenAPIV3.
     description: 'You do not have access to the requested resource.',
     content: {
       'application/json': {
-        schema: StandardResponse,
+        schema: asSchema(StandardResponseSchema),
       },
     },
   },
@@ -48,7 +49,7 @@ export const apiResponses: Record<string, OpenAPIV3.ReferenceObject | OpenAPIV3.
     description: 'The requested resource cannot be found.',
     content: {
       'application/json': {
-        schema: StandardResponse,
+        schema: asSchema(StandardResponseSchema),
       },
     },
   },
@@ -56,7 +57,7 @@ export const apiResponses: Record<string, OpenAPIV3.ReferenceObject | OpenAPIV3.
     description: 'The request contains malformed data in path, query parameters, or body.',
     content: {
       'application/json': {
-        schema: StandardResponse,
+        schema: asSchema(StandardResponseSchema),
       },
     },
   },
@@ -64,7 +65,7 @@ export const apiResponses: Record<string, OpenAPIV3.ReferenceObject | OpenAPIV3.
     description: 'Something went wrong, please reload or go back and try again.',
     content: {
       'application/json': {
-        schema: StandardResponse,
+        schema: asSchema(StandardResponseSchema),
       },
     },
   },
@@ -72,7 +73,7 @@ export const apiResponses: Record<string, OpenAPIV3.ReferenceObject | OpenAPIV3.
     description: 'Ok',
     content: {
       'application/json': {
-        schema: StandardResponse,
+        schema: asSchema(StandardResponseSchema),
       },
     },
   },

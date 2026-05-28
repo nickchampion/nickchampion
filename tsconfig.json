@@ -45,7 +45,8 @@
       "@nodevault/platform.components.utils": ["./components/utils/index.ts"],
       "@nodevault/platform.components.utils.server": ["./components/utils-server/index.ts"],
       "@nodevault/platform.integrations.resend": ["./integrations/resend/index.ts"],
-      "@nodevault/platform.integrations.cloudflare": ["./integrations/cloudflare/index.ts"]
+      "@nodevault/platform.integrations.cloudflare": ["./integrations/cloudflare/index.ts"],
+      "@nodevault/platform.integrations.strapi": ["./integrations/strapi/index.ts"]
     }
   }
 }

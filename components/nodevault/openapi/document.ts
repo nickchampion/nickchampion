@@ -2,6 +2,7 @@ import type { OpenAPIV3 } from 'openapi-types'
 import { openapi } from '@nodevault/platform.components.domain'
 import * as paths from './paths/index.js'
 import * as schema from './schema/index.js'
+import { asSchema } from './schema/utils.js'
 
 export const composeOpenApiDocument = (): OpenAPIV3.Document => {
   const document: OpenAPIV3.Document = {
@@ -34,20 +35,24 @@ export const composeOpenApiDocument = (): OpenAPIV3.Document => {
       },
       schemas: {
         // account
-        UserSchema: schema.responses.account.UserSchema,
-        AccountSchema: schema.responses.account.AccountSchema,
-        UserSearchResultsSchema: openapi.search.SearchResults(schema.responses.account.UserSchema),
+        UserSchema: asSchema(schema.responses.account.UserSchema),
+        AccountSchema: asSchema(schema.responses.account.AccountSchema),
+        UserSearchResultsSchema: asSchema(openapi.search.SearchResults(schema.responses.account.UserSchema)),
         // auth
-        VerifyLoginSchema: schema.responses.auth.VerifyLoginSchema,
-        RegisterRequestSchema: schema.requests.auth.RegisterRequestSchema,
+        VerifyLoginSchema: asSchema(schema.responses.auth.VerifyLoginSchema),
+        RegisterRequestSchema: asSchema(schema.requests.auth.RegisterRequestSchema),
         // comms
-        ContactRequestSchema: schema.requests.comms.ContactRequestSchema,
+        ContactRequestSchema: asSchema(schema.requests.comms.ContactRequestSchema),
+        // blog
+        BlogCategorySchema: asSchema(schema.responses.blog.BlogCategorySchema),
+        BlogArticleSchema: asSchema(schema.responses.blog.BlogArticleSchema),
       },
     },
     paths: {
       ...paths.auth,
       ...paths.comms,
       ...paths.system,
+      ...paths.blog,
     },
   }
 

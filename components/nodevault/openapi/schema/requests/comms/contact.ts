@@ -1,29 +1,31 @@
+import { Type, type Static } from '@sinclair/typebox'
 import type { OpenAPIV3 } from 'openapi-types'
 import { openapi } from '@nodevault/platform.components.domain'
+import { asSchema } from '../../utils.js'
 
-export const ContactRequestSchema: OpenAPIV3.SchemaObject = {
-  type: 'object',
-  additionalProperties: false,
-  required: ['name', 'email', 'interests', 'message'],
-  nullable: false,
-  properties: {
-    name: { type: 'string', nullable: false },
-    email: { type: 'string', format: 'email', nullable: false },
-    interests: {
-      type: 'array',
-      items: { type: 'string', enum: ['grapheneos', 'umbrelos', 'business', 'other'] },
-      minItems: 1,
-    },
-    message: { type: 'string', nullable: false },
-    phone: openapi.common.Phone,
-  },
-}
+export const ContactRequestSchema = Type.Object({
+  name: Type.String(),
+  email: Type.String({ format: 'email' }),
+  interests: Type.Array(
+    Type.Union([
+      Type.Literal('grapheneos'),
+      Type.Literal('umbrelos'),
+      Type.Literal('business'),
+      Type.Literal('other'),
+    ]),
+    { minItems: 1 },
+  ),
+  message: Type.String(),
+  phone: Type.Optional(openapi.models.PhoneSchema),
+}, { additionalProperties: false })
+
+export type ContactRequestSchema = Static<typeof ContactRequestSchema>
 
 export const ContactRequest: OpenAPIV3.RequestBodyObject = {
   required: true,
   content: {
     'application/json': {
-      schema: ContactRequestSchema,
+      schema: asSchema(ContactRequestSchema),
     },
   },
 }

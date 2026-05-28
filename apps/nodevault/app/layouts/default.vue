@@ -50,7 +50,7 @@ const navLinks: NavigationMenuItem[] = [
       },
     ],
   },
-  { label: 'Our services', to: '/services' },
+  // { label: 'Our services', to: '/services' },
   { label: 'Blog', to: '/blog' },
 ]
 </script>

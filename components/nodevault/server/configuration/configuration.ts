@@ -11,6 +11,7 @@ export type ServerConfiguration = {
   ravendb: RavenDB
   cloudflare: Cloudflare
   ntfy: Ntfy
+  strapi: Strapi
   resend: {
     apiKey: string
     from: string
@@ -37,9 +38,14 @@ export type RavenDB = {
   database: string
 }
 
+export type Strapi = {
+  host: string
+  apiKey: string
+}
+
 export type Cloudflare = {
   accountId: string
-  apiToken: string
+  apiKey: string
 }
 
 export const server = {
@@ -87,7 +93,7 @@ export const server = {
   },
   cloudflare: {
     accountId: '6588d1ee1643e6a11baba75c0cbea29e',
-    apiToken: {
+    apiKey: {
       default: 'zshhB3CwntGNBdMigHIC3eleLw33laknTfZ0+3aS8jEwciTVZDNaaJCd90mWCbkbs6LpcPXVNPDokgSoz5ou',
       prod: 'C5hRCGX0iUDF6fbZLUCcCZlEgPmyjM+VSJXwe8PsdYEHF2/leyn+6RgfE7ht1SMtfY2uW83/tXj2rdfNmMSK',
       encrypted: true,
@@ -112,5 +118,13 @@ export const server = {
       encrypted: true,
     },
     from: 'NodeVault <hello@nodevault.cloud>',
+  },
+  strapi: {
+    host: 'https://strapi.nickchampion.me/api',
+    apiKey: {
+      default: 'HTTe8ENwhk6XjLVQTNwW90XnriPhAVpHUf8iKrNmAjndWhqIu2fIH2u1LUfYIpJeoTRXQenIga0+Swm5Pr5INH7MWcRZvFq6M7QCjzOOctUZ1gAYmjyShnbig+Dx+oVMvn0FVb7xNoQujJkxVPRlPiELFCs5S3PrdJ2tuVLUn1aCa74xhrx1eA6RI/3+AI3Rlnsb/l5eC6dzdx1hfrgr37JV3OA0PUQfsJbX1B+PtF3Q30jYa8kvEzWEEHl4wP3eZQ07oAuvgl5Vs+I+dNp3z9iE0DAs4kUs+pA5g9ZqY6vxTFB8V29K/RPkdkgj1j56e8awZEvOPRnwwexhirNbxq3Nor/IyWnGDjQ=',
+      prod: 'acYDjuxT4IZqMaicJ0MeP6gsESezgXqFJGrkWybQ2JezcLsJ+18kOXtBoXXMphd/xV/LYCfk9ElLQ5FIrfkwIHAk4ZJoFgFkD5CnEUC0xLtVTUEytb8ecMGTg6P/qSyUEEftFPRqeOlrvEycKPBTdDrh/PJJedyNgZDlzZxUl4cP7Y8tW93qV3wAV5Dwkvc5x0nlgHj4fDAl9v4ckk0zzGYkJJmk+Myzp6ZSTJTy/BUNv1OS6bNyWCu9njO2evlkyK4vE+xBPgXb5TvbNDpieuG9HD7Md0w+zIexnuVs74v2iTrEzd7AYHdpa8C8x0d9dbpE/AelHRlCGW/5ORmVGI/qwsjo/L0ZPFU=',
+      encrypted: true,
+    },
   },
 }

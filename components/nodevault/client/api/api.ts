@@ -2,11 +2,13 @@ import { AccountApi } from './account.js'
 import { AuthApi } from './auth.js'
 import { CommsApi } from './comms.js'
 import { ApiClient } from './client.js'
+import { BlogApi } from './blog.js'
 
 export class NodeVaultApiClient extends ApiClient {
   private _account: AccountApi | null = null
   private _comms: CommsApi | null = null
   private _auth: AuthApi | null = null
+  private _blog: BlogApi | null = null
 
   get account(): AccountApi {
     return this._account ?? (this._account = new AccountApi(this))
@@ -18,5 +20,9 @@ export class NodeVaultApiClient extends ApiClient {
 
   get auth(): AuthApi {
     return this._auth ?? (this._auth = new AuthApi(this))
+  }
+
+  get blog(): BlogApi {
+    return this._blog ?? (this._blog = new BlogApi(this))
   }
 }

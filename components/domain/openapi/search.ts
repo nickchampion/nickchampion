@@ -1,229 +1,80 @@
-import type { OpenAPIV3 } from 'openapi-types'
+import { Type, type Static, type TSchema } from '@sinclair/typebox'
 
-export const ActiveFilters: OpenAPIV3.SchemaObject = {
-  type: 'object',
-  required: ['name', 'displayName', 'clearUrl', 'terms'],
-  properties: {
-    name: {
-      description: 'Name of the filter',
-      type: 'string',
-    },
-    displayName: {
-      description: 'Name of the filter',
-      type: 'string',
-    },
-    clearUrl: {
-      description: 'URL used to remove the filter from the query',
-      type: 'string',
-    },
-    terms: {
-      description: 'Array of terms that have been applied to this filter',
-      type: 'array',
-      items: {
-        type: 'object',
-        required: ['name', 'clearUrl', 'id', 'hits'],
-        properties: {
-          name: {
-            description: 'Name of the term',
-            type: 'string',
-          },
-          id: {
-            description: 'Unique id of the term used to apply the term filter to the query',
-            type: 'string',
-          },
-          hits: {
-            description: 'Number of documents that will be returned if you apply this facet term to the query',
-            type: 'string',
-          },
-          clearUrl: {
-            description: 'URL used to remove this term from the filter and the query',
-            type: 'string',
-          },
-        },
-      },
-    },
-  },
-}
+const ActiveFilterTerm = Type.Object({
+  name: Type.String({ description: 'Name of the term' }),
+  id: Type.String({ description: 'Unique id of the term used to apply the term filter to the query' }),
+  hits: Type.String({ description: 'Number of documents that will be returned if you apply this facet term to the query' }),
+  clearUrl: Type.String({ description: 'URL used to remove this term from the filter and the query' }),
+}, { additionalProperties: false })
 
-export const Facets: OpenAPIV3.SchemaObject = {
-  type: 'object',
-  required: ['displayName', 'clearUrl', 'disabled', 'name', 'selected', 'active', 'terms'],
-  properties: {
-    displayName: {
-      description: 'User friendly name of the facet field',
-      type: 'string',
-    },
-    clearUrl: {
-      description: 'URL used to remove this term from the facet and the query',
-      type: 'string',
-    },
-    disabled: {
-      description:
-        'If true this facet has been applied to the query and cannot be edited except to use the clearUrl to remove this facet from the query',
-      type: 'boolean',
-    },
-    name: {
-      description: 'Name of the facet, must match the facet name in the URL',
-      type: 'string',
-    },
-    selected: {
-      description: 'If true indicates this facet has been applied to the query',
-      type: 'boolean',
-    },
-    active: {
-      description:
-        'If true this is the active facet, the active facet is the facet a user is currently choosing terms from for the results. It behaves differently to other facets in that the API will return all terms for this facet as if we had not yet applied the facet to the query, this is to support multiple selection of terms for each facet',
-      type: 'boolean',
-    },
-    terms: {
-      description: 'Array of terms that are available to apply to the query for the given facet',
-      type: 'array',
-      items: {
-        type: 'object',
-        required: ['name', 'url', 'hits', 'selected', 'id', 'state'],
-        properties: {
-          name: {
-            description: 'Name of the term',
-            type: 'string',
-          },
-          url: {
-            description:
-              'URL used to add (if this terms is not currently included in the query) or to remove (if the term is currently applied to the query) this term from the facet',
-            type: 'string',
-          },
-          hits: {
-            description: 'Number of documents that will be returned if you apply this facet term to the query',
-            type: 'number',
-          },
-          selected: {
-            description: 'True if this facet term has been applied to the query',
-            type: 'boolean',
-          },
-          id: {
-            description: 'Unique id of the term used to apply the term filter to the query',
-            type: 'string',
-          },
-          state: {
-            description: 'String representation of the current state of the term',
-            type: 'string',
-            enum: ['checked disabled', 'checked', 'disabled', ''],
-          },
-          aggregations: {
-            type: 'object',
-            additionalProperties: {
-              type: 'object',
-              properties: {
-                sum: {
-                  description: 'If the aggregation was "sum" this is the sum of this field across the results',
-                  type: 'number',
-                },
-                min: {
-                  description: 'If the aggregation was "min" this is the lowest matching value of this field across the results',
-                  type: 'number',
-                },
-                max: {
-                  description: 'If the aggregation was "max" this is the highest matching value of this field across the results',
-                  type: 'number',
-                },
-                average: {
-                  description: 'If the aggregation was "average" this is the average of this field across the results',
-                  type: 'number',
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-}
+export const ActiveFilters = Type.Object({
+  name: Type.String({ description: 'Name of the filter' }),
+  displayName: Type.String({ description: 'Name of the filter' }),
+  clearUrl: Type.String({ description: 'URL used to remove the filter from the query' }),
+  terms: Type.Array(ActiveFilterTerm, { description: 'Array of terms that have been applied to this filter' }),
+}, { additionalProperties: false })
 
-export const Aggregations: OpenAPIV3.SchemaObject = {
-  type: 'object',
-  properties: {
-    name: {
-      description: 'Name of the field we have aggregated on',
-      type: 'string',
-    },
-    sum: {
-      description: 'If the aggregation was "sum" this is the sum of this field across the results',
-      type: 'number',
-    },
-    min: {
-      description: 'If the aggregation was "min" this is the lowest matching value of this field across the results',
-      type: 'number',
-    },
-    max: {
-      description: 'If the aggregation was "max" this is the highest matching value of this field across the results',
-      type: 'number',
-    },
-    average: {
-      description: 'If the aggregation was "average" this is the average of this field across the results',
-      type: 'number',
-    },
-    count: {
-      description: 'The number of documents used to calculate the aggregation',
-      type: 'number',
-    },
-    range: {
+export type ActiveFilters = Static<typeof ActiveFilters>
 
-      description: "Used when we have a set of ranges we've aggregated on (Age range, price range etc)",
-      type: 'string',
-    },
-    hits: {
-      description: 'The number of documents used to calculate the aggregation',
-      type: 'number',
-    },
-    unit: {
-      description: 'The measurement unit or currency of the aggregated value',
-      type: 'string',
-    },
-  },
-}
+const FacetTermAggregations = Type.Record(
+  Type.String(),
+  Type.Object({
+    sum: Type.Optional(Type.Number({ description: 'If the aggregation was "sum" this is the sum of this field across the results' })),
+    min: Type.Optional(Type.Number({ description: 'If the aggregation was "min" this is the lowest matching value of this field across the results' })),
+    max: Type.Optional(Type.Number({ description: 'If the aggregation was "max" this is the highest matching value of this field across the results' })),
+    average: Type.Optional(Type.Number({ description: 'If the aggregation was "average" this is the average of this field across the results' })),
+  }),
+)
 
-export const SearchResults = (docs?: OpenAPIV3.SchemaObject, custom?: OpenAPIV3.SchemaObject): OpenAPIV3.SchemaObject => ({
-  type: 'object',
-  required: ['docs', 'totalDocs', 'limit', 'offset', 'clearUrl', 'activeFilters', 'facets'],
-  properties: {
-    docs: {
-      type: 'array',
-      items: docs || {
-        type: 'object',
-      },
-    },
-    custom: custom || { type: 'object' },
-    totalDocs: {
-      description: 'Total number of documents matching your query',
-      type: 'number',
-    },
-    limit: {
-      type: 'number',
-      description: 'Number of results to show per page',
-    },
-    offset: {
-      type: 'number',
-      description: 'Number of records to skip before get a page of records',
-    },
-    clearUrl: {
-      type: 'string',
-      description: 'URL to remove all filters from the search',
-    },
-    activeFilters: {
-      type: 'array',
-      description: 'Array of filters that have been applied to the query',
-      items: ActiveFilters,
-    },
-    facets: {
-      type: 'array',
-      description:
-        'Array of facets results that have been applied to the query, facilitated drilling into search results by terms of a given docoument field',
-      items: Facets,
-    },
-    aggregations: {
-      type: 'array',
-      description:
-        'Array of aggregations that have been applied to the query (sum of sold percentage across inventory records for example)',
-      items: Aggregations,
-    },
-  },
+const FacetTerm = Type.Object({
+  name: Type.String({ description: 'Name of the term' }),
+  url: Type.String({ description: 'URL used to add or remove this term from the facet' }),
+  hits: Type.Number({ description: 'Number of documents that will be returned if you apply this facet term to the query' }),
+  selected: Type.Boolean({ description: 'True if this facet term has been applied to the query' }),
+  id: Type.String({ description: 'Unique id of the term used to apply the term filter to the query' }),
+  state: Type.Union([
+    Type.Literal('checked disabled'),
+    Type.Literal('checked'),
+    Type.Literal('disabled'),
+    Type.Literal(''),
+  ], { description: 'String representation of the current state of the term' }),
+  aggregations: Type.Optional(FacetTermAggregations),
+}, { additionalProperties: false })
+
+export const Facets = Type.Object({
+  displayName: Type.String({ description: 'User friendly name of the facet field' }),
+  clearUrl: Type.String({ description: 'URL used to remove this term from the facet and the query' }),
+  disabled: Type.Boolean({ description: 'If true this facet has been applied to the query and cannot be edited' }),
+  name: Type.String({ description: 'Name of the facet, must match the facet name in the URL' }),
+  selected: Type.Boolean({ description: 'If true indicates this facet has been applied to the query' }),
+  active: Type.Boolean({ description: 'If true this is the active facet' }),
+  terms: Type.Array(FacetTerm, { description: 'Array of terms that are available to apply to the query for the given facet' }),
+}, { additionalProperties: false })
+
+export type Facets = Static<typeof Facets>
+
+export const Aggregations = Type.Object({
+  name: Type.Optional(Type.String({ description: 'Name of the field we have aggregated on' })),
+  sum: Type.Optional(Type.Number({ description: 'If the aggregation was "sum" this is the sum of this field across the results' })),
+  min: Type.Optional(Type.Number({ description: 'If the aggregation was "min" this is the lowest matching value' })),
+  max: Type.Optional(Type.Number({ description: 'If the aggregation was "max" this is the highest matching value' })),
+  average: Type.Optional(Type.Number({ description: 'If the aggregation was "average" this is the average' })),
+  count: Type.Optional(Type.Number({ description: 'The number of documents used to calculate the aggregation' })),
+  range: Type.Optional(Type.String({ description: "Used when we have a set of ranges we've aggregated on" })),
+  hits: Type.Optional(Type.Number({ description: 'The number of documents used to calculate the aggregation' })),
+  unit: Type.Optional(Type.String({ description: 'The measurement unit or currency of the aggregated value' })),
+})
+
+export type Aggregations = Static<typeof Aggregations>
+
+export const SearchResults = (docs?: TSchema, custom?: TSchema) => Type.Object({
+  docs: Type.Array(docs ?? Type.Unknown()),
+  custom: Type.Optional(custom ?? Type.Unknown()),
+  totalDocs: Type.Number({ description: 'Total number of documents matching your query' }),
+  limit: Type.Number({ description: 'Number of results to show per page' }),
+  offset: Type.Number({ description: 'Number of records to skip before get a page of records' }),
+  clearUrl: Type.String({ description: 'URL to remove all filters from the search' }),
+  activeFilters: Type.Array(ActiveFilters, { description: 'Array of filters that have been applied to the query' }),
+  facets: Type.Array(Facets, { description: 'Array of facet results that have been applied to the query' }),
+  aggregations: Type.Optional(Type.Array(Aggregations, { description: 'Array of aggregations applied to the query' })),
 })

@@ -1,17 +1,21 @@
-import type { OpenAPIV3 } from 'openapi-types'
+import { Type, type Static } from '@sinclair/typebox'
 import { openapi } from '@nodevault/platform.components.domain'
 
-export const UserSchema: OpenAPIV3.SchemaObject = {
-  type: 'object',
-  required: ['id', 'email', 'firstName', 'lastName', 'accountId', 'countryISO', 'phone', 'roles'],
-  properties: {
-    id: { type: 'string', nullable: false },
-    email: { type: 'string', nullable: false },
-    lastName: { type: 'string', nullable: false },
-    firstName: { type: 'string', nullable: false },
-    accountId: { type: 'string', nullable: false },
-    countryISO: { type: 'string', nullable: false },
-    phone: openapi.common.Phone,
-    roles: { type: 'array', items: { type: 'string', enum: ['guest', 'user', 'admin'] }, nullable: false },
-  },
-}
+export const UserSchema = Type.Object({
+  id: Type.String(),
+  email: Type.String(),
+  lastName: Type.String(),
+  firstName: Type.String(),
+  accountId: Type.String(),
+  countryISO: Type.String(),
+  phone: openapi.models.PhoneSchema,
+  roles: Type.Array(
+    Type.Union([
+      Type.Literal('guest'),
+      Type.Literal('user'),
+      Type.Literal('admin'),
+    ]),
+  ),
+})
+
+export type UserSchema = Static<typeof UserSchema>

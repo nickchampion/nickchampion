@@ -1,5 +1,24 @@
-import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin'
+import { readFileSync } from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { defineNuxtConfig, type NuxtConfig } from 'nuxt/config'
+import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin'
+
+const { resolve, dirname } = path
+
+// Derive workspace root (two levels up from apps/nodevault/)
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const workspaceRoot = resolve(__dirname, '../../')
+
+// Convert tsconfig path aliases into Nitro aliases so server routes can
+// import workspace packages the same way Vite (frontend) can.
+const tsconfig = JSON.parse(readFileSync(resolve(workspaceRoot, 'tsconfig.json'), 'utf8'))
+const nitroAliases: Record<string, string> = Object.fromEntries(
+  Object.entries<string[]>(tsconfig.compilerOptions.paths).map(([alias, [path]]) => [
+    alias,
+    resolve(workspaceRoot, path),
+  ]),
+)
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig(<NuxtConfig>{
@@ -25,6 +44,7 @@ export default defineNuxtConfig(<NuxtConfig>{
   },
 
   nitro: {
+    alias: nitroAliases,
     routeRules: {
       // This would stop an index.html file from being generated in SPA mode
       // So it only applies to SSR builds
@@ -68,16 +88,12 @@ export default defineNuxtConfig(<NuxtConfig>{
     public: {
       environment: process.env.NUXT_PUBLIC_ENVIRONMENT || '',
       version: process.env.NUXT_PUBLIC_VERSION || '',
-    },
-  },
-
-  posthogConfig: {
-    publicKey: process.env.NUXT_PUBLIC_POSTHOG || '',
-    host: 'https://eu.i.posthog.com',
-    clientConfig: {
-      capture_exceptions: true,
-      opt_out_capturing_by_default: process.env.NUXT_PUBLIC_ENVIRONMENT !== 'prod',
-      __add_tracing_headers: ['nodevault.cloud', 'www.nodevault.cloud'],
+      // PostHog — omit key when env var is unset so the plugin skips init
+      posthogPublicKey: process.env.NUXT_PUBLIC_POSTHOG || '',
+      posthogClientConfig: {
+        capture_exceptions: true,
+        opt_out_capturing_by_default: process.env.NUXT_PUBLIC_ENVIRONMENT !== 'prod',
+      },
     },
   },
 
@@ -133,7 +149,6 @@ export default defineNuxtConfig(<NuxtConfig>{
     '@vueuse/nuxt',
     '@pinia/nuxt',
     '@nuxtjs/device',
-    '@posthog/nuxt',
   ],
 
   /* modules */

@@ -50,12 +50,15 @@
         </div>
       </div>
 
-      <UCallout
+      <UAlert
         class="mt-8 max-w-3xl mx-auto text-left"
         icon="i-lucide-alert-triangle"
-        color="warning">
-        Research by Princeton's IoT Inspector project found that smart TVs contact known advertising and tracking domains thousands of times per day. By default, there is no network-level mechanism to stop them.
-      </UCallout>
+        color="warning"
+        variant="subtle">
+        <template #description>
+          Research by Princeton's IoT Inspector project found that smart TVs contact known advertising and tracking domains thousands of times per day. By default, there is no network-level mechanism to stop them.
+        </template>
+      </UAlert>
     </UPageSection>
 
     <UPageSection
@@ -134,12 +137,15 @@
         </div>
       </div>
 
-      <UCallout
+      <UAlert
         class="mt-10 text-left max-w-2xl mx-auto"
         icon="i-lucide-code"
-        color="primary">
-        The full software stack — AdGuard Home, WireGuard VPN, and OPNSense — is open source, auditable, and community-maintained. You own the hardware, you own the configuration, and there's no vendor lock-in.
-      </UCallout>
+        color="primary"
+        variant="subtle">
+        <template #description>
+          The full software stack — AdGuard Home, WireGuard VPN, and OPNSense — is open source, auditable, and community-maintained. You own the hardware, you own the configuration, and there's no vendor lock-in.
+        </template>
+      </UAlert>
     </UPageSection>
 
     <UPageSection

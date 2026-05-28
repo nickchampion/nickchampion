@@ -1,5 +1,3 @@
-export * as common from './common.js'
+export * as models from './models.js'
 export * as search from './search.js'
 export * as responses from './responses.js'
-export * as models from './models/index.js'
-export { composeOpenApiDocument } from './document.js'

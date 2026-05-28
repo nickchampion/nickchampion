@@ -1,23 +1,21 @@
+import { Type, type Static } from '@sinclair/typebox'
 import type { OpenAPIV3 } from 'openapi-types'
 import { openapi } from '@nodevault/platform.components.domain'
+import { asSchema } from '../../utils.js'
 
-export const RegisterRequestSchema: OpenAPIV3.SchemaObject = {
-  type: 'object',
-  additionalProperties: false,
-  required: ['firstName', 'lastName', 'email'],
-  nullable: false,
-  properties: {
-    firstName: { type: 'string' },
-    lastName: { type: 'string' },
-    email: { type: 'string' },
-    phone: openapi.common.Phone,
-  },
-}
+export const RegisterRequestSchema = Type.Object({
+  firstName: Type.String(),
+  lastName: Type.String(),
+  email: Type.String(),
+  phone: Type.Optional(openapi.models.PhoneSchema),
+}, { additionalProperties: false })
+
+export type RegisterRequestSchema = Static<typeof RegisterRequestSchema>
 
 export const RegisterRequest: OpenAPIV3.ReferenceObject | OpenAPIV3.RequestBodyObject = {
   content: {
     'application/json': {
-      schema: RegisterRequestSchema,
+      schema: asSchema(RegisterRequestSchema),
     },
   },
 }

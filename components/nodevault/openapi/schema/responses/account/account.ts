@@ -1,10 +1,8 @@
-import type { OpenAPIV3 } from 'openapi-types'
+import { Type, type Static } from '@sinclair/typebox'
 
-export const AccountSchema: OpenAPIV3.SchemaObject = {
-  type: 'object',
-  required: ['id', 'name'],
-  properties: {
-    id: { type: 'string' },
-    name: { type: 'string' },
-  },
-}
+export const AccountSchema = Type.Object({
+  id: Type.String(),
+  name: Type.String(),
+})
+
+export type AccountSchema = Static<typeof AccountSchema>

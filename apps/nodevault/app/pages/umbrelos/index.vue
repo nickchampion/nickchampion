@@ -200,12 +200,15 @@
         </div>
       </div>
 
-      <UCallout
+      <UAlert
         class="mt-8 max-w-3xl mx-auto text-left"
         icon="i-lucide-hard-drive"
-        color="neutral">
-        DIY builds: add an external USB 3.0 hard drive for storage — a 4TB drive costs around £70 and is where your files, photos, and backups will live. Umbrel Home and Pro have internal NVMe storage, though a large external drive is still worthwhile for media libraries.
-      </UCallout>
+        color="neutral"
+        variant="subtle">
+        <template #description>
+          DIY builds: add an external USB 3.0 hard drive for storage — a 4TB drive costs around £70 and is where your files, photos, and backups will live. Umbrel Home and Pro have internal NVMe storage, though a large external drive is still worthwhile for media libraries.
+        </template>
+      </UAlert>
     </UPageSection>
   </UPage>
 </template>
