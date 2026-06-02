@@ -373,7 +373,7 @@ const hardware = [
     title: 'Raspberry Pi 5',
     subtitle: 'Lightweight option · ~£100 board only',
     icon: 'i-lucide-cpu',
-    description: 'A capable platform for lighter workloads — Nextcloud file sync, Vaultwarden, Pi-hole, and Home Assistant. Struggles with 4K video transcoding.',
+    description: 'A capable platform for lighter workloads — Nextcloud file sync, Vaultwarden, AdGuard Home, and Home Assistant. Struggles with 4K video transcoding.',
     specs: [
       'Raspberry Pi 5 (4GB or 8GB RAM)',
       'Official active cooler recommended for sustained loads',

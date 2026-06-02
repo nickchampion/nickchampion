@@ -2,7 +2,7 @@
   <UPage>
     <UPageHero
       title="Your home network is more compromised than you think"
-      description="Smart TVs, voice assistants, thermostats, and light bulbs are all connected to the same network as your laptop and phone. Most of them phone home constantly. A privacy router — running Pi-hole, WireGuard, and VLANs — fixes this for every device at once."
+      description="Smart TVs, voice assistants, thermostats, and light bulbs are all connected to the same network as your laptop and phone. Most of them phone home constantly. A privacy router — running AdGuard Home, WireGuard, and VLANs — fixes this for every device at once."
       align="center">
       <template #links>
         <UButton
@@ -254,7 +254,7 @@ const howItWorks = [
   },
   {
     title: 'DNS intercept',
-    description: 'Every DNS lookup from every device passes through Pi-hole or AdGuard Home before going anywhere on the internet.',
+    description: 'Every DNS lookup from every device passes through AdGuard Home before going anywhere on the internet.',
   },
   {
     title: 'Block & filter',
@@ -284,7 +284,7 @@ const features = [
   },
   {
     title: 'Open Source Stack',
-    description: 'Pi-hole, AdGuard Home, WireGuard, and OpenWRT — all community-maintained and fully auditable. You own the hardware and the config. No subscriptions, no vendor lock-in.',
+    description: 'AdGuard Home, WireGuard, and OPNSense — all community-maintained and fully auditable. You own the hardware and the config. No subscriptions, no vendor lock-in.',
     icon: 'i-lucide-code',
   },
 ]

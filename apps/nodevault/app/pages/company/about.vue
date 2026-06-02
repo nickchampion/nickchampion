@@ -54,7 +54,7 @@
 
           <li><strong>Honest about trade-offs.</strong> None of these solutions are perfect or frictionless. We'll tell you what doesn't work, what's hard, and where the rough edges are.</li>
 
-          <li><strong>Open source matters.</strong> GrapheneOS, UmbrelOS, Pi-hole, WireGuard — all of it is open source. You can verify what the software does. So can the global security community.</li>
+          <li><strong>Open source matters.</strong> GrapheneOS, UmbrelOS, AdGuard Home, WireGuard — all of it is open source. You can verify what the software does. So can the global security community.</li>
 
           <li><strong>You don't need to go all-in.</strong> Any one of these three paths is meaningful on its own. Start where it makes sense for you.</li>
         </ul>

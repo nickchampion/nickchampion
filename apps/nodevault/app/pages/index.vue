@@ -203,12 +203,12 @@ const areas = [
     icon: 'i-lucide-box',
     href: '/opnsense',
     cta: 'Learn About OPNSense Router',
-    description: 'Your smart TV, voice assistant, and IoT devices are phoning home constantly — often without any way to opt out. A privacy router running Pi-hole, WireGuard, and VLANs blocks tracking at the network level and isolates devices that can\'t be trusted.',
+    description: 'Your smart TV, voice assistant, and IoT devices are phoning home constantly — often without any way to opt out. A privacy router running AdGuard Home, WireGuard, and VLANs blocks tracking at the network level and isolates devices that can\'t be trusted.',
     points: [
       'DNS-level ad and tracker blocking for every device',
       'VLAN isolation keeps IoT devices away from your laptop',
       'WireGuard VPN gateway for your whole network',
-      'Open source: Pi-hole, AdGuard Home, OpenWRT',
+      'Open source: AdGuard Home, OPNSense',
     ],
   },
 ]

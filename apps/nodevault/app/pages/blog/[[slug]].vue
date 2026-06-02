@@ -1,6 +1,6 @@
 <template>
   <UPage>
-    <div class="text-center px-6 py-10 sm:py-14">
+    <div class="text-center px-6 py-10 sm:py-14 max-w-7xl mx-auto">
       <h1 class="text-5xl sm:text-7xl font-bold tracking-tight text-highlighted">
         The NodeVault Blog
       </h1>
@@ -10,7 +10,7 @@
       </p>
     </div>
 
-    <div class="px-6 lg:px-10 py-10">
+    <div class="px-6 lg:px-10 py-10 max-w-7xl mx-auto">
       <div class="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10 w-full">
         <div class="min-w-0 order-2 lg:order-1">
           <div
