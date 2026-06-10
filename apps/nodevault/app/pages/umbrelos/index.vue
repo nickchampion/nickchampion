@@ -359,7 +359,7 @@ const hardware = [
     title: 'Mini PC',
     subtitle: 'Recommended · ~£150+',
     icon: 'i-lucide-server',
-    description: 'The best all-round option. An Intel N100 or N95 mini PC is silent, uses around 6W idle (under £6/year in electricity), and handles everything including 4K video transcoding.',
+    description: 'An Intel N100 or N95 mini PC is silent, uses around 6W idle (under £6/year in electricity), and handles everything including 4K video transcoding.',
     specs: [
       'Beelink EQ12 or Trigkey G5 — widely available on Amazon',
       'Intel N100 quad-core, 16GB RAM, 500GB NVMe SSD',
