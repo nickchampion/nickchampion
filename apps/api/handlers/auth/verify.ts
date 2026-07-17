@@ -1,10 +1,10 @@
-import { AuthInfo, type ApiHandler } from '@nodevault/platform.components.context'
-import { base64Decode, createAuthTokenForUser, decrypt } from '@nodevault/platform.components.utils.server'
-import type { Account } from '@nodevault/platform.components.nodevault.server'
-import { serverConfiguration, LoginToken, User } from '@nodevault/platform.components.nodevault.server'
-import { AppError } from '@nodevault/platform.components.domain'
-import type { Response } from '@nodevault/platform.components.api'
-import type { VerifyLoginSchema } from '@nodevault/platform.components.nodevault.openapi'
+import { AuthInfo, type ApiHandler } from '@platform/components.context'
+import { base64Decode, createAuthTokenForUser, decrypt } from '@platform/components.utils.server'
+import { serverConfiguration } from '@platform/components.configuration'
+import { LoginToken, User, type Account } from '../../models/index.js'
+import { AppError } from '@platform/components.domain'
+import type { Response } from '@platform/components.api'
+import type { VerifyLoginSchema } from '@platform/components.nodevault.openapi'
 
 export const authVerify: ApiHandler = async (context): Promise<Response> => {
   const { code } = context.event.payload

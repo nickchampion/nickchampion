@@ -1,5 +1,5 @@
 import { URLSearchParams } from 'node:url'
-import { last, trimEnd } from '@nodevault/platform.components.utils'
+import { last, trimEnd } from '@platform/components.utils'
 
 export class StatelessQuerystring {
   elements!: Record<string, string>

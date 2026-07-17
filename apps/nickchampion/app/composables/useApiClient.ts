@@ -1,5 +1,5 @@
-import { NodeVaultApiClient } from '@nodevault/platform.components.nodevault.client'
-import { isCloudflareWorker } from '@nodevault/platform.components.utils'
+import { NodeVaultApiClient } from '@platform/components.nodevault.client'
+import { isCloudflareWorker } from '@platform/components.utils'
 
 export const useApiClient = (): NodeVaultApiClient => {
   const config = useConfig()

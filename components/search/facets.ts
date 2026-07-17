@@ -1,5 +1,5 @@
-import type { KeyValuePair } from '@nodevault/platform.components.domain'
-import { toObject as toObject } from '@nodevault/platform.components.utils'
+import type { KeyValuePair } from '@platform/components.domain'
+import { toObject as toObject } from '@platform/components.utils'
 import type { FacetMap } from './entities.js'
 
 export const getFacetMap = (

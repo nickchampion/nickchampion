@@ -1,8 +1,8 @@
-import type { BaseModel } from '@nodevault/platform.components.domain'
-import type { InboundEvent, QuerySettings } from '@nodevault/platform.components.context'
-import { Page } from '@nodevault/platform.components.context'
+import type { BaseModel } from '@platform/components.domain'
+import type { InboundEvent, QuerySettings } from '@platform/components.context'
+import { Page } from '@platform/components.context'
 import type { FacetBase, QueryStatistics, IDocumentQuery, FacetResultObject } from 'ravendb'
-import type { Session } from '@nodevault/platform.components.ravendb'
+import type { Session } from '@platform/components.ravendb'
 import type { ISearchFilter } from './filters/index.js'
 import type { StatelessQuerystring } from './querystring.js'
 

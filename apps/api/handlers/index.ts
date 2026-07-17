@@ -1,4 +1,4 @@
-import type { ApiHandler } from '@nodevault/platform.components.context'
+import type { ApiHandler } from '@platform/components.context'
 import * as authHandlers from './auth/index.js'
 import * as commsHandlers from './comms/index.js'
 import * as systemHandlers from './system/index.js'

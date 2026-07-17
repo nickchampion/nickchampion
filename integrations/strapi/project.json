@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "name": "@nodevault/platform.integrations.strapi",
+  "name": "@platform/integrations.strapi",
   "sourceRoot": "integrations/strapi",
   "projectType": "library",
   "targets": {

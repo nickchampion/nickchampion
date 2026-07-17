@@ -1,4 +1,4 @@
-import type { IApiManifest } from '@nodevault/platform.components.context'
+import type { IApiManifest } from '@platform/components.context'
 import { type AjvCustomizer, OpenAPIBackend } from 'openapi-backend'
 import { registerGlobalHandlers, registerSecurityHandler, wrapHandlersWithContextSignature } from './index.js'
 

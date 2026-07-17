@@ -1,6 +1,6 @@
 import type { IDocumentStore } from 'ravendb'
-import { Session } from '@nodevault/platform.components.ravendb'
-import type { AppError } from '@nodevault/platform.components.domain'
+import { Session } from '@platform/components.ravendb'
+import type { AppError } from '@platform/components.domain'
 import { InboundEvent } from './types/event.js'
 import { Log, type LogLevel } from './log.js'
 import type { AuthInfo } from './types/auth.js'

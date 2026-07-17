@@ -165,7 +165,7 @@ import type {
   BlogCategorySchema,
   BlogArticleSchema,
   BlogCategoryEnumSchema,
-} from '@nodevault/platform.components.nodevault.openapi'
+} from '@platform/components.nodevault.openapi'
 
 const route = useRoute()
 const activeSlug = computed(() => route.params.slug as string | undefined)

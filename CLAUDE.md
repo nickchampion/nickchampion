@@ -56,15 +56,15 @@ NX manages tasks. Each component and app has a `project.json`. Package aliases a
 
 ## Path Aliases
 
-All `@nodevault/platform.components.*` imports resolve to local `components/` directories. Never use relative paths across component boundaries — always use the alias (e.g. `@nodevault/platform.components.utils`).
+All `@platform/components.*` imports resolve to local `components/` directories. Never use relative paths across component boundaries — always use the alias (e.g. `@platform/components.utils`).
 
 ## API Handler Pattern
 
 Every API handler has this signature:
 
 ```typescript
-import type { ApiHandler } from '@nodevault/platform.components.context'
-import type { Response } from '@nodevault/platform.components.api.server'
+import type { ApiHandler } from '@platform/components.context'
+import type { Response } from '@platform/components.api.server'
 
 export const authLogin: ApiHandler = async (context): Promise<Response> => {
   const body = context.event.payload<LoginRequest>()
@@ -127,7 +127,7 @@ context.log.error(...)
 
 ## Domain Models
 
-All models extend `BaseModel` from `@nodevault/platform.components.domain`:
+All models extend `BaseModel` from `@platform/components.domain`:
 
 ```typescript
 export class MyModel extends BaseModel {
@@ -150,10 +150,10 @@ Server config is loaded from the `NODEVAULT` environment variable (base64-encode
 
 ## Date Handling
 
-Use `@nodevault/platform.components.utils` date utilities — never import `luxon` or `dayjs` directly:
+Use `@platform/components.utils` date utilities — never import `luxon` or `dayjs` directly:
 
 ```typescript
-import { nowUtcIso, formatLocalDate, isExpired, expiresInSeconds } from '@nodevault/platform.components.utils'
+import { nowUtcIso, formatLocalDate, isExpired, expiresInSeconds } from '@platform/components.utils'
 ```
 
 All dates stored in RavenDB and sent over the API are UTC ISO strings (`Z` suffix). Convert to local time for display only using `formatLocalDate()`.

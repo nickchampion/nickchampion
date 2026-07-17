@@ -1,5 +1,5 @@
 import type { IDocumentQuery } from 'ravendb'
-import type { BaseModel } from '@nodevault/platform.components.domain'
+import type { BaseModel } from '@platform/components.domain'
 import type { SearchContext } from '../entities.js'
 
 /**

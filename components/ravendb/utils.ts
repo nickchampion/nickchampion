@@ -1,6 +1,6 @@
 import * as crypto from 'node:crypto'
 import fs from 'node:fs'
-import { type Page, type QuerySettings, type BaseModel, collections, GeneralError } from '@nodevault/platform.components.domain'
+import { type Page, type QuerySettings, type BaseModel, collections, GeneralError } from '@platform/components.domain'
 import {
   type FacetBase,
   type IndexQuery,

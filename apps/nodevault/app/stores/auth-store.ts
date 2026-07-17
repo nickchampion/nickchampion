@@ -1,6 +1,6 @@
-import type { ApiOptions, ApiResponse } from '@nodevault/platform.components.nodevault.client'
-import type { UserSchema, VerifyLoginSchema } from '@nodevault/platform.components.nodevault.openapi'
-import { isCloudflareWorker, isFutureDate, toUtcIso } from '@nodevault/platform.components.utils'
+import type { ApiOptions, ApiResponse } from '@platform/components.nodevault.client'
+import type { UserSchema, VerifyLoginSchema } from '@platform/components.nodevault.openapi'
+import { isCloudflareWorker, isFutureDate, toUtcIso } from '@platform/components.utils'
 
 export const useAuthStore = defineStore('auth', () => {
   const device = useDevice()

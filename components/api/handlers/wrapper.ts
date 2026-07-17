@@ -1,5 +1,5 @@
 import type { Context as OpenAPIContext } from 'openapi-backend'
-import { type Context, type ApiHandler, AuthInfo } from '@nodevault/platform.components.context'
+import { type Context, type ApiHandler, AuthInfo } from '@platform/components.context'
 import { authoriseUser } from './security.js'
 
 /**

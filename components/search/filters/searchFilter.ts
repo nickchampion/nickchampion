@@ -1,5 +1,5 @@
 import type { IDocumentQuery } from 'ravendb'
-import type { BaseModel } from '@nodevault/platform.components.domain'
+import type { BaseModel } from '@platform/components.domain'
 
 export interface ISearchFilter {
   negate: boolean | undefined

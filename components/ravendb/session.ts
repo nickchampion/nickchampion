@@ -1,5 +1,5 @@
-import { GeneralError, type AppError, type BaseModel, type Page, type QuerySettings } from '@nodevault/platform.components.domain'
-import { getValueByPath, nowUtcIso } from '@nodevault/platform.components.utils'
+import { GeneralError, type AppError, type BaseModel, type Page, type QuerySettings } from '@platform/components.domain'
+import { getValueByPath, nowUtcIso } from '@platform/components.utils'
 import type { IDocumentQuery, IDocumentSession, IDocumentStore } from 'ravendb'
 import { utils } from './utils.js'
 

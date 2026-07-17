@@ -1,4 +1,4 @@
-import { last, groupBy, titleCaseFirst, trimEnd } from '@nodevault/platform.components.utils'
+import { last, groupBy, titleCaseFirst, trimEnd } from '@platform/components.utils'
 import type { FacetResult, FacetValue } from 'ravendb'
 import type {
   SearchContext, FacetMap, Facet, IAggregation, FacetTerm, FacetTermAggregation,

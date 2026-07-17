@@ -1,7 +1,9 @@
-import { models, indexes, serverConfiguration } from '@nodevault/platform.components.nodevault.server'
-import { composeOpenApiDocument } from '@nodevault/platform.components.nodevault.openapi'
-import { Api } from '@nodevault/platform.components.api'
+import { serverConfiguration } from '@platform/components.configuration'
+import { Api } from '@platform/components.api'
+import { composeOpenApiDocument } from '@platform/components.contracts'
 import { apiHandlers } from './handlers/index.js'
+import * as indexes from './indexes'
+import * as models from './models/models.js'
 
 /**
  * services/local is our local web server so we can run all APIs at the same time locally

@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "name": "@nodevault/platform.integrations.resend",
+  "name": "@platform/integrations.resend",
   "sourceRoot": "integrations/resend",
   "projectType": "library",
   "targets": {

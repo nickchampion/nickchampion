@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "name": "@nodevault/platform.integrations.cloudflare",
+  "name": "@platform/integrations.cloudflare",
   "sourceRoot": "integrations/cloudflare",
   "projectType": "library",
   "targets": {

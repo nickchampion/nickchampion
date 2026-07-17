@@ -1,4 +1,4 @@
-import { expiresInDays, toUtcIso } from '@nodevault/platform.components.utils'
+import { expiresInDays, toUtcIso } from '@platform/components.utils'
 
 export type AuthTokens = {
   access: string

@@ -1,5 +1,5 @@
 {
-  "name": "@nodevault/platform.components.api",
+  "name": "@platform/components.api",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "components/api",
   "projectType": "library",

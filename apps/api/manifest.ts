@@ -1,6 +1,7 @@
-import type { IApiManifest } from '@nodevault/platform.components.context'
-import { models, indexes } from '@nodevault/platform.components.nodevault.server'
-import { composeOpenApiDocument } from '@nodevault/platform.components.nodevault.openapi'
+import type { IApiManifest } from '@platform/components.context'
+import * as models from './models/models.js'
+import * as indexes from './indexes/index.js'
+import { composeOpenApiDocument } from './openapi/document.js'
 import { apiHandlers } from './handlers/index.js'
 
 /**

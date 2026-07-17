@@ -1,12 +1,12 @@
-import type { AuthInfo } from '@nodevault/platform.components.context'
+import type { AuthInfo } from '@platform/components.context'
 import {
   InboundEvent,
-} from '@nodevault/platform.components.context'
+} from '@platform/components.context'
 import type { OpenAPIBackend, Context as OpenApiContext } from 'openapi-backend'
-import { AuthError } from '@nodevault/platform.components.domain'
-import { createAuthInfoFromToken } from '@nodevault/platform.components.utils.server'
-import { isExpired } from '@nodevault/platform.components.utils'
+import { createAuthInfoFromToken } from '@platform/components.utils.server'
+import { isExpired } from '@platform/components.utils'
 import { toDate } from 'date-fns'
+import { AuthError } from '../types/error'
 
 /**
  * Check to see if the authenticated user has access to the given endpoint

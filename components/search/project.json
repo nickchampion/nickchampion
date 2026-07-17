@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "name": "@nodevault/platform.components.search",
+  "name": "@platform/components.search",
   "sourceRoot": "components/search",
   "projectType": "library",
   "targets": {

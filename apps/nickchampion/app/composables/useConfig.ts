@@ -1,3 +1,3 @@
-import { useConfig } from '@nodevault/platform.components.nodevault.client'
+import { useConfig } from '@platform/components.nodevault.client'
 
 export default useConfig

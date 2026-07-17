@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { Countries } from '@nodevault/platform.components.domain'
+import { Countries } from '@platform/components.domain'
 
 type PhoneValue = { countryCode: string, number: string } | undefined
 
@@ -37,6 +37,7 @@ const number = computed({
       model.value = undefined
       return
     }
+
     model.value = { countryCode: countryCode.value, number: v }
   },
 })

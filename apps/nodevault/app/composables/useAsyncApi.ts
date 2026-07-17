@@ -1,8 +1,8 @@
 import type { AsyncDataOptions, AsyncData, NuxtError } from 'nuxt/app'
 import type { UseAsyncStateOptions } from '@vueuse/core'
-import type { ApiResponse } from '@nodevault/platform.components.nodevault.client'
-import { simpleHash, serializeValue } from '@nodevault/platform.components.utils'
-import type { openapi } from '@nodevault/platform.components.domain'
+import type { ApiResponse } from '@platform/components.nodevault.client'
+import { simpleHash, serializeValue } from '@platform/components.utils'
+import type { openapi } from '@platform/components.domain'
 
 export type AsyncDataHandler<T, TParams = undefined> = TParams extends undefined
   ? () => Promise<ApiResponse<T>>

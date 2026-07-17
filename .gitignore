@@ -47,7 +47,7 @@ Thumbs.db
 overrides.json
 
 # Open API auto generated
-.nodevault/openapi/*.*
+.platform/openapi/*.*
 components/domain/openapi/models/**/*.ts
 components/nodevault/server/openapi/models/**/*.ts
 

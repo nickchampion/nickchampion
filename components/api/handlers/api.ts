@@ -3,15 +3,16 @@ import { koaBody } from 'koa-body'
 import {
   type ApiHandler,
   Context,
+  type FileUpload,
   type IApiManifest,
   type IMiddleware,
   InboundEvent,
   Response,
   middy,
-} from '@nodevault/platform.components.context'
-import { createDocumentStore } from '@nodevault/platform.components.ravendb'
-import { copyFields, sleep, Timer, tryClone } from '@nodevault/platform.components.utils'
-import type { openapi } from '@nodevault/platform.components.domain'
+} from '@platform/components.context'
+import { createDocumentStore } from '@platform/components.ravendb'
+import { copyFields, sleep, Timer, tryClone } from '@platform/components.utils'
+import type { openapi } from '@platform/components.domain'
 import type { DocumentStore } from 'ravendb'
 import compress from 'koa-compress'
 import multer from '../koa/multer.js'
@@ -247,7 +248,7 @@ export class Api {
           operation: operation.path,
           version: this.settings.version,
           clientVersion: (koa.headers['x-version'] || 'unknown').toString(),
-          // files: koa.request['files'] as any as Record<string, FileUpload>,
+          files: koa.request['files'] as any as Record<string, FileUpload>,
           pathAndQuery:
             queryKeys.length > 0
               ? `${operation.path}?${queryKeys.map(key => `${key}=${koa.request.query[key]}`).join('&')}`

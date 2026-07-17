@@ -23,13 +23,16 @@
           </h1>
 
           <p class="text-xl text-slate-600 font-medium mb-4">
-            Take back control of your digital life
+            A personal knowledge vault with semantic search
           </p>
 
           <p class="text-lg text-slate-500 leading-relaxed max-w-2xl mb-8">
-            A personal project I'm actively developing, NodeVault covers three practical paths
-            to reducing your digital footprint: de-Googling your phone with GrapheneOS, replacing cloud
-            subscriptions with a self-hosted UmbrelOS home server and protecting your home network from IoT surveillance.
+            Drop in files or point it at URLs, and NodeVault turns them into a searchable, private
+            knowledge base. Content is ingested through durable background workflows — extracted,
+            chunked, embedded with Google Gemini, and stored as vectors in Postgres — so you can find
+            things by meaning, not just keywords. The goal is a knowledge layer you can ask questions
+            of, with grounded answers citing your own documents, and that your AI tools can query on
+            your behalf.
           </p>
 
           <div class="flex flex-wrap gap-3">
@@ -45,7 +48,7 @@
             </UButton>
 
             <UButton
-              href="https://github.com/nickchampion/node-vault"
+              href="https://github.com/nickchampion/nodevault"
               target="_blank"
               rel="noopener noreferrer"
               size="lg"
@@ -72,7 +75,7 @@
       <div class="max-w-4xl space-y-14">
         <!-- Three areas -->
         <section>
-          <SectionHeading>Three paths to better privacy</SectionHeading>
+          <SectionHeading>Architecture in three parts</SectionHeading>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
             <div
@@ -146,6 +149,24 @@
           </ul>
         </section>
 
+        <!-- Roadmap -->
+        <section>
+          <SectionHeading>Where it's heading</SectionHeading>
+
+          <ul class="space-y-3">
+            <li
+              v-for="item in roadmap"
+              :key="item.title"
+              class="flex items-start gap-3 text-sm text-slate-600">
+              <UIcon
+                name="i-lucide-git-branch"
+                class="size-4 text-sky-400 shrink-0 mt-0.5" />
+
+              <span><span class="font-semibold text-slate-700">{{ item.title }}</span> — {{ item.description }}</span>
+            </li>
+          </ul>
+        </section>
+
         <!-- CTA -->
         <section class="rounded-2xl bg-sky-50 border border-sky-100 p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
@@ -154,7 +175,7 @@
             </h3>
 
             <p class="text-slate-500 text-sm">
-              Guides on GrapheneOS, UmbrelOS self-hosting, and home network privacy.
+              Semantic search over your own documents — built with Next.js, tRPC, Inngest, and pgvector.
             </p>
           </div>
 
@@ -178,24 +199,24 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'NodeVault — Nick Champion',
-  description: 'NodeVault is a privacy information portal built by Nick Champion — covering GrapheneOS phones, UmbrelOS self-hosting, and home network protection.',
+  description: 'NodeVault is a personal knowledge vault built by Nick Champion — a full-stack TypeScript app with semantic search over your own documents, powered by Next.js, tRPC, Inngest, Postgres + pgvector, and Google Gemini embeddings.',
 })
 
 const areas = [
   {
-    title: 'De-Google Your Phone',
-    icon: 'i-lucide-smartphone',
-    description: 'Why GrapheneOS eliminates tracking at the OS level, how it compares to stock Android and iOS, which hardware it runs on, and what apps replace Google\'s.',
+    title: 'Durable Ingestion',
+    icon: 'i-lucide-workflow',
+    description: 'Uploads persist a row and emit an event — an Inngest workflow extracts text from PDFs and DOCX, chunks it, generates Gemini embeddings, and writes vectors to pgvector. Each step retries independently, and file status streams back to the UI.',
   },
   {
-    title: 'Own Your Cloud',
-    icon: 'i-lucide-server',
-    description: 'How to replace Dropbox, Google Photos, and iCloud with a self-hosted UmbrelOS server — what it costs, what hardware to buy, and what you can run on it.',
+    title: 'End-to-End Type Safety',
+    icon: 'i-lucide-shield-check',
+    description: 'A tRPC v11 API on Koa where every procedure declares zod input and output schemas from a shared contracts package. The frontend imports the router type only — a fully typed client with zero code generation.',
   },
   {
-    title: 'Secure Your Network',
-    icon: 'i-lucide-box',
-    description: 'What IoT devices actually phone home with, and how DNS-level blocking, WireGuard VPN, and VLAN isolation protect every device on your home network.',
+    title: 'Vectors Next to Your Data',
+    icon: 'i-lucide-database-zap',
+    description: 'Embeddings live in the same Postgres schema as everything else (Drizzle vector columns + HNSW index), so similarity search composes with ordinary SQL — scoped by account and vault in one WHERE clause, no separate vector database to sync.',
   },
 ]
 
@@ -203,31 +224,53 @@ const stack = [
   {
     label: 'Frontend',
     icon: 'i-lucide-monitor',
-    tech: ['Nuxt 4', 'Vue.js', 'Nuxt UI', 'Tailwind CSS', 'TypeScript', 'Cloudflare Workers'],
+    tech: ['Next.js 15', 'React 19', 'HeroUI', 'Tailwind CSS 4', 'TypeScript', 'Cloudflare Workers (OpenNext)'],
   },
   {
     label: 'API',
     icon: 'i-lucide-server',
-    tech: ['Node.js', 'Koa', 'OpenAPI', 'TypeScript', 'Fly.io'],
+    tech: ['Node.js', 'Koa', 'tRPC v11', 'zod', 'Inngest', 'Fly.io'],
   },
   {
     label: 'Data & Storage',
     icon: 'i-lucide-database',
-    tech: ['RavenDB', 'Cloudflare R2'],
+    tech: ['Postgres (Neon)', 'pgvector', 'Drizzle ORM', 'Cloudflare R2'],
   },
   {
-    label: 'Infrastructure',
-    icon: 'i-lucide-cloud',
-    tech: ['Cloudflare', 'GitHub Actions', 'Docker'],
+    label: 'AI & Tooling',
+    icon: 'i-lucide-sparkles',
+    tech: ['Google Gemini embeddings', 'NX monorepo', 'pnpm', 'Vitest', 'Resend'],
   },
 ]
 
 const highlights = [
-  'Designed and built the entire platform solo — frontend, API, infrastructure, and deployment pipeline.',
-  'Nuxt 4 SSR frontend deployed to Cloudflare Workers at the edge for low-latency global delivery.',
-  'OpenAPI-first REST API with strict schema validation, per-operation handlers, and automatic retry on concurrency conflicts.',
-  'Monorepo architecture (NX) with shared components across the frontend and API — OpenAPI client generated from schemas.',
-  'Full CI/CD via GitHub Actions with environment promotion and versioning',
-  'Authentication via magic-link email (Resend) with JWT sessions — no passwords.',
+  'Designed and built the entire platform solo — frontend, API, ingestion pipeline, data model, and deployment.',
+  'Full-stack TypeScript in an NX monorepo with strict layering: Drizzle storage rows → explicit mappers → zod contract DTOs, the only layer the frontend can import.',
+  'Business logic lives in plain ApiHandlers that declare their contracts as generics, bridged onto tRPC procedures — a handler whose types disagree with its schemas is a compile-time error at the wiring site.',
+  'Responses are runtime-verified against output schemas with excess fields stripped, so the API can never leak more than its contract declares.',
+  'Every mutating request runs in a single Postgres transaction managed by middleware — handlers never touch transaction code; errors roll everything back.',
+  'Durable, event-driven file processing with Inngest: discrete step.run() units that retry from the failed step, not from the beginning.',
+  'Semantic search as cosine similarity over chunk embeddings in plain SQL, transactionally consistent with the rest of the data.',
+  'Passwordless magic-link authentication with transactional email via Resend.',
+  'Next.js served from Cloudflare Workers at the edge via OpenNext; API in Docker on Fly.io; file blobs in Cloudflare R2.',
+]
+
+const roadmap = [
+  {
+    title: 'Hybrid search',
+    description: 'combine cosine similarity with Postgres full-text search (tsvector) via reciprocal rank fusion — one SQL query, since the vectors already live in Postgres.',
+  },
+  {
+    title: 'Grounded Q&A with citations',
+    description: 'retrieve top-k chunks and hand them to an LLM for answers that cite the source file, URL, and chunk — with neighbouring context pulled via chunk indexes.',
+  },
+  {
+    title: 'Standing queries',
+    description: 'save a query\'s embedding and compare newly ingested chunks against it inside the existing Inngest pipeline — "alert me when anything I save matches this topic."',
+  },
+  {
+    title: 'Vault as an agent substrate',
+    description: 'expose retrieval as an MCP server so AI tools like Claude can query the vault directly — a personal knowledge layer every agent can use.',
+  },
 ]
 </script>

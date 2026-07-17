@@ -1,5 +1,5 @@
-import { createMD5Hash } from '@nodevault/platform.components.utils.server'
-import type { openapi, AppError } from '@nodevault/platform.components.domain'
+import { createMD5Hash } from '@platform/components.utils.server'
+import type { openapi, AppError } from '@platform/components.contracts'
 import type { FileContent } from './file.js'
 
 export type ResponseValue = string | object

@@ -127,19 +127,16 @@ Nuxt 4 SSR app deployed to Cloudflare Workers. Light-only UI (sky/slate colour s
 
 | Package alias | Path | Purpose |
 |---------------|------|---------|
-| `@nodevault/platform.components.api` | `components/api` | Koa server, OpenAPI routing, middy middleware, handler types |
-| `@nodevault/platform.components.nodevault.server` | `components/nodevault/server` | Server config, domain models, RavenDB indexes |
-| `@nodevault/platform.components.nodevault.client` | `components/nodevault/client` | Client runtime config, `NodeVaultApiClient`, typed request methods |
-| `@nodevault/platform.components.nodevault.openapi` | `components/nodevault/openapi` | OpenAPI document composition, models, request/response schemas |
-| `@nodevault/platform.components.configuration` | `components/configuration` | Config builder (`build<T>()`) |
-| `@nodevault/platform.components.context` | `components/context` | `Context`, `InboundEvent`, `Response`, `Log`, middy wrappers |
-| `@nodevault/platform.components.domain` | `components/domain` | Domain models (`User`, `Account`, `LoginToken`, `Contact`), types, geo data |
-| `@nodevault/platform.components.ravendb` | `components/ravendb` | `Session` wrapper, document store helpers, search utilities |
-| `@nodevault/platform.components.search` | `components/search` | Search/query builders |
-| `@nodevault/platform.components.utils` | `components/utils` | Pure utilities — date, string, math (no Node.js-specific APIs) |
-| `@nodevault/platform.components.utils.server` | `components/utils-server` | Server-only utilities — crypto, encoding, JWT |
-| `@nodevault/platform.integrations.resend` | `integrations/resend` | Resend email client — `createResendClient`, `sendEmail` |
-| `@nodevault/platform.integrations.cloudflare` | `integrations/cloudflare` | Cloudflare Workers helpers |
+| `@platform/components.api` | `components/api` | Koa server, OpenAPI routing, middy middleware, handler types |
+| `@platform/components.configuration` | `components/configuration` | Config builder (`build<T>()`) |
+| `@platform/components.context` | `components/context` | `Context`, `InboundEvent`, `Response`, `Log`, middy wrappers |
+| `@platform/components.domain` | `components/domain` | Domain models (`User`, `Account`, `LoginToken`, `Contact`), types, geo data |
+| `@platform/components.ravendb` | `components/ravendb` | `Session` wrapper, document store helpers, search utilities |
+| `@platform/components.search` | `components/search` | Search/query builders |
+| `@platform/components.utils` | `components/utils` | Pure utilities — date, string, math (no Node.js-specific APIs) |
+| `@platform/components.utils.server` | `components/utils-server` | Server-only utilities — crypto, encoding, JWT |
+| `@platform/integrations.resend` | `integrations/resend` | Resend email client — `createResendClient`, `sendEmail` |
+| `@platform/integrations.cloudflare` | `integrations/cloudflare` | Cloudflare Workers helpers |
 
 ---
 

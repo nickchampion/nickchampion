@@ -96,7 +96,7 @@
 </template>
 
 <script setup lang="ts">
-import type { RegisterRequestSchema } from '@nodevault/platform.components.nodevault.openapi'
+import type { RegisterRequestSchema } from '@platform/components.nodevault.openapi'
 import { useAuthStore } from '../../stores/auth-store.js'
 import { validateRegisterForm } from '../../utils/validation/index.js'
 

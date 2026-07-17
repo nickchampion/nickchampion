@@ -1,6 +1,6 @@
 {
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "name": "@nodevault/platform.apps.api",
+  "name": "@platform/apps.api",
   "sourceRoot": "apps/api",
   "projectType": "application",
   "targets": {

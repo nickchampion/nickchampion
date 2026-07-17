@@ -1,6 +1,6 @@
-import { serverConfiguration } from '@nodevault/platform.components.nodevault.server'
-import { AuthInfo, type AuthTokens } from '@nodevault/platform.components.context'
-import { base64Decode, base64Encode, decrypt, encrypt } from '@nodevault/platform.components.utils.server'
+import { serverConfiguration } from '@platform/components.configuration'
+import { AuthInfo, type AuthTokens } from '@platform/components.context'
+import { base64Decode, base64Encode, decrypt, encrypt } from '@platform/components.utils.server'
 
 export const createAuthTokenForUser = (authInfo: AuthInfo): AuthTokens => {
   const access = encrypt(JSON.stringify(authInfo), serverConfiguration.environment.key, serverConfiguration.environment.salt)

@@ -1,4 +1,4 @@
-import { last } from '@nodevault/platform.components.utils'
+import { last } from '@platform/components.utils'
 import type { SearchContext } from './entities.js'
 import { StandardFilter } from './filters/index.js'
 import { StatefulQuerystring } from './querystring.js'

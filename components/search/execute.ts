@@ -1,7 +1,7 @@
 import type { QueryStatistics, Lazy, Facet, FacetResultObject } from 'ravendb'
-import { getValueByPath } from '@nodevault/platform.components.utils'
-import { fakeLazy, isPromise } from '@nodevault/platform.components.utils.server'
-import type { BaseModel } from '@nodevault/platform.components.domain'
+import { getValueByPath } from '@platform/components.utils'
+import { fakeLazy, isPromise } from '@platform/components.utils.server'
+import type { BaseModel } from '@platform/components.domain'
 import type { SearchContext } from './entities.js'
 
 const applyAggregations = (searchContext: SearchContext): Lazy<FacetResultObject> => {

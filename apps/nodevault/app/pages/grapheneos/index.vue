@@ -150,7 +150,7 @@
 </template>
 
 <script setup lang="ts">
-import { useConfig } from '@nodevault/platform.components.nodevault.client'
+import { useConfig } from '@platform/components.nodevault.client'
 
 const posthog = usePostHog()
 

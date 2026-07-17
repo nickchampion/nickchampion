@@ -2,7 +2,7 @@
 import { readdirSync, existsSync } from 'node:fs'
 import path from 'node:path'
 import type { DocumentStore } from 'ravendb'
-import { GeneralError } from '@nodevault/platform.components.domain'
+import { GeneralError } from '@platform/components.domain'
 import { utils } from './utils'
 import { createDocumentStore } from './index.js'
 

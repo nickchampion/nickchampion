@@ -1,9 +1,10 @@
-import type { ApiHandler } from '@nodevault/platform.components.context'
-import { base64Encode } from '@nodevault/platform.components.utils.server'
-import { serverConfiguration, Contact } from '@nodevault/platform.components.nodevault.server'
-import { createHttpClient } from '@nodevault/platform.components.utils'
-import type { Response } from '@nodevault/platform.components.api'
-import type { ContactRequestSchema } from '@nodevault/platform.components.nodevault.openapi'
+import type { ApiHandler } from '@platform/components.context'
+import { base64Encode } from '@platform/components.utils.server'
+import { serverConfiguration } from '@platform/components.configuration'
+import { createHttpClient } from '@platform/components.utils'
+import type { Response } from '@platform/components.api'
+import type { ContactRequestSchema } from '../../openapi'
+import { Contact } from '../../models'
 
 export const commsContact: ApiHandler = async (context): Promise<Response> => {
   const payload = context.event.payload as ContactRequestSchema

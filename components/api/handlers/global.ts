@@ -1,6 +1,6 @@
-import type { Context } from '@nodevault/platform.components.context'
-import type { openapi } from '@nodevault/platform.components.domain'
-import { AppError } from '@nodevault/platform.components.domain'
+import type { Context } from '@platform/components.context'
+import type { openapi } from '@platform/components.domain'
+import { AppError } from '@platform/components.domain'
 import type { OpenAPIBackend, Context as OpenApiContext } from 'openapi-backend'
 
 const mapValidationErrors = (validation: { errors?: { path?: string, message?: string }[] | null }): openapi.models.ValidationErrorSchema[] => {

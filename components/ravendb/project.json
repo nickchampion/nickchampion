@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "name": "@nodevault/platform.components.ravendb",
+  "name": "@platform/components.ravendb",
   "sourceRoot": "components/ravendb",
   "projectType": "library",
   "targets": {

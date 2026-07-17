@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import type { BlocksContent, BlockNode, BlockTextNode } from '@nodevault/platform.integrations.strapi'
+import type { BlocksContent, BlockNode, BlockTextNode } from '@platform/integrations.strapi'
 
 const props = defineProps<{ blocks: BlocksContent }>()
 

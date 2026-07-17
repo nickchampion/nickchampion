@@ -3,7 +3,7 @@ import pluginVueA11y from 'eslint-plugin-vuejs-accessibility'
 import { createConfigForNuxt } from '@nuxt/eslint-config/flat'
 import stylistic from '@stylistic/eslint-plugin'
 import eslintPluginUnicorn from 'eslint-plugin-unicorn'
-import customPlugin from './.nodevault/eslint/index.mjs'
+import customPlugin from './.platform/eslint/index.mjs'
 
 export default createConfigForNuxt(
   {

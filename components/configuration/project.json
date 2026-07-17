@@ -1,5 +1,5 @@
 {
-  "name": "@nodevault/platform.components.configuration",
+  "name": "@platform/components.configuration",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "components/configuration",
   "projectType": "library",
