@@ -156,7 +156,7 @@ const expertise = [
   { label: 'Frontend', skills: ['Vue.js', 'HTML', 'Tailwind CSS'] },
   { label: 'Cloud', skills: ['AWS (Cognito, Fargate, Lambda, S3, Redis, IAM)', 'Cloudflare (Workers, R2)', 'Docker'] },
   { label: 'Networking', skills: ['DNS', 'Cloudflare Tunnels', 'HTTP protocol'] },
-  { label: 'Datastores', skills: ['SQL Server', 'PostgreSQL', 'RavenDB', 'MongoDB'] },
+  { label: 'Datastores', skills: ['SQL Server', 'Postgres', 'RavenDB', 'MongoDB'] },
   { label: 'DevOps', skills: ['GitHub Actions', 'AWS CloudFormation', 'CloudWatch', 'SSM / Secrets Manager', 'ELK / OpenSearch', 'Release automation'] },
   { label: 'Search', skills: ['Elasticsearch', 'Lucene', 'Solr'] },
 ]
