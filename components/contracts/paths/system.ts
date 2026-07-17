@@ -1,5 +1,5 @@
 import type { OpenAPIV3 } from 'openapi-types'
-import { openapi } from '@nodevault/platform.components.domain'
+import * as openapi from '../schema/common/index.js'
 
 export const system: OpenAPIV3.PathsObject = {
   '/system/ping': {

@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { Countries } from '@platform/components.domain'
+import { Countries } from '@platform/components.contracts'
 
 type PhoneValue = { countryCode: string, number: string } | undefined
 

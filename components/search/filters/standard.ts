@@ -1,4 +1,4 @@
-import type { BaseModel } from '@platform/components.domain'
+import type { BaseModel } from '@platform/components.context'
 import type { IDocumentQuery } from 'ravendb'
 import type { ISearchFilter } from './searchFilter.js'
 

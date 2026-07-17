@@ -1,4 +1,4 @@
-import { GeneralError, type AppError, type BaseModel, type Page, type QuerySettings } from '@platform/components.domain'
+import { GeneralError, type AppError, type BaseModel, type Page, type QuerySettings } from '@platform/components.context'
 import { getValueByPath, nowUtcIso } from '@platform/components.utils'
 import type { IDocumentQuery, IDocumentSession, IDocumentStore } from 'ravendb'
 import { utils } from './utils.js'

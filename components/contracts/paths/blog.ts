@@ -1,5 +1,5 @@
 import type { OpenAPIV3 } from 'openapi-types'
-import { openapi } from '@nodevault/platform.components.domain'
+import * as openapi from '../schema/common/index.js'
 import * as schema from '../schema/index.js'
 
 export const blog: OpenAPIV3.PathsObject = {

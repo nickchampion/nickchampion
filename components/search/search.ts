@@ -1,5 +1,4 @@
-import type { Context } from '@platform/components.context'
-import { type BaseModel, GeneralError } from '@platform/components.domain'
+import { type Context, type BaseModel, GeneralError } from '@platform/components.context'
 import type { IDocumentQuery, FacetBase } from 'ravendb'
 import { clone, isNumericString, mergeInTo, toObject } from '@platform/components.utils'
 import { type FacetMap, type RawQuery, SearchContext, SearchResults, type SortOrderType } from './entities.js'

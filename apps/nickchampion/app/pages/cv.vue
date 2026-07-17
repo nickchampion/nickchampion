@@ -17,15 +17,6 @@
           </p>
 
           <div class="flex flex-wrap gap-4 text-sm text-slate-500">
-            <NuxtLink
-              to="/contact"
-              class="flex items-center gap-1.5 hover:text-sky-600 transition-colors">
-              <UIcon
-                name="i-lucide-mail"
-                class="size-4" />
-              Get in touch
-            </NuxtLink>
-
             <span class="flex items-center gap-1.5">
               <UIcon
                 name="i-lucide-map-pin"

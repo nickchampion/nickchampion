@@ -1,10 +1,6 @@
-# NodeVault
+# nickchampion.me
 
-An NX monorepo containing two frontend applications, a shared REST API, and a set of platform components.
-
-**NodeVault** (`nodevault.cloud`) — a privacy information portal covering three practical paths to reducing your digital footprint: de-Googling your phone with GrapheneOS, replacing cloud subscriptions with a self-hosted UmbrelOS home server, and protecting your home network from IoT surveillance.
-
-**Nick Champion** (`nickchampion.me`) — a personal profile and CV site showcasing engineering background, technical expertise, and project work.
+An NX monorepo powering [nickchampion.me](https://www.nickchampion.me) — a personal profile and CV site — backed by a shared REST API and a set of platform components.
 
 ---
 
@@ -12,17 +8,26 @@ An NX monorepo containing two frontend applications, a shared REST API, and a se
 
 ### `apps/api` — REST API
 
-Node.js API server built on Koa with OpenAPI v3 validation via `openapi-backend`. Runs locally with `tsx watch` and deploys to [Fly.io](https://fly.io) as a Docker container (`nodevault-api`, `lhr` region).
+Node.js API server built on Koa with OpenAPI v3 validation via `openapi-backend`. Runs locally with `tsx watch` and deploys to [Fly.io](https://fly.io) as a Docker container (`lhr` region).
 
 **Stack:** Node.js · Koa · openapi-backend · RavenDB · TypeScript
 
 **Dev server:** `pnpm run api` → `http://api.nodevault.local:9002`
 
+#### Endpoints
+
+| Domain | Description |
+|--------|-------------|
+| `auth` | Magic-link login, registration, token verification |
+| `blog` | Blog menu + articles, proxied from Strapi |
+| `comms` | Contact form submissions |
+| `system` | Health check (`ping`) |
+
 #### Auth flow
 
 Magic-link, no passwords:
 
-1. `POST /auth/login` — looks up user by email, generates an encrypted token stored as a `LoginToken` document (10-minute TTL via RavenDB `@expires`), fetches the rendered login email from the Nuxt app, and sends it via Resend.
+1. `POST /auth/login` — looks up user by email, generates an encrypted token stored as a `LoginToken` document (10-minute TTL via RavenDB `@expires`), renders the login email, and sends it via Resend.
 2. User clicks the link → `POST /auth/verify` — decrypts the code, validates the `LoginToken`, marks it used, and returns a signed JWT + user/account payload.
 
 #### Handler pattern
@@ -52,58 +57,13 @@ Koa → OpenAPI route match + schema validation
 
 ---
 
-### `apps/nodevault` — NodeVault frontend
-
-Nuxt 4 (`compatibilityVersion: 4`) SSR app deployed to Cloudflare Workers via the `cloudflare_module` preset. All pages server-render by default; no prerendering.
-
-**Stack:** Nuxt 4 · Vue 3 · Nuxt UI · Pinia · Tailwind CSS · TypeScript
-
-**Dev server:** `pnpm run app` → `http://www.nodevault.local:9001`
-
-**Deploy:** `pnpm run app:build` → Wrangler → Cloudflare Workers (`nodevault` worker)
-
-#### Content areas
-
-| Section | Path | Description |
-|---------|------|-------------|
-| Privacy Phones | `/phones` | GrapheneOS — de-Googling your phone, compatible devices, privacy app stack |
-| Home Server | `/umbrelos` | UmbrelOS self-hosting — hardware, app directory, replacing cloud subscriptions |
-| Privacy Router | `/privacy-router` | DNS blocking, WireGuard VPN, VLAN isolation for home networks |
-| Blog | `/blog` | Articles and guides |
-| Contact | `/company/contact` | Get in touch form |
-| About | `/company/about` | About NodeVault |
-
-#### Layouts
-
-| Layout | Used for |
-|--------|---------|
-| `default` | All public-facing pages — sticky header, footer |
-| `admin` | Admin section — full-width header, left sidebar nav |
-| `email` | Email templates — branded email card shell (header + footer), no Nuxt chrome injected into inline styles |
-
-#### Email rendering
-
-Email templates are Nuxt pages under `/emails/*` using the `email` layout. The API calls `renderEmail(appUrl, '/emails/login', params)` which fetches the SSR-rendered HTML and passes it to Resend. Query params supply the template variables (e.g. `name`, `code`).
-
-#### Key composables & stores
-
-| Path | Purpose |
-|------|---------|
-| `app/stores/auth-store.ts` | Pinia store — JWT tokens, expiry, `apiOptions()` |
-| `app/composables/useApiClient.ts` | Returns a typed `NodeVaultApiClient` bound to auth tokens |
-| `app/composables/useConfig.ts` | Runtime config access |
-
----
-
 ### `apps/nickchampion` — Personal profile site
 
-Nuxt 4 SSR app deployed to Cloudflare Workers. Light-only UI (sky/slate colour scheme) with forced light mode — dark mode is disabled at the CSS level regardless of system preference.
+Nuxt 4 (`compatibilityVersion: 4`) SSR app deployed to Cloudflare Workers via the `cloudflare_module` preset. Light-only UI (sky/slate colour scheme) with forced light mode — dark mode is disabled at the CSS level regardless of system preference.
 
 **Stack:** Nuxt 4 · Vue 3 · Nuxt UI · Tailwind CSS · TypeScript
 
-**Dev server:** `pnpm run nickchampion` → `http://www.nickchampion.local:9003`
-
-**Deploy:** Cloudflare Workers (`nickchampion` worker)
+**Dev server:** `pnpm run app` → `http://www.nickchampion.local:9003`
 
 #### Pages
 
@@ -111,14 +71,11 @@ Nuxt 4 SSR app deployed to Cloudflare Workers. Light-only UI (sky/slate colour s
 |-------|-------------|
 | `/` | Landing page — intro, key strengths, technical expertise, current project, recent roles |
 | `/cv` | Full CV — career history, education, notable achievements |
-| `/nodevault` | NodeVault project showcase — what it is, tech stack, engineering highlights |
-| `/contact` | Contact form — name, email, optional phone, message; posts to `/comms/contact` API endpoint |
+| `/nodevault` | Project showcase for [NodeVault](https://www.nodevault.cloud) — a personal knowledge vault with semantic search, built as a separate project |
 
 #### Notes
 
 - No auth — fully public, no admin section
-- Contact form submits to the same `/comms/contact` API endpoint as NodeVault, with `interests: ['other']` injected silently (required by the shared schema)
-- Uses `PhoneInput` component copied from NodeVault, backed by `Countries` domain model
 - Dark mode disabled: `@variant dark` redefined to `never-dark` in CSS, plus `.dark` CSS variable block overridden to light values in `app/assets/css/main.css`
 
 ---
@@ -130,12 +87,13 @@ Nuxt 4 SSR app deployed to Cloudflare Workers. Light-only UI (sky/slate colour s
 | `@platform/components.api` | `components/api` | Koa server, OpenAPI routing, middy middleware, handler types |
 | `@platform/components.configuration` | `components/configuration` | Config builder (`build<T>()`) |
 | `@platform/components.context` | `components/context` | `Context`, `InboundEvent`, `Response`, `Log`, middy wrappers |
-| `@platform/components.domain` | `components/domain` | Domain models (`User`, `Account`, `LoginToken`, `Contact`), types, geo data |
+| `@platform/components.contracts` | `components/contracts` | OpenAPI document, request/response schemas, domain models |
 | `@platform/components.ravendb` | `components/ravendb` | `Session` wrapper, document store helpers, search utilities |
 | `@platform/components.search` | `components/search` | Search/query builders |
 | `@platform/components.utils` | `components/utils` | Pure utilities — date, string, math (no Node.js-specific APIs) |
 | `@platform/components.utils.server` | `components/utils-server` | Server-only utilities — crypto, encoding, JWT |
 | `@platform/integrations.resend` | `integrations/resend` | Resend email client — `createResendClient`, `sendEmail` |
+| `@platform/integrations.strapi` | `integrations/strapi` | Strapi CMS client (blog content) |
 | `@platform/integrations.cloudflare` | `integrations/cloudflare` | Cloudflare Workers helpers |
 
 ---
@@ -147,9 +105,8 @@ Nuxt 4 SSR app deployed to Cloudflare Workers. Light-only UI (sky/slate colour s
 pnpm install
 
 # Start servers (separate terminals)
-pnpm run api          # API on :9002
-pnpm run app          # NodeVault Nuxt on :9001
-pnpm run nickchampion # Nick Champion Nuxt on :9003
+pnpm run api   # API on :9002
+pnpm run app   # Nuxt on :9003
 
 # Type check everything
 npx tsc --noEmit
@@ -170,13 +127,12 @@ Add to `/etc/hosts`:
 
 ```
 127.0.0.1  api.nodevault.local
-127.0.0.1  www.nodevault.local
 127.0.0.1  www.nickchampion.local
 ```
 
 ### Configuration
 
-Server config is passed as a base64-encoded JSON string in the `NODEVAULT` environment variable. Local overrides are read from the path in `NODEVAULT_OVERRIDES`. See `components/configuration/server/configuration.ts` for the full config schema.
+Server config is passed as a base64-encoded JSON string in the `NODEVAULT` environment variable. Local overrides are read from the path in `NODEVAULT_OVERRIDES`. See `components/configuration/configuration.ts` for the full config schema.
 
 ---
 
@@ -185,5 +141,4 @@ Server config is passed as a base64-encoded JSON string in the `NODEVAULT` envir
 | App | Platform | Command |
 |-----|----------|---------|
 | `apps/api` | Fly.io (Docker, `lhr`) | `fly deploy` from `apps/api/` |
-| `apps/nodevault` | Cloudflare Workers | `pnpm run app:build` then `wrangler deploy` from `apps/nodevault/` |
 | `apps/nickchampion` | Cloudflare Workers | build then `wrangler deploy` from `apps/nickchampion/` |

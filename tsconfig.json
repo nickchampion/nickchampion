@@ -1,5 +1,5 @@
 {
-  "include": ["apps/**/*.ts", "apps/**/*.vue", "components/**/*.ts", "integrations/**/*.ts", "*.d.ts", ".nodevault/build/schemas.ts"],
+  "include": ["apps/**/*.ts", "apps/**/*.vue", "components/**/*.ts", "integrations/**/*.ts", "*.d.ts", ".platform/build/schemas.ts"],
   "exclude": ["node_modules", "**/node_modules/*", ".nuxt", ".output", "**/.output/*", "dist", "**/.nuxt/*"],
   "compileOnSave": true,
   "typeRoots": ["./node_modules/@types"],
@@ -38,6 +38,7 @@
       "@platform/components.context": ["./components/context/index.ts"],
       "@platform/components.utils": ["./components/utils/index.ts"],
       "@platform/components.utils.server": ["./components/utils-server/index.ts"],
+      "@platform/apps.nodevault": ["./apps/nodevault/index.ts"],
       "@platform/integrations.resend": ["./integrations/resend/index.ts"],
       "@platform/integrations.cloudflare": ["./integrations/cloudflare/index.ts"],
       "@platform/integrations.strapi": ["./integrations/strapi/index.ts"]

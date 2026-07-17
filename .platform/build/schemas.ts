@@ -28,7 +28,7 @@ const schemas = async () => {
 
   ensureFolderExistsSync(path.join(__dirname, '../openapi'))
 
-  const nodevault = await import('@platform/components.nodevault.openapi')
+  const nodevault = await import('@platform/components.contracts')
 
   console.log('[44m OpenAPI Schemas [0m')
 
@@ -36,7 +36,7 @@ const schemas = async () => {
     path.join(__dirname, '../openapi/api.json'),
     JSON.stringify(nodevault.composeOpenApiDocument(), null, 2),
   )
-  console.log('  ✓ .nodevault/openapi/api.json')
+  console.log('  ✓ .platform/openapi/api.json')
 }
 
 schemas()

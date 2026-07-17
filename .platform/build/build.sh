@@ -14,13 +14,6 @@ pnpm run lint || exit 1
 # typescipt checks
 pnpm tsc -noEmit || exit 1
 
-# Generate .nuxt type declarations nuxt prepare generates .nuxt/types/imports.d.ts without a full build.
-npx nuxt prepare apps/nodevault &
-wait || exit 1
-
-# Build trading and backoffice in parallel (both depend on ui:build above)
-NITRO_PRESET=cloudflare_module pnpm nx build @platform/apps.nodevault || exit 1
-
 # bundle the app
 pnpm nx build @platform/apps.api || exit 1
 

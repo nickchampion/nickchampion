@@ -1,5 +1,6 @@
 import { createMD5Hash } from '@platform/components.utils.server'
-import type { openapi, AppError } from '@platform/components.contracts'
+import type { openapi } from '@platform/components.contracts'
+import type { AppError } from './error.js'
 import type { FileContent } from './file.js'
 
 export type ResponseValue = string | object

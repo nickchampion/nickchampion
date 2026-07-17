@@ -28,22 +28,12 @@
           class="hidden sm:flex" />
 
         <UButton
-          to="/contact"
-          variant="solid"
-          color="primary"
-          size="sm"
-          class="hidden sm:flex"
-          icon="i-lucide-mail">
-          Get in touch
-        </UButton>
-
-        <UButton
           class="flex sm:hidden"
           variant="ghost"
           color="primary"
           :icon="mobileOpen ? 'i-lucide-x' : 'i-lucide-menu'"
           aria-label="Toggle menu"
-          @click="mobileOpen = !mobileOpen" />
+          @click="() => { mobileOpen = !mobileOpen } " />
       </div>
     </UContainer>
   </header>
@@ -69,7 +59,7 @@
             color="primary"
             icon="i-lucide-x"
             aria-label="Close menu"
-            @click="mobileOpen = false" />
+            @click="() => { mobileOpen = false }" />
         </div>
 
         <div class="flex-1 overflow-y-auto p-4">
@@ -79,18 +69,6 @@
             variant="link"
             color="primary"
             class="w-full" />
-        </div>
-
-        <div class="p-4 border-t border-slate-200 shrink-0">
-          <UButton
-            to="/contact"
-            variant="outline"
-            color="primary"
-            icon="i-lucide-mail"
-            class="w-full justify-center"
-            @click="mobileOpen = false">
-            Get in touch
-          </UButton>
         </div>
       </div>
     </template>

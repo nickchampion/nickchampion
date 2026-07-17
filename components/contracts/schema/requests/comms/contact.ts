@@ -1,7 +1,7 @@
 import { Type, type Static } from '@sinclair/typebox'
 import type { OpenAPIV3 } from 'openapi-types'
-import { openapi } from '@nodevault/platform.components.domain'
-import { asSchema } from '../../utils.js'
+import * as openapi from '../../common/index.js'
+import { asSchema } from '../../../utils.js'
 
 export const ContactRequestSchema = Type.Object({
   name: Type.String(),

@@ -1,3 +1,5 @@
 export { composeOpenApiDocument } from './document.js'
+export * as openapi from './schema/common/index.js'
+export * from './data/geo.js'
 export * from './models/index.js'
 export * as schema from './schema/index.js'

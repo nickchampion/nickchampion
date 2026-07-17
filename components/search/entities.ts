@@ -1,5 +1,4 @@
-import type { BaseModel } from '@platform/components.domain'
-import type { InboundEvent, QuerySettings } from '@platform/components.context'
+import type { BaseModel, InboundEvent, QuerySettings } from '@platform/components.context'
 import { Page } from '@platform/components.context'
 import type { FacetBase, QueryStatistics, IDocumentQuery, FacetResultObject } from 'ravendb'
 import type { Session } from '@platform/components.ravendb'

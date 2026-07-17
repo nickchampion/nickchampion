@@ -1,8 +1,8 @@
 import { AuthInfo, type ApiHandler } from '@platform/components.context'
-import { Account, User } from '../../models/index.js'
 import { createAuthTokenForUser } from '@platform/components.utils.server'
-import type { VerifyLoginSchema, RegisterRequestSchema } from '@platform/components.nodevault.openapi'
+import type { VerifyLoginSchema, RegisterRequestSchema } from '@platform/components.contracts'
 import type { Response } from '@platform/components.api'
+import { Account, User } from '../../models/index.js'
 import { acquireUniqueConstraints } from '../../utils/constraints'
 
 export const authRegister: ApiHandler = async (context): Promise<Response> => {

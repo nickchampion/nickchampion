@@ -1,4 +1,4 @@
-import { BaseModel } from '@platform/components.domain'
+import { BaseModel } from '@platform/components.context'
 
 export type AccountStatus = 'active' | 'deleted'
 

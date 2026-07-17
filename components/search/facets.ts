@@ -1,4 +1,4 @@
-import type { KeyValuePair } from '@platform/components.domain'
+import type { KeyValuePair } from '@platform/components.context'
 import { toObject as toObject } from '@platform/components.utils'
 import type { FacetMap } from './entities.js'
 

@@ -1,4 +1,4 @@
-import { type Phone, BaseModel } from '@platform/components.domain'
+import { type Phone, BaseModel } from '@platform/components.context'
 
 export type UserStatus = 'active' | 'deleted'
 export type UserRole = 'guest' | 'user' | 'admin'

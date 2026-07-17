@@ -33,16 +33,6 @@
               trailing>
               View my CV
             </UButton>
-
-            <UButton
-              to="/contact"
-              size="lg"
-              variant="outline"
-              color="neutral"
-              icon="i-lucide-mail"
-              trailing>
-              Get in touch
-            </UButton>
           </div>
         </div>
       </UContainer>
@@ -161,20 +151,21 @@
                   </div>
 
                   <p class="text-sky-600 font-semibold text-sm">
-                    Take back control of your digital life
+                    Save anything. Ask everything.
                   </p>
                 </div>
               </div>
 
               <p class="text-slate-600 text-sm leading-relaxed mb-5">
-                A privacy information portal — covering GrapheneOS phones,
-                UmbrelOS self-hosting, and home network protection. Full-stack: Nuxt 4 on Cloudflare
-                Workers, Node.js/OpenAPI API on Fly.io, RavenDB, NX monorepo.
+                A personal knowledge vault with semantic search — drop in documents or links and
+                NodeVault reads, chunks, and embeds them so you can find things by meaning and ask
+                questions of your own content. Built solo, end to end: Next.js on Cloudflare Workers,
+                tRPC API on Fly.io, Postgres + pgvector, durable Inngest ingestion workflows.
               </p>
 
               <div class="flex flex-wrap gap-1.5 mb-6">
                 <UBadge
-                  v-for="tech in ['Nuxt 4', 'Vue.js', 'Node.js', 'OpenAPI', 'Cloudflare Workers', 'RavenDB', 'TypeScript']"
+                  v-for="tech in ['Next.js', 'React', 'tRPC', 'Postgres', 'pgvector', 'Inngest', 'Cloudflare Workers', 'TypeScript']"
                   :key="tech"
                   variant="subtle"
                   color="neutral"

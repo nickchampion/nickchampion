@@ -1,7 +1,7 @@
 import type { IApiManifest } from '@platform/components.context'
+import { composeOpenApiDocument } from '@platform/components.contracts'
 import * as models from './models/models.js'
 import * as indexes from './indexes/index.js'
-import { composeOpenApiDocument } from './openapi/document.js'
 import { apiHandlers } from './handlers/index.js'
 
 /**

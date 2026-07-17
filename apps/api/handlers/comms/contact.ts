@@ -3,7 +3,7 @@ import { base64Encode } from '@platform/components.utils.server'
 import { serverConfiguration } from '@platform/components.configuration'
 import { createHttpClient } from '@platform/components.utils'
 import type { Response } from '@platform/components.api'
-import type { ContactRequestSchema } from '../../openapi'
+import type { ContactRequestSchema } from '@platform/components.contracts'
 import { Contact } from '../../models'
 
 export const commsContact: ApiHandler = async (context): Promise<Response> => {

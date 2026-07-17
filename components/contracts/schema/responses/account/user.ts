@@ -1,5 +1,5 @@
 import { Type, type Static } from '@sinclair/typebox'
-import { openapi } from '@nodevault/platform.components.domain'
+import * as openapi from '../../common/index.js'
 
 export const UserSchema = Type.Object({
   id: Type.String(),

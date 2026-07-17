@@ -12,7 +12,7 @@ import {
 } from '@platform/components.context'
 import { createDocumentStore } from '@platform/components.ravendb'
 import { copyFields, sleep, Timer, tryClone } from '@platform/components.utils'
-import type { openapi } from '@platform/components.domain'
+import type { openapi } from '@platform/components.contracts'
 import type { DocumentStore } from 'ravendb'
 import compress from 'koa-compress'
 import multer from '../koa/multer.js'

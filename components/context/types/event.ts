@@ -1,4 +1,4 @@
-import { QuerySettings, QuerySettingsSortBy } from '../../domain/types/search.js'
+import { QuerySettings, QuerySettingsSortBy } from '../../api/types/search.js'
 import { Response } from '../../api/types/response.js'
 import type { AuthTokens } from './auth.js'
 

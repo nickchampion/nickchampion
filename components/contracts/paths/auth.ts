@@ -1,5 +1,5 @@
 import type { OpenAPIV3 } from 'openapi-types'
-import { openapi } from '@platform/components.contracts'
+import * as openapi from '../schema/common/index.js'
 import * as schema from '../schema/index.js'
 
 export const auth: OpenAPIV3.PathsObject = {

@@ -1,3 +1,5 @@
+import { type Phone, BaseModel } from '@platform/components.context'
+
 export class Contact extends BaseModel {
   name!: string
   email!: string
