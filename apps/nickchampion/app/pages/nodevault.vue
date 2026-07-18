@@ -258,18 +258,18 @@ const highlights = [
 const roadmap = [
   {
     title: 'Hybrid search',
-    description: 'combine cosine similarity with Postgres full-text search (tsvector) via reciprocal rank fusion — one SQL query, since the vectors already live in Postgres.',
+    description: 'combine similarity with Postgres full-text search — one SQL query, since the vectors already live in Postgres.',
   },
   {
-    title: 'Grounded Q&A with citations',
+    title: 'Q&A with citations',
     description: 'retrieve top-k chunks and hand them to an LLM for answers that cite the source file, URL, and chunk — with neighbouring context pulled via chunk indexes.',
   },
   {
-    title: 'Standing queries',
+    title: 'Saved queries',
     description: 'save a query\'s embedding and compare newly ingested chunks against it inside the existing Inngest pipeline — "alert me when anything I save matches this topic."',
   },
   {
-    title: 'Vault as an agent substrate',
+    title: 'Vault MCP Server',
     description: 'expose retrieval as an MCP server so AI tools like Claude can query the vault directly — a personal knowledge layer every agent can use.',
   },
 ]
