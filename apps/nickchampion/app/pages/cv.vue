@@ -154,7 +154,7 @@ const expertise = [
   { label: 'Languages', skills: ['TypeScript / JavaScript', 'C#', 'SQL'] },
   { label: 'Backend', skills: ['Node.js', 'Deno', '.NET', 'OpenAPI'] },
   { label: 'Frontend', skills: ['Vue.js', 'HTML', 'Tailwind CSS'] },
-  { label: 'Cloud', skills: ['AWS (Cognito, Fargate, Lambda, S3, Redis, IAM)', 'Cloudflare (Workers, R2)', 'Docker'] },
+  { label: 'Cloud', skills: ['AWS (Cognito, Fargate, Lambda, S3, Redis, IAM, SQS, EventBridge)', 'Cloudflare (Workers, R2)', 'Docker'] },
   { label: 'Networking', skills: ['DNS', 'Cloudflare Tunnels', 'HTTP protocol'] },
   { label: 'Datastores', skills: ['SQL Server', 'Postgres', 'RavenDB', 'MongoDB'] },
   { label: 'DevOps', skills: ['GitHub Actions', 'AWS CloudFormation', 'CloudWatch', 'SSM / Secrets Manager', 'ELK / OpenSearch', 'Release automation'] },
@@ -175,9 +175,21 @@ const roles = [
     ],
   },
   {
+    company: 'Livecommerce Entertainment LTD',
+    title: 'Lead Engineer',
+    dates: 'Oct 2021 – Feb 2022',
+    context: 'Singapore-based B2B2C influencer e-commerce platform.',
+    summary: 'Overall architectural responsibility for the initial build of Livecommerce platform.',
+    bullets: [
+      'Architected a B2B2C marketplace for influencer social commerce with deep integration to Facebook and Instagram live streams.',
+      'Engineered distributed ingestion pipelines using SQS and event-driven architecture: webhook subscriptions for Facebook Live comments, and high-frequency polling for Instagram Live comments.',
+      'Decoupled comment processing via message queues to handle burst traffic during viral streams, with distributed workers parsing purchase intent and SKUs from unstructured chat to automate checkout link generation and order updates.',
+    ],
+  },
+  {
     company: 'Reebonz / Reebonz Marketplace',
     title: 'Chief Engineer',
-    dates: 'Jan 2015 – Feb 2022',
+    dates: 'Jan 2015 – Oct 2021',
     context: 'Singapore-based luxury marketplace operating across 7 Asia-Pacific markets.',
     summary: 'Held end-to-end responsibility for launching Reebonz Marketplace on the CodeTrip platform across 7 Asia-Pacific markets.',
     bullets: [
